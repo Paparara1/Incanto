@@ -1,36 +1,36 @@
-# Inkanto AI Landing Page
+# Inkanto AI — Twój darmowy asystent
 
-Projekt strony typu Landing Page dla agenta AI "Inkanto", zintegrowany z Google OAuth i czatem Base44.
+Projekt darmowego agenta AI zintegrowanego z logowaniem Google.
+
+## Dlaczego to jest darmowe?
+Aplikacja wykorzystuje model **Google Gemini 1.5 Flash**, który oferuje bardzo hojny darmowy plan (Free Tier). Dzięki temu możesz rozmawiać z Inkanto bez opłat "Top Up", o ile używasz własnego klucza API.
 
 ## Funkcje
-- **Autoryzacja Google:** Dostęp do czatu jest chroniony logowaniem przez Google.
-- **Personalizacja:** Strona główna wita zalogowanego użytkownika po imieniu.
-- **Integracja Base44:** Czat jest osadzony jako iframe, dostępny tylko dla zalogowanych.
-- **SPA Routing:** Obsługa tras (`/` oraz `/chat`) z przekierowaniem nieautoryzowanych użytkowników.
+- **Logowanie Google:** Bezpieczny dostęp tylko dla Ciebie.
+- **Natywny Czat:** Szybki i responsywny interfejs wbudowany bezpośrednio w stronę.
+- **Brak opłat Base44:** Nie korzystamy już z zewnętrznych platform płatnych od wiadomości.
 
 ## Konfiguracja (Wymagane)
 
-Aby aplikacja działała poprawnie po wdrożeniu, należy skonfigurować zmienne środowiskowe w panelu Vercel (lub lokalnie w pliku `.env`):
+Aby Inkanto ożyło, musisz dodać dwa klucze w panelu sterowania Vercel (Environment Variables):
 
-1. **VITE_GOOGLE_CLIENT_ID**: Twój identyfikator klienta z [Google Cloud Console](https://console.cloud.google.com/).
-   - Pamiętaj, aby w Google Cloud Console dodać `https://ojjja.de` (lub Twoją domenę) do "Authorized JavaScript origins" oraz "Authorized redirect URIs".
-
-## Jak uzyskać "Auto-Login" (Single Sign-On)?
-
-Aby użytkownik nie musiał logować się dwa razy (raz na Twojej stronie i drugi raz wewnątrz czatu), musisz skonfigurować SSO w panelu Base44:
-
-1. Zaloguj się do swojego panelu sterowania na [Base44](https://app.base44.com/).
-2. Przejdź do ustawień swojego agenta (Superagent).
-3. Znajdź sekcję **Authentication** lub **SSO**.
-4. Włącz obsługę Google OAuth i wprowadź ten sam **Client ID** oraz **Client Secret**, których używasz w tej aplikacji.
-5. Dzięki temu, gdy użytkownik jest zalogowany w Twojej aplikacji, Base44 automatycznie rozpozna sesję Google i pozwoli na rozmowę bez dodatkowego klikania.
+1. **VITE_GOOGLE_CLIENT_ID**: Uzyskasz go w [Google Cloud Console](https://console.cloud.google.com/).
+2. **GEMINI_API_KEY**: Twój klucz do "mózgu" AI.
+   - Wejdź na [Google AI Studio](https://aistudio.google.com/).
+   - Kliknij "Get API key".
+   - Skopiuj klucz i dodaj go do Vercel jako `GEMINI_API_KEY`.
 
 ## Rozwój lokalny
 
+Jeśli chcesz uruchomić projekt u siebie:
+1. Skopiuj `.env.example` do `.env`.
+2. Wklej swoje klucze.
+3. Uruchom:
 ```bash
 npm install
 npm run dev
 ```
 
-## Notatka o płatnościach (Top Up)
-Ta aplikacja służy jako "opakowanie" i system kontroli dostępu. Same kredyty na rozmowę z agentem (tzw. Top Up) są zarządzane bezpośrednio przez platformę Base44 i zależą od Twojego planu u dostawcy agenta AI.
+## Jak to działa?
+- **Frontend:** React + Vite.
+- **Backend:** Vercel Serverless Functions (folder `/api`), który bezpiecznie łączy się z Google Gemini, chroniąc Twój klucz API przed światem.
