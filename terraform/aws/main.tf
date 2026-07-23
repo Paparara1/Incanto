@@ -74,6 +74,17 @@ resource "aws_security_group" "clusterlaunch" {
   }
 }
 
+resource "aws_security_group_rule" "public_http" {
+  count             = var.enable_public_demo ? 1 : 0
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.clusterlaunch.id
+  description       = "Public HTTP access for Grafana Demo"
+}
+
 resource "aws_iam_role" "ssm" {
   name_prefix = "clusterlaunch-ssm-"
 
@@ -124,6 +135,7 @@ resource "aws_instance" "cluster" {
     {
       cluster_mode           = var.cluster_mode
       grafana_admin_password = var.grafana_admin_password
+      enable_public_demo     = var.enable_public_demo
     }
   )
 

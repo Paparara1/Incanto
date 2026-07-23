@@ -37,3 +37,9 @@ variable "volume_size" {
   type    = number
   default = 50
 }
+
+variable "enable_public_demo" {
+  type        = bool
+  default     = false
+  description = "If true, exposes the Grafana UI publicly on port 80 via an Ingress and opens port 80 in the Security Group."
+}
