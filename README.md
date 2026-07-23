@@ -37,6 +37,10 @@ Open http://localhost:3000. User: admin. Password:
 terraform -chdir=terraform/aws output -raw grafana_admin_password
 ```
 
+### Lost your SSH key or on a device without one?
+Use AWS Systems Manager Session Manager instead — a browser-based shell to the instance, no `.pem` key or open SSH
+port required. AWS Console → EC2 → select the instance → **Connect** → **Session Manager**. See docs/SECURITY.md.
+
 ### Validation and cleanup
 ```bash
 ./scripts/smoke-test.sh "$(terraform -chdir=terraform/aws output -raw public_ip)"
