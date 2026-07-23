@@ -1,0 +1,5 @@
+region        = "eu-central-1"
+key_name      = "YOUR_EXISTING_EC2_KEYPAIR"
+allowed_cidr  = "YOUR.PUBLIC.IP.ADDRESS/32"
+instance_type = "t3.medium"
+volume_size   = 50

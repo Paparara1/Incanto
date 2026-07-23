@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+exec > >(tee -a /var/log/clusterlaunch-bootstrap.log) 2>&1
+
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -y
+apt-get install -y curl ca-certificates
+
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --write-kubeconfig-mode 644" sh -
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+until kubectl get nodes; do sleep 5; done
+
+curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
+
+if [ "${cluster_mode}" = "fast" ]; then
+  helm upgrade --install grafana grafana/grafana \
+    --namespace monitoring \
+    --set adminUser=admin \
+    --set adminPassword='${grafana_admin_password}' \
+    --set service.type=ClusterIP \
+    --set persistence.enabled=false \
+    --set resources.requests.cpu=100m \
+    --set resources.requests.memory=128Mi
+else
+  helm upgrade --install prometheus prometheus-community/kube-prometheus-stack \
+    --namespace monitoring \
+    --set grafana.enabled=false \
+    --set prometheus.prometheusSpec.retention=7d \
+    --set prometheus.prometheusSpec.resources.requests.cpu=250m \
+    --set prometheus.prometheusSpec.resources.requests.memory=512Mi
+
+  helm upgrade --install grafana grafana/grafana \
+    --namespace monitoring \
+    --set adminUser=admin \
+    --set adminPassword='${grafana_admin_password}' \
+    --set service.type=ClusterIP \
+    --set persistence.enabled=true \
+    --set persistence.size=10Gi \
+    --set resources.requests.cpu=250m \
+    --set resources.requests.memory=512Mi
+
+  helm upgrade --install loki grafana/loki-stack \
+    --namespace monitoring \
+    --set grafana.enabled=false \
+    --set prometheus.enabled=false
+fi
+
+kubectl -n monitoring get pods
