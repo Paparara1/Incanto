@@ -2,6 +2,10 @@ output "public_ip" {
   value = aws_instance.cluster.public_ip
 }
 
+output "instance_id" {
+  value = aws_instance.cluster.id
+}
+
 output "ssh_command" {
   value = "ssh ubuntu@${aws_instance.cluster.public_ip}"
 }

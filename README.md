@@ -27,10 +27,26 @@ export TF_VAR_key_name="YOUR_EXISTING_EC2_KEYPAIR"
 ./deploy.sh prod
 ```
 
+### Connect without an SSH key (SSM)
+The instance has an IAM instance profile with `AmazonSSMManagedInstanceCore`, so you can reach it through
+[AWS Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)
+even if you don't have (or don't want to use) the SSH key pair:
+```bash
+INSTANCE_ID=$(terraform -chdir=terraform/aws output -raw instance_id)
+aws ssm start-session --target "$INSTANCE_ID"
+```
+This requires the AWS CLI, the Session Manager plugin, and IAM permissions to call `ssm:StartSession`.
+
 ### Open Grafana safely
 ```bash
 ssh -L 3000:127.0.0.1:3000 ubuntu@$(terraform -chdir=terraform/aws output -raw public_ip)
 sudo k3s kubectl -n monitoring port-forward svc/grafana 3000:80 --address 127.0.0.1
+```
+Grafana can also be tunneled through SSM instead of SSH:
+```bash
+aws ssm start-session --target "$INSTANCE_ID" \
+  --document-name AWS-StartPortForwardingSession \
+  --parameters '{"portNumber":["3000"],"localPortNumber":["3000"]}'
 ```
 Open http://localhost:3000. User: admin. Password:
 ```bash

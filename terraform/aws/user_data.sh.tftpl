@@ -4,7 +4,13 @@ exec > >(tee -a /var/log/clusterlaunch-bootstrap.log) 2>&1
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
-apt-get install -y curl ca-certificates
+apt-get install -y curl ca-certificates snapd
+
+if ! snap list amazon-ssm-agent >/dev/null 2>&1; then
+  snap install amazon-ssm-agent --classic
+fi
+snap start amazon-ssm-agent
+snap enable amazon-ssm-agent
 
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --write-kubeconfig-mode 644" sh -
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
