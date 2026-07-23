@@ -6,9 +6,16 @@ data "aws_vpc" "default" {
   default = true
 }
 
-data "aws_subnet" "default" {
-  vpc_id         = data.aws_vpc.default.id
-  default_for_az = true
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+
+  filter {
+    name   = "default-for-az"
+    values = ["true"]
+  }
 }
 
 data "aws_ami" "ubuntu" {
@@ -102,7 +109,7 @@ resource "aws_instance" "cluster" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
   key_name               = var.key_name
-  subnet_id              = data.aws_subnet.default.id
+  subnet_id              = tolist(data.aws_subnets.default.ids)[0]
   vpc_security_group_ids = [aws_security_group.clusterlaunch.id]
   iam_instance_profile   = aws_iam_instance_profile.ssm.name
 
