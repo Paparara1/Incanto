@@ -1,5 +1,16 @@
 # ClusterLaunch — K3s + Grafana AWS Kit
 
+---
+
+### 🌟 PROJEKT NA SPRZEDAŻ / PROJECT FOR SALE 🌟
+**Ten gotowy do wdrożenia, w pełni zoptymalizowany i profesjonalny projekt IaC (Infrastructure-as-Code) jest dostępny do natychmiastowego zakupu i przejęcia praw handlowych!**
+*Szukasz kompletnego rozwiązania do szybkiego wdrażania klastrów K3s z gotowym monitorem Grafana na AWS? Ten pakiet pozwala zaoszczędzić dziesiątki godzin pracy inżynierskiej.*
+
+**Kontakt w sprawie zakupu / Inquiries for purchase:**
+Zainteresowanych przejęciem projektu lub zakupem licencji komercyjnej prosimy o bezpośredni kontakt/kontakt przez GitHub Issues lub Pull Requests, bądź bezpośrednio z właścicielem tego repozytorium na GitHubie.
+
+---
+
 A compact Infrastructure-as-Code kit for deploying a **single-node** K3s cluster on AWS with Grafana observability.
 
 ## What it deploys
