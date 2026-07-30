@@ -2,12 +2,25 @@
 
 ---
 
-### 🌟 PROJEKT NA SPRZEDAŻ / PROJECT FOR SALE 🌟
-**Ten gotowy do wdrożenia, w pełni zoptymalizowany i profesjonalny projekt IaC (Infrastructure-as-Code) jest dostępny do natychmiastowego zakupu i przejęcia praw handlowych!**
-*Szukasz kompletnego rozwiązania do szybkiego wdrażania klastrów K3s z gotowym monitorem Grafana na AWS? Ten pakiet pozwala zaoszczędzić dziesiątki godzin pracy inżynierskiej.*
+### 🌟 PAKIET PROJEKTÓW NA SPRZEDAŻ / PREMIUM DUAL-PROJECT BUNDLE FOR SALE 🌟
+**Ten kompletny, w pełni zoptymalizowany zestaw produkcyjny jest dostępny do natychmiastowego przejęcia i zakupu praw komercyjnych (IP / Code Acquisition)!**
+
+Kupujesz **dwa niezależne, gotowe produkty premium** połączone w jeden potężny stos technologiczny (Infrastruktura AI + Aplikacja AI):
+
+1. **ClusterLaunch (AWS K3s + Grafana Observability Kit):**
+   - W pełni zoptymalizowana i bezpieczna infrastruktura Terraform dla klastra Kubernetes K3s na AWS.
+   - Wbudowane systemy monitorowania i logowania: Grafana, Prometheus-Community Stack oraz Loki.
+   - Nowoczesne wsparcie dla procesorów **AWS Graviton (ARM64)** pozwalające oszczędzić 20% kosztów oraz błyskawiczny tryb **Public Demo (Ingress Traefik)**.
+
+2. **Inkanto AI Assistant (React/Vite Chat Application):**
+   - Nowoczesna, jednostronicowa aplikacja (SPA) oparta na **React i Vite**, przystosowana do błyskawicznego wdrożenia na platformie **Vercel**.
+   - Natywny, piękny interfejs czatu zintegrowany z modelem **OpenAI ChatGPT (gpt-4o-mini)**.
+   - Wbudowany system logowania bezhasłowego za pomocą **Google OAuth** oraz bezpieczny backend serverless (`api/chat.js`).
+
+*Ten podwójny zestaw pozwala zaoszczędzić setki godzin pracy inżynierskiej i deweloperskiej. Idealny pod własny startup, produkt SaaS, usługi konsultingowe lub odsprzedaż.*
 
 **Kontakt w sprawie zakupu / Inquiries for purchase:**
-Zainteresowanych przejęciem projektu lub zakupem licencji komercyjnej prosimy o bezpośredni kontakt/kontakt przez GitHub Issues lub Pull Requests, bądź bezpośrednio z właścicielem tego repozytorium na GitHubie.
+Zainteresowanych przejęciem pełnych praw (IP Buyout) lub zakupem licencji komercyjnych prosimy o bezpośredni kontakt na GitHubie (poprzez Issues, Pull Requests) lub poprzez bezpośrednią wiadomość na LinkedIn.
 
 ---
 
