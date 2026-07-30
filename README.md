@@ -1,66 +1,36 @@
-# ClusterLaunch — K3s + Grafana AWS Kit
+# Inkanto AI — Twój darmowy asystent
 
-A compact Infrastructure-as-Code kit for deploying a **single-node** K3s cluster on AWS with Grafana observability.
+Projekt darmowego agenta AI zintegrowanego z logowaniem Google.
 
-## What it deploys
-- Ubuntu 22.04 EC2, encrypted gp3 root volume and IMDSv2
-- K3s Kubernetes
-- Grafana in both modes, exposed only through an SSH tunnel
-- `fast`: K3s + lightweight Grafana
-- `prod`: K3s + Prometheus stack + Grafana + Loki, with persistent Grafana storage
+## Dlaczego to jest darmowe?
+Aplikacja wykorzystuje model **Google Gemini 1.5 Flash**, który oferuje bardzo hojny darmowy plan (Free Tier). Dzięki temu możesz rozmawiać z Inkanto bez opłat "Top Up", o ile używasz własnego klucza API.
 
-## Important scope
-This is **not** multi-master HA, multi-AZ, managed Kubernetes, a public Grafana endpoint, or a 24/7 managed service.
+## Funkcje
+- **Logowanie Google:** Bezpieczny dostęp tylko dla Ciebie.
+- **Natywny Czat:** Szybki i responsywny interfejs wbudowany bezpośrednio w stronę.
+- **Brak opłat Base44:** Nie korzystamy już z zewnętrznych platform płatnych od wiadomości.
 
-## Prerequisites
-- Terraform >= 1.6
-- AWS credentials with permission to create EC2 and security groups
-- Existing EC2 SSH key pair
-- Your current public IP in `/32` CIDR format
+## Konfiguracja (Wymagane)
 
-## Deploy
+Aby Inkanto ożyło, musisz dodać dwa klucze w panelu sterowania Vercel (Environment Variables):
+
+1. **VITE_GOOGLE_CLIENT_ID**: Uzyskasz go w [Google Cloud Console](https://console.cloud.google.com/).
+2. **GEMINI_API_KEY**: Twój klucz do "mózgu" AI.
+   - Wejdź na [Google AI Studio](https://aistudio.google.com/).
+   - Kliknij "Get API key".
+   - Skopiuj klucz i dodaj go do Vercel jako `GEMINI_API_KEY`.
+
+## Rozwój lokalny
+
+Jeśli chcesz uruchomić projekt u siebie:
+1. Skopiuj `.env.example` do `.env`.
+2. Wklej swoje klucze.
+3. Uruchom:
 ```bash
-cp terraform/aws/terraform.tfvars.example terraform/aws/terraform.tfvars
-export TF_VAR_allowed_cidr="YOUR.PUBLIC.IP/32"
-export TF_VAR_key_name="YOUR_EXISTING_EC2_KEYPAIR"
-./deploy.sh fast
-./deploy.sh prod
+npm install
+npm run dev
 ```
 
-### Connect without an SSH key (SSM)
-The instance has an IAM instance profile with `AmazonSSMManagedInstanceCore`, so you can reach it through
-[AWS Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)
-even if you don't have (or don't want to use) the SSH key pair:
-```bash
-INSTANCE_ID=$(terraform -chdir=terraform/aws output -raw instance_id)
-aws ssm start-session --target "$INSTANCE_ID"
-```
-This requires the AWS CLI, the Session Manager plugin, and IAM permissions to call `ssm:StartSession`.
-
-### Open Grafana safely
-```bash
-ssh -L 3000:127.0.0.1:3000 ubuntu@$(terraform -chdir=terraform/aws output -raw public_ip)
-sudo k3s kubectl -n monitoring port-forward svc/grafana 3000:80 --address 127.0.0.1
-```
-Grafana can also be tunneled through SSM instead of SSH:
-```bash
-aws ssm start-session --target "$INSTANCE_ID" \
-  --document-name AWS-StartPortForwardingSession \
-  --parameters '{"portNumber":["3000"],"localPortNumber":["3000"]}'
-```
-Open http://localhost:3000. User: admin. Password:
-```bash
-terraform -chdir=terraform/aws output -raw grafana_admin_password
-```
-
-### Validation and cleanup
-```bash
-./scripts/smoke-test.sh "$(terraform -chdir=terraform/aws output -raw public_ip)"
-terraform -chdir=terraform/aws destroy
-```
-
-## Security
-See docs/SECURITY.md.
-
-## License
-MIT License. See LICENSE.
+## Jak to działa?
+- **Frontend:** React + Vite.
+- **Backend:** Vercel Serverless Functions (folder `/api`), który bezpiecznie łączy się z Google Gemini, chroniąc Twój klucz API przed światem.

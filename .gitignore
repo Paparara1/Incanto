@@ -1,7 +1,17 @@
+# Terraform and AWS Kit ignores
 .terraform/
 *.tfstate
 *.tfstate.*
 *.tfvars
 *.pem
-.env
 artifacts/
+
+# Node.js, React and Vite ignores
+node_modules
+dist
+.DS_Store
+.env
+*.local
+*.log
+.vscode
+.idea
