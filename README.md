@@ -1,5 +1,29 @@
 # ClusterLaunch — K3s + Grafana AWS Kit
 
+---
+
+### 🌟 PAKIET PROJEKTÓW NA SPRZEDAŻ / PREMIUM DUAL-PROJECT BUNDLE FOR SALE 🌟
+**Ten kompletny, w pełni zoptymalizowany zestaw produkcyjny jest dostępny do natychmiastowego przejęcia i zakupu praw komercyjnych (IP / Code Acquisition)!**
+
+Kupujesz **dwa niezależne, gotowe produkty premium** połączone w jeden potężny stos technologiczny (Infrastruktura AI + Aplikacja AI):
+
+1. **ClusterLaunch (AWS K3s + Grafana Observability Kit):**
+   - W pełni zoptymalizowana i bezpieczna infrastruktura Terraform dla klastra Kubernetes K3s na AWS.
+   - Wbudowane systemy monitorowania i logowania: Grafana, Prometheus-Community Stack oraz Loki.
+   - Nowoczesne wsparcie dla procesorów **AWS Graviton (ARM64)** pozwalające oszczędzić 20% kosztów oraz błyskawiczny tryb **Public Demo (Ingress Traefik)**.
+
+2. **Inkanto AI Assistant (React/Vite Chat Application):**
+   - Nowoczesna, jednostronicowa aplikacja (SPA) oparta na **React i Vite**, przystosowana do błyskawicznego wdrożenia na platformie **Vercel**.
+   - Natywny, piękny interfejs czatu zintegrowany z modelem **OpenAI ChatGPT (gpt-4o-mini)**.
+   - Wbudowany system logowania bezhasłowego za pomocą **Google OAuth** oraz bezpieczny backend serverless (`api/chat.js`).
+
+*Ten podwójny zestaw pozwala zaoszczędzić setki godzin pracy inżynierskiej i deweloperskiej. Idealny pod własny startup, produkt SaaS, usługi konsultingowe lub odsprzedaż.*
+
+**Kontakt w sprawie zakupu / Inquiries for purchase:**
+Zainteresowanych przejęciem pełnych praw (IP Buyout) lub zakupem licencji komercyjnych prosimy o bezpośredni kontakt na GitHubie (poprzez Issues, Pull Requests) lub poprzez bezpośrednią wiadomość na LinkedIn.
+
+---
+
 A compact Infrastructure-as-Code kit for deploying a **single-node** K3s cluster on AWS with Grafana observability.
 
 ## What it deploys
@@ -18,11 +42,20 @@ This is **not** multi-master HA, multi-AZ, managed Kubernetes, a public Grafana 
 - Existing EC2 SSH key pair
 - Your current public IP in `/32` CIDR format
 
+## New Premium Features
+This toolkit includes advanced capabilities out-of-the-box that dramatically increase its production appeal and value:
+- **Instant Public Demo Mode (`enable_public_demo`):** Want to showcase your Grafana dashboard to clients or teammates instantly? Set `TF_VAR_enable_public_demo = true` to automatically open HTTP port 80 and map a Kubernetes Ingress resource using Traefik. No SSH or SSM tunneling needed for demoing!
+- **AWS Graviton / ARM64 Support:** Run on AWS Graviton instances (e.g., `t4g.medium` or similar) to automatically get **~20% lower cost and higher performance** compared to traditional Intel instances. The setup automatically detects the CPU architecture and provisions the correct Canonical Ubuntu AMI.
+
 ## Deploy
 ```bash
 cp terraform/aws/terraform.tfvars.example terraform/aws/terraform.tfvars
 export TF_VAR_allowed_cidr="YOUR.PUBLIC.IP/32"
 export TF_VAR_key_name="YOUR_EXISTING_EC2_KEYPAIR"
+# Optional: Enable Public Demo Mode
+# export TF_VAR_enable_public_demo="true"
+# Optional: Save 20% on cloud cost by switching to Graviton ARM64
+# export TF_VAR_instance_type="t4g.medium"
 ./deploy.sh fast
 ./deploy.sh prod
 ```

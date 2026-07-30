@@ -37,3 +37,9 @@ variable "volume_size" {
   type    = number
   default = 50
 }
+
+variable "enable_public_demo" {
+  type        = bool
+  default     = false
+  description = "Enable public Grafana access on port 80 via Traefik Ingress and open Security Group rule."
+}

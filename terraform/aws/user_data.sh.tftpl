@@ -57,4 +57,27 @@ else
     --set prometheus.enabled=false
 fi
 
+if [ "${enable_public_demo}" = "true" ]; then
+  cat <<'EOF' | kubectl apply -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-public-ingress
+  namespace: monitoring
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 80
+EOF
+fi
+
 kubectl -n monitoring get pods

@@ -1,5 +1,6 @@
-region        = "eu-central-1"
-key_name      = "YOUR_EXISTING_EC2_KEYPAIR"
-allowed_cidr  = "YOUR.PUBLIC.IP.ADDRESS/32"
-instance_type = "t3.medium"
-volume_size   = 50
+region             = "eu-central-1"
+key_name           = "YOUR_EXISTING_EC2_KEYPAIR"
+allowed_cidr       = "YOUR.PUBLIC.IP.ADDRESS/32"
+instance_type      = "t3.medium" # Can be set to "t4g.medium" for ARM64/Graviton cost savings (20% cheaper)
+volume_size        = 50
+enable_public_demo = false # Set to true to expose Grafana publicly on port 80 via Ingress

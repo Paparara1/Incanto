@@ -18,13 +18,25 @@ data "aws_subnets" "default" {
   }
 }
 
+# Query the architecture of the chosen instance type
+data "aws_ec2_instance_type" "chosen" {
+  instance_type = var.instance_type
+}
+
+locals {
+  # Map instance type architecture to Ubuntu AMI name patterns: x86_64 -> amd64, arm64 -> arm64
+  # data.aws_ec2_instance_type.chosen.supported_architectures is a list, e.g. ["x86_64"] or ["arm64"]
+  instance_arch = data.aws_ec2_instance_type.chosen.supported_architectures[0]
+  ubuntu_arch   = local.instance_arch == "arm64" ? "arm64" : "amd64"
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["099720109477"]
+  owners      = ["099720109477"] # Canonical
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-${local.ubuntu_arch}-server-*"]
   }
 
   filter {
@@ -72,6 +84,17 @@ resource "aws_security_group" "clusterlaunch" {
   tags = {
     Name = "clusterlaunch"
   }
+}
+
+resource "aws_security_group_rule" "public_http" {
+  count             = var.enable_public_demo ? 1 : 0
+  type              = "ingress"
+  description       = "Public HTTP traffic for Grafana Ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.clusterlaunch.id
 }
 
 resource "aws_iam_role" "ssm" {
@@ -124,6 +147,7 @@ resource "aws_instance" "cluster" {
     {
       cluster_mode           = var.cluster_mode
       grafana_admin_password = var.grafana_admin_password
+      enable_public_demo     = var.enable_public_demo
     }
   )
 
