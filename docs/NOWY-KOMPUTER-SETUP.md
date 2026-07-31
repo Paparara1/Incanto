@@ -17,16 +17,28 @@ Witaj! Ten kompletny przewodnik został przygotowany specjalnie pod kątem Twoic
    - **Chłodzenie:** Wasserkühlung 360 (chłodzenie wodne z chłodnicą 360mm)
    - **System operacyjny:** Windows 10/11 z WSL2
 
-W tym poradniku znajdziesz instrukcje dopasowane zarówno do pracy na obecnym komputerze z procesorem **Intel i 8 GB RAM**, jak i do późniejszego wdrożenia na nowym superkomputerze z procesorem **AMD i chłodzeniem wodnym 360**.
+---
+
+## 💡 WAŻNE: Co zrobić, gdy obecny komputer "nie da rady"? (Praca w 100% w Chmurze AWS)
+
+Jeśli obawiasz się, że Twój obecny komputer (z 8 GB RAM i dyskiem HDD) nie poradzi sobie z obciążeniem – **mamy dla Ciebie świetną wiadomość!**
+
+**Twój komputer NIE musi uruchamiać żadnego klastra lokalnie!**
+Nasz projekt **ClusterLaunch** jest zaprojektowany tak, że całe obciążenie (Kubernetes K3s, Grafana, bazy danych, monitoring) działa **w 100% na serwerach chmury AWS**:
+- Twoja instancja EC2 w AWS wykonuje całą ciężką pracę i posiada własną pamięć oraz procesor.
+- Twój obecny komputer działa tylko jako **"pilot/kontroler"**. Narzędzia takie jak Terraform czy AWS CLI wysyłają jedynie lekkie instrukcje tekstowe do AWS. Zużywają one mniej niż **50 MB pamięci RAM** i **0.1% Twojego procesora**.
+- Nie musisz nawet uruchamiać lokalnego Dockera ani żadnych kontenerów na swoim fizycznym komputerze!
+
+W związku z tym, na obecnym komputerze możesz całkowicie pominąć lokalną instalację Dockera i przejść bezpośrednio do lekkiego wdrażania klastra w AWS.
 
 ---
 
 ## Spis treści
 1. [KROK 1: Konfiguracja BIOS i POST (Dla obu komputerów)](#krok-1-konfiguracja-bios-i-post-dla-obu-komputerów)
 2. [KROK 2: Instalacja WSL2 i Optymalizacja dla 8 GB RAM & HDD (Obecny PC)](#krok-2-instalacja-wsl2-i-optymalizacja-dla-8-gb-ram--hdd-obecny-pc)
-3. [KROK 3: Akceleracja GPU Nvidia GTX 1060 / Nowej Karty w WSL2](#krok-3-akceleracja-gpu-nvidia-gtx-1060--nowej-karty-w-wsl2)
-4. [KROK 4: Instalacja Narzędzi Deweloperskich (Git, Terraform, AWS, Helm)](#krok-4-instalacja-narzędzi-deweloperskich)
-5. [KROK 5: Uruchomienie Projektu ClusterLaunch](#krok-5-uruchomienie-projektu-clusterlaunch)
+3. [KROK 3: Akceleracja GPU Nvidia GTX 1060 (Opcjonalne – tylko jeśli chcesz testować lokalnie)](#krok-3-akceleracja-gpu-nvidia-gtx-1060-opcjonalne--tylko-jeśli-chcesz-testować-lokalnie)
+4. [KROK 4: Instalacja Lekkich Narzędzi Deweloperskich (Git, Terraform, AWS, Helm)](#krok-4-instalacja-lekkich-narzędzi-deweloperskich)
+5. [KROK 5: Uruchomienie Projektu ClusterLaunch na AWS](#krok-5-uruchomienie-projektu-clusterlaunch-na-aws)
 6. [KROK 6: Monitoring Parametrów Sprzętowych w Grafanie](#krok-6-monitoring-parametrów-sprzętowych-w-grafanie)
 
 ---
@@ -93,7 +105,9 @@ Klasyczne dyski HDD są znacznie wolniejsze od nowoczesnych SSD, zwłaszcza przy
 
 ---
 
-## KROK 3: Akceleracja GPU Nvidia GTX 1060 / Nowej Karty w WSL2
+## KROK 3: Akceleracja GPU Nvidia GTX 1060 (Opcjonalne – tylko jeśli chcesz testować lokalnie)
+
+*Wskazówka: Jeśli używasz tego komputera tylko do sterowania AWS, możesz całkowicie pominąć ten krok, aby nie obciążać systemu!*
 
 Karta **NVIDIA GeForce GTX 1060 6GB** to świetna jednostka posiadająca wsparcie dla technologii CUDA!
 
@@ -146,11 +160,10 @@ Przetestuj działanie karty graficznej poleceniem:
 ```bash
 docker run --rm --gpus all nvidia/cuda:12.0.0-base-ubuntu22.04 nvidia-smi
 ```
-*Jeśli na ekranie pojawi się tabela informująca o modelu Twojej karty graficznej (GeForce GTX 1060 6GB) oraz jej temperaturze – konfiguracja działa w 100% poprawnie!*
 
 ---
 
-## KROK 4: Instalacja Narzędzi Deweloperskich
+## KROK 4: Instalacja Lekkich Narzędzi Deweloperskich
 
 Zalecamy instalację wszystkich narzędzi deweloperskich bezpośrednio w środowisku **WSL2 (Ubuntu)**, co pozwoli na bezproblemowe uruchamianie skryptów wdrożeniowych.
 
@@ -195,7 +208,7 @@ cat ~/.ssh/id_ed25519.pub
 
 ---
 
-## KROK 5: Uruchomienie Projektu ClusterLaunch
+## KROK 5: Uruchomienie Projektu ClusterLaunch na AWS
 
 1. **Sklonuj repozytorium bezpośrednio do katalogu domowego w Ubuntu (Optymalizacja HDD):**
    ```bash
