@@ -2,6 +2,14 @@
 
 A compact Infrastructure-as-Code kit for deploying a **single-node** K3s cluster on AWS with Grafana observability.
 
+---
+
+### 🚀 Nowy Komputer? (Windows 10, AMD Ryzen, Nvidia, Wasserkühlung 360)
+Jeśli właśnie uruchomiłaś swój komputer deweloperski lub planujesz wkrótce zakup nowego potężnego zestawu PC (np. **MSI Infinite / Bazooka, AMD Ryzen, Nvidia z chłodzeniem wodnym 360**), przygotowaliśmy dla Ciebie kompletny poradnik instalacyjny krok po kroku po polsku!
+👉 **[Poradnik Konfiguracji Nowego Komputera i Środowiska (WSL2, BIOS, CUDA, Grafana)](docs/NOWY-KOMPUTER-SETUP.md)**
+
+---
+
 ## What it deploys
 - Ubuntu 22.04 EC2, encrypted gp3 root volume and IMDSv2
 - K3s Kubernetes
