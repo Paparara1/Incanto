@@ -12,7 +12,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete, isScanning, se
   const [irisVector, setIrisVector] = useState<string | null>(null);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: any;
     if (isScanning) {
       setProgress(0);
       setIrisVector(null);
