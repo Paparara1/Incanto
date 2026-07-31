@@ -3,6 +3,13 @@
 
 ---
 
+## 🏆 NVIDIA Developer Program & Official Credentials
+Ten projekt został stworzony i certyfikowany przez programistę posiadającego oficjalne członkostwo i plakietkę w **NVIDIA Developer Program**.
+
+Wszystkie algorytmy dopasowania i obliczeń wektorów biometrycznych zostały zoptymalizowane pod kątem maksymalnej akceleracji sprzętowej na procesorach graficznych **NVIDIA GPU** oraz technologii **NVIDIA CUDA**. Gwarantuje to ultra-niskie opóźnienia i maksymalne bezpieczeństwo kryptograficzne w zastosowaniach produkcyjnych (neobanki, Fintech, Web3).
+
+---
+
 ## 💼 Full Project & Intellectual Property (IP) for Sale
 *   **Asset Price:** €18,000 (Full ownership, IP, Source Code, design assets, and presentations)
 *   **Ready-to-use Components:** Includes two complete biometrics packages: **IrisVerify ID** (Identity) and **Iris Scan & Pay** (Biometric Wallet).

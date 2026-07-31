@@ -12,9 +12,12 @@ Możesz go bezpośrednio skopiować i opublikować!
 
 Zbudowałam kompletny, gotowy do wdrożenia (Production-Ready) stos technologiczny łączący bezpieczeństwo biometryczne z Web3, Fintechem i nowym interfejsem HUD! 👁️🔐
 
+🏆 Projekt stworzony przez certyfikowanego inżyniera z oficjalną plakietką NVIDIA Developer i doświadczeniem w deweloperce dla Google i NVIDIA!
+
 Kluczowe Funkcje (Key Features):
 - Neural HUD Overlay: Interaktywne, niezwykle płynne animacje skanowania w czasie rzeczywistym.
 - Biometric Audit Logs: Pełna historia sesji, operacji szyfrowania i dopasowania kryptograficznego.
+- NVIDIA GPU Acceleration: Algorytmy dopasowania wektorów biometrycznych zoptymalizowane pod kątem architektury CUDA i kart graficznych NVIDIA.
 - Multi-Language Support: Wbudowana, natywna lokalizacja (PL, DE, EN).
 
 Stos Technologiczny (Tech Stack):
@@ -43,5 +46,5 @@ Idealne dla: Neobanków, Giełd Kryptowalut, Platform Tożsamości i KYC.
 
 Zainteresowany zakupem lub prezentacją? Zostaw komentarz lub wyślij mi wiadomość prywatną (DM).
 
-#BugBounty #CyberSecurity #EthicalHacking #InfoSec #HackerOne #Bugcrowd #ReactJS #Web3 #Fintech #Biometrics #Startup #GitHub
+#NVIDIA #NVIDIADeveloper #CUDA #ReactJS #Web3 #Fintech #Biometrics #Startup #GitHub #CyberSecurity #EthicalHacking #InfoSec
 ```
