@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-grid-pattern {
+    background-size: 20px 20px;
+    background-image:
+      linear-gradient(to right, rgba(20, 184, 166, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(20, 184, 166, 0.1) 1px, transparent 1px);
+  }
+
+  @keyframes spin-slow {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes scan {
+    0% {
+      top: 15%;
+      opacity: 0.8;
+    }
+    50% {
+      top: 85%;
+      opacity: 1;
+    }
+    100% {
+      top: 15%;
+      opacity: 0.8;
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+  }
+
+  .animate-scan-line {
+    animation: scan 3s ease-in-out infinite;
+  }
+}

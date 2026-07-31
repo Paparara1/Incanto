@@ -2,6 +2,17 @@
 
 A compact Infrastructure-as-Code kit for deploying a **single-node** K3s cluster on AWS with Grafana observability.
 
+---
+
+### 🚀 Nowy Komputer & LinkedIn Marketing & NVIDIA Grants
+Jeśli właśnie uruchomiłaś swój komputer deweloperski lub planujesz zakup nowego potężnego zestawu PC (np. **MSI Infinite / Bazooka, AMD Ryzen, Nvidia z chłodzeniem wodnym 360**), przygotowaliśmy dla Ciebie pełen zestaw materiałów po polsku i angielsku:
+- 👉 **[Poradnik Konfiguracji Nowego Komputera i Środowiska (WSL2, BIOS, CUDA, Grafana)](docs/NOWY-KOMPUTER-SETUP.md)** — kompletny, zoptymalizowany przewodnik instalacyjny dla słabszego (8 GB RAM/HDD) oraz nowego sprzętu.
+- 👉 **[Angażujący Wpis LinkedIn (Lokalny PC)](docs/LINKEDIN-POST.md)** — gotowy post o odpaleniu starego komputera i podejściu Cloud-First.
+- 👉 **[Hitowy Wpis LinkedIn (K3s Enterprise Platform)](docs/LINKEDIN-HIT-POST.md)** — gotowy, komercyjny post oparty o Twój najbardziej zasięgowy format (14 aplikacji biznesowych self-hosted).
+- 👉 **[Gotowy Wniosek o Grant Sprzętowy NVIDIA (Angielski)](docs/NVIDIA-GRANT-APPLICATION.md)** — kompletny, profesjonalny wniosek do firmy NVIDIA o darmową kartę graficzną RTX (NVIDIA Hardware Grant Program) dla projektu IrisVerify ID.
+
+---
+
 ## What it deploys
 - Ubuntu 22.04 EC2, encrypted gp3 root volume and IMDSv2
 - K3s Kubernetes
