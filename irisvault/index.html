@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>IrisVault — Portfel Biometryczny</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syncopate:wght@400;700&family=Exo+2:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#020912;--card:#08111f;--card2:#0c1929;--card3:#101e30;
+  --cyan:#00e5ff;--cyan-dim:rgba(0,229,255,.15);
+  --green:#00ff9d;--green-dim:rgba(0,255,157,.15);
+  --pink:#ff2d6b;--pink-dim:rgba(255,45,107,.15);
+  --gold:#f5c542;--purple:#8b5cf6;
+  --text:#e2eeff;--text2:#6a8aaa;--text3:#2e4a66;
+  --border:rgba(0,229,255,.09);--border2:rgba(0,229,255,.22);
+  --mono:'Share Tech Mono',monospace;
+  --dis:'Syncopate',sans-serif;
+  --bod:'Exo 2',sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+html{-webkit-font-smoothing:antialiased;font-size:16px}
+body{
+  font-family:var(--bod);background:var(--bg);color:var(--text);
+  min-height:100dvh;display:flex;justify-content:center;
+  overflow-x:hidden;
+}
+/* Animated background */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 10%,rgba(0,229,255,.04) 0%,transparent 70%),
+    radial-gradient(ellipse 500px 500px at 85% 85%,rgba(0,255,157,.03) 0%,transparent 60%),
+    radial-gradient(ellipse 400px 300px at 60% 40%,rgba(139,92,246,.03) 0%,transparent 60%);
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(0,229,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,255,.018) 1px,transparent 1px);
+  background-size:52px 52px;
+}
+
+/* ════ APP SHELL ════ */
+#app{
+  position:relative;z-index:1;
+  width:100%;max-width:500px;
+  padding:0 14px 40px;
+  display:flex;flex-direction:column;
+}
+
+/* ════ SCREENS ════ */
+.screen{display:none;flex-direction:column;gap:11px}
+.screen.active{display:flex;animation:fadeUp .4s var(--ease) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinRev{to{transform:rotate(-360deg)}}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes beamY{0%{top:2%}100%{top:98%}}
+@keyframes ringOut{0%{transform:scale(.65);opacity:1}100%{transform:scale(2.2);opacity:0}}
+@keyframes tickerRoll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes slideR{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes borderGlow{0%,100%{box-shadow:0 0 0 0 rgba(0,229,255,0)}50%{box-shadow:0 0 20px 2px rgba(0,229,255,.2)}}
+
+/* ════ HEADER ════ */
+.hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 0 10px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;background:var(--bg);z-index:50;
+}
+.brand{font-family:var(--dis);font-size:12px;font-weight:700;letter-spacing:.24em;color:var(--cyan);user-select:none}
+.brand em{color:var(--text3);font-style:normal}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.net-badge{
+  display:flex;align-items:center;gap:5px;
+  font-family:var(--mono);font-size:9px;color:var(--text2);
+  background:rgba(0,229,255,.05);border:1px solid var(--border);
+  border-radius:100px;padding:4px 10px;
+}
+.ndot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);animation:pulse 2.2s ease infinite}
+.blk-indicator{
+  display:flex;align-items:center;gap:4px;
+  font-family:var(--mono);font-size:9px;color:var(--text3);
+}
+.blk-indicator .bnum{color:var(--text2)}
+
+/* ════ TICKER ════ */
+.ticker{
+  overflow:hidden;padding:5px 0;
+  border-bottom:1px solid var(--border);margin-bottom:4px;
+}
+.ticker-track{display:flex;width:max-content;animation:tickerRoll 28s linear infinite;gap:40px}
+.tick{font-family:var(--mono);font-size:10px;color:var(--text3);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.tick strong{color:var(--text2)}.up{color:var(--green)}.dn{color:var(--pink)}
+
+/* ════ LOCK SCREEN ════ */
+#lockScreen{
+  flex:1;align-items:center;justify-content:center;
+  gap:28px;min-height:calc(100dvh - 90px);
+  padding:20px 0;
+}
+.lock-title{
+  font-family:var(--dis);font-size:10px;font-weight:700;
+  letter-spacing:.32em;color:var(--cyan);opacity:.65;text-align:center;
+}
+
+/* Iris scanner */
+.iris-wrap{position:relative;width:250px;height:250px;display:flex;align-items:center;justify-content:center}
+
+.ring{position:absolute;border-radius:50%;border:1px dashed rgba(0,229,255,.18);pointer-events:none}
+.ring-1{width:250px;height:250px;animation:spin 18s linear infinite}
+.ring-2{width:218px;height:218px;animation:spinRev 11s linear infinite;border-color:rgba(0,229,255,.12)}
+.ring-3{width:188px;height:188px;animation:spin 7s linear infinite;border-color:rgba(0,229,255,.08)}
+
+.corner{position:absolute;width:22px;height:22px;border-color:var(--cyan);border-style:solid;border-width:0;opacity:.8}
+.corner.tl{top:8px;left:8px;border-top-width:2px;border-left-width:2px}
+.corner.tr{top:8px;right:8px;border-top-width:2px;border-right-width:2px}
+.corner.bl{bottom:8px;left:8px;border-bottom-width:2px;border-left-width:2px}
+.corner.br{bottom:8px;right:8px;border-bottom-width:2px;border-right-width:2px}
+
+/* tick marks */
+.tick-marks{position:absolute;inset:0;border-radius:50%;pointer-events:none}
+
+.iris-circle{
+  width:166px;height:166px;border-radius:50%;overflow:hidden;
+  position:relative;
+  border:2px solid rgba(0,229,255,.2);
+  box-shadow:0 0 50px rgba(0,229,255,.1),inset 0 0 30px rgba(0,0,0,.9);
+  transition:border-color .4s,box-shadow .4s;
+}
+.iris-circle.scanning{border-color:rgba(0,229,255,.6);box-shadow:0 0 60px rgba(0,229,255,.25),inset 0 0 20px rgba(0,0,0,.8)}
+.iris-circle.success{border-color:rgba(0,255,157,.7);box-shadow:0 0 70px rgba(0,255,157,.3),inset 0 0 20px rgba(0,0,0,.8)}
+.iris-circle.fail{border-color:rgba(255,45,107,.6);box-shadow:0 0 50px rgba(255,45,107,.25)}
+
+#irisVideo{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(.9) contrast(1.15) saturate(1.1) hue-rotate(5deg);
+}
+
+/* overlay on video for iris visualization */
+#irisOverlay{
+  position:absolute;inset:0;pointer-events:none;
+  border-radius:50%;overflow:hidden;
+}
+
+.no-cam{
+  width:100%;height:100%;
+  background:radial-gradient(circle at 42% 38%,#0f2a45 0%,#071525 50%,#020912 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+}
+.no-cam-eye{opacity:.25}
+.no-cam span{font-family:var(--mono);font-size:8px;color:var(--text3);letter-spacing:.12em;text-align:center;line-height:1.6;padding:0 10px}
+
+/* Scan beam inside iris */
+.beam{
+  position:absolute;left:0;right:0;height:1.5px;top:50%;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,.9) 40%,rgba(255,255,255,.8) 50%,rgba(0,229,255,.9) 60%,transparent);
+  box-shadow:0 0 10px var(--cyan),0 0 3px white;
+  display:none;animation:beamY 1.2s ease-in-out infinite alternate;
+}
+.iris-circle.scanning .beam{display:block}
+
+/* Burst rings */
+.burst{position:absolute;inset:-5px;border-radius:50%;border:3px solid;pointer-events:none;display:none}
+.burst-1{border-color:var(--green);animation-duration:.7s}
+.burst-2{border-color:rgba(0,255,157,.5);animation-duration:.9s;animation-delay:.1s}
+.iris-circle.success .burst{display:block;animation-name:ringOut;animation-fill-mode:both;animation-timing-function:ease-out}
+
+/* Analysis dots overlay */
+.analysis-dots{
+  position:absolute;inset:0;border-radius:50%;pointer-events:none;display:none;
+}
+.iris-circle.scanning .analysis-dots{display:block}
+.adot{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan);animation:pulse 1s ease infinite}
+
+/* Status block */
+.status-block{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.st-main{font-family:var(--dis);font-size:13px;font-weight:700;letter-spacing:.05em;color:var(--text)}
+.st-sub{font-family:var(--mono);font-size:11px;color:var(--text2);letter-spacing:.06em;min-height:20px}
+.st-sub.c{color:var(--cyan)}.st-sub.g{color:var(--green)}.st-sub.p{color:var(--pink)}
+
+.prog-wrap{width:220px;height:2px;background:rgba(0,229,255,.08);border-radius:1px;overflow:hidden;opacity:0;transition:opacity .3s}
+.prog-wrap.vis{opacity:1}
+.prog-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--cyan),var(--green));box-shadow:0 0 8px var(--cyan);transition:width .07s linear;border-radius:1px}
+
+/* Biometric data display */
+.bio-data{
+  display:flex;gap:16px;opacity:0;transition:opacity .4s;
+}
+.bio-data.vis{opacity:1}
+.bio-stat{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1}
+.bio-val{font-family:var(--mono);font-size:10px;color:var(--cyan);letter-spacing:.06em}
+.bio-lbl{font-family:var(--mono);font-size:8px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
+
+/* Scan button */
+.scan-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 40px;border-radius:100px;
+  border:1px solid rgba(0,229,255,.3);
+  background:linear-gradient(135deg,rgba(0,229,255,.07),rgba(0,229,255,.03));
+  color:var(--cyan);font-family:var(--dis);font-size:10px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  transition:all .3s var(--ease);user-select:none;
+}
+.scan-btn:hover:not(:disabled){
+  border-color:var(--cyan);background:rgba(0,229,255,.12);
+  box-shadow:0 0 30px rgba(0,229,255,.18),inset 0 0 20px rgba(0,229,255,.05);
+}
+.scan-btn:disabled{opacity:.35;cursor:not-allowed}
+.scan-btn svg{flex-shrink:0;transition:transform .3s}
+
+.sec-info{display:flex;align-items:center;gap:7px;padding:7px 16px;border:1px solid var(--border);border-radius:100px;background:rgba(0,229,255,.02)}
+.sec-info span{font-family:var(--mono);font-size:8px;color:var(--text3);letter-spacing:.1em}
+
+/* ════ WALLET SCREEN ════ */
+
+/* Balance */
+.balance-card{
+  background:linear-gradient(135deg,#09152a 0%,#0e2040 55%,#091524 100%);
+  border:1px solid var(--border2);border-radius:28px;
+  padding:24px 22px 20px;position:relative;overflow:hidden;
+  box-shadow:0 16px 48px rgba(0,0,0,.7),0 0 50px rgba(0,229,255,.06);
+}
+.balance-card::before{content:'';position:absolute;top:-100px;right:-100px;width:280px;height:280px;background:radial-gradient(circle,rgba(0,229,255,.07) 0%,transparent 65%);pointer-events:none}
+.balance-card::after{content:'';position:absolute;bottom:-80px;left:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(139,92,246,.05) 0%,transparent 65%);pointer-events:none}
+.bc-sl{position:absolute;left:0;right:0;height:1px;top:0;background:linear-gradient(90deg,transparent,rgba(0,229,255,.4),transparent);animation:beamY 7s ease-in-out infinite alternate}
+.bal-tag{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.bal-tag::before{content:'';width:14px;height:1px;background:var(--cyan);opacity:.4}
+.bal-eth-num{font-family:var(--dis);font-size:clamp(24px,6.5vw,34px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:4px}
+.bal-eth-num .cs{color:var(--cyan);text-shadow:0 0 22px rgba(0,229,255,.45)}
+.bal-usd-num{font-size:14px;font-weight:300;color:var(--text2);margin-bottom:16px}
+.bal-usd-num .uv{color:var(--green);font-weight:600}
+.bal-meta{display:flex;gap:0;padding-top:14px;border-top:1px solid var(--border)}
+.bm{flex:1;display:flex;flex-direction:column;gap:2px;padding:0 8px}
+.bm:first-child{padding-left:0}.bm:last-child{padding-right:0}
+.bm+.bm{border-left:1px solid var(--border)}
+.bml{font-family:var(--mono);font-size:8px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase}
+.bmv{font-family:var(--bod);font-size:12px;font-weight:700;color:var(--text2)}
+.bmv.g{color:var(--green)}.bmv.p{color:var(--pink)}
+
+/* Actions */
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.abtn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:9px;padding:17px 12px;border-radius:20px;border:1px solid;
+  cursor:pointer;transition:all .22s var(--ease);
+  font-family:var(--dis);font-size:9px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;user-select:none;position:relative;overflow:hidden;
+}
+.abtn::after{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s}
+.abtn:hover::after{opacity:1}
+.abtn:hover{transform:translateY(-2px)}
+.abtn:active{transform:translateY(0)}
+
+.aico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:transform .2s var(--ease)}
+.abtn:hover .aico{transform:scale(1.1)}
+
+.ab-send{background:linear-gradient(135deg,rgba(255,45,107,.1),rgba(255,45,107,.03));border-color:rgba(255,45,107,.28);color:var(--pink)}
+.ab-send::after{background:linear-gradient(135deg,rgba(255,45,107,.06),transparent)}
+.ab-send:hover{border-color:rgba(255,45,107,.55);box-shadow:0 10px 30px rgba(255,45,107,.18)}
+.ab-send .aico{background:rgba(255,45,107,.14);color:var(--pink)}
+
+.ab-recv{background:linear-gradient(135deg,rgba(0,255,157,.1),rgba(0,255,157,.03));border-color:rgba(0,255,157,.28);color:var(--green)}
+.ab-recv::after{background:linear-gradient(135deg,rgba(0,255,157,.06),transparent)}
+.ab-recv:hover{border-color:rgba(0,255,157,.55);box-shadow:0 10px 30px rgba(0,255,157,.15)}
+.ab-recv .aico{background:rgba(0,255,157,.14);color:var(--green)}
+
+/* Cards */
+.wcard{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:18px;position:relative;overflow:hidden;
+  transition:border-color .25s;
+}
+.wcard:hover{border-color:rgba(0,229,255,.18)}
+.wcard::before{content:'';position:absolute;top:-60px;right:-60px;width:160px;height:160px;background:radial-gradient(circle,rgba(0,229,255,.04) 0%,transparent 70%);pointer-events:none}
+
+.wc-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.wc-title{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.wc-title::before{content:'';width:14px;height:1px;background:var(--cyan);opacity:.4}
+.wc-badge{font-family:var(--mono);font-size:8px;color:var(--text3);background:rgba(0,229,255,.06);border:1px solid var(--border);border-radius:6px;padding:2px 7px;letter-spacing:.06em}
+
+/* Address */
+.addr-box{
+  display:flex;align-items:center;gap:9px;
+  background:rgba(0,0,0,.4);border:1px solid rgba(0,229,255,.08);
+  border-radius:10px;padding:11px 13px;
+}
+.addr-txt{
+  flex:1;font-family:var(--mono);font-size:9.5px;color:var(--cyan);
+  letter-spacing:.05em;word-break:break-all;line-height:1.7;opacity:.88;
+}
+.cpybtn{
+  flex-shrink:0;display:flex;align-items:center;gap:5px;
+  padding:7px 11px;background:rgba(0,229,255,.08);
+  border:1px solid rgba(0,229,255,.18);border-radius:7px;
+  color:var(--cyan);font-family:var(--mono);font-size:9px;
+  cursor:pointer;transition:all .2s var(--ease);white-space:nowrap;
+}
+.cpybtn:hover{background:rgba(0,229,255,.16);border-color:var(--cyan);box-shadow:0 0 12px rgba(0,229,255,.18)}
+.cpybtn.ok{background:rgba(0,255,157,.1);border-color:rgba(0,255,157,.28);color:var(--green)}
+.cpybtn svg{width:12px;height:12px;flex-shrink:0}
+
+/* TX filter */
+.tx-filter{display:flex;gap:6px;margin-bottom:12px}
+.txf{
+  padding:5px 12px;border-radius:100px;font-family:var(--mono);font-size:9px;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+  border:1px solid var(--border);background:transparent;color:var(--text3);
+  transition:all .18s var(--ease);
+}
+.txf:hover{color:var(--text2);border-color:rgba(0,229,255,.2)}
+.txf.active{color:var(--cyan);border-color:rgba(0,229,255,.3);background:rgba(0,229,255,.07)}
+
+/* TX items */
+.tx-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 7px;border-radius:10px;
+  transition:background .18s;cursor:pointer;
+  animation:slideR .32s var(--ease) both;
+}
+.tx-item:hover{background:rgba(0,229,255,.04)}
+.tx-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;border:1px solid}
+.tx-ico.send{background:rgba(255,45,107,.08);border-color:rgba(255,45,107,.18)}
+.tx-ico.receive{background:rgba(0,255,157,.08);border-color:rgba(0,255,157,.18)}
+.tx-ico.swap{background:rgba(245,197,66,.07);border-color:rgba(245,197,66,.15)}
+.tx-body{flex:1;min-width:0}
+.tx-name{font-family:var(--bod);font-size:13px;font-weight:600;color:var(--text)}
+.tx-addr{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:.04em}
+.tx-right{text-align:right;flex-shrink:0}
+.tx-amt{font-family:var(--dis);font-size:11px;font-weight:700}
+.tx-amt.send{color:var(--pink)}.tx-amt.receive{color:var(--green)}.tx-amt.swap{color:var(--gold)}
+.tx-amt.send::before{content:'−'}.tx-amt.receive::before{content:'+'}.tx-amt.swap::before{content:'⇄ ';font-size:8px}
+.tx-date{font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:2px}
+.tx-status{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono);font-size:7px;color:var(--green);letter-spacing:.08em;margin-top:2px}
+.tx-status::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--green);box-shadow:0 0 4px var(--green)}
+.tx-empty{font-family:var(--mono);font-size:11px;color:var(--text3);text-align:center;padding:20px 0;letter-spacing:.08em}
+
+/* Lock btn */
+.lock-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px;border:1px solid rgba(255,255,255,.06);border-radius:14px;
+  background:transparent;color:var(--text3);
+  font-family:var(--dis);font-size:9px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer;transition:all .22s var(--ease);
+}
+.lock-btn:hover{background:rgba(255,45,107,.05);border-color:rgba(255,45,107,.22);color:var(--pink)}
+.lock-btn svg{width:14px;height:14px}
+
+.footer-note{font-family:var(--mono);font-size:8px;color:var(--text3);text-align:center;padding:6px 0;letter-spacing:.1em;opacity:.4}
+
+/* ════ MODALS ════ */
+.overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,4,12,.88);backdrop-filter:blur(12px);
+  z-index:200;align-items:flex-end;justify-content:center;padding:12px;
+}
+.overlay.open{display:flex;animation:fadeIn .2s ease}
+.modal{
+  width:100%;max-width:500px;
+  background:linear-gradient(170deg,#0e1e35 0%,#091526 100%);
+  border:1px solid var(--border2);
+  border-radius:26px 26px 20px 20px;
+  padding:22px 20px 26px;
+  box-shadow:0 -24px 80px rgba(0,0,0,.8),0 0 50px rgba(0,229,255,.06);
+  animation:fadeUp .3s var(--ease) both;
+  max-height:90dvh;overflow-y:auto;
+}
+.modal-handle{width:36px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin:0 auto 20px}
+.modal-title{font-family:var(--dis);font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--text);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.modal-title .pk{color:var(--pink)}.modal-title .gn{color:var(--green)}
+
+.flabel{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin-bottom:7px}
+.finput{
+  width:100%;background:rgba(0,0,0,.5);border:1px solid var(--border);
+  border-radius:10px;padding:12px 14px;font-family:var(--mono);font-size:11px;
+  color:var(--cyan);letter-spacing:.04em;outline:none;
+  transition:border-color .2s,box-shadow .2s;margin-bottom:14px;
+}
+.finput::placeholder{color:var(--text3)}
+.finput:focus{border-color:rgba(0,229,255,.4);box-shadow:0 0 18px rgba(0,229,255,.1)}
+
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+
+.fbtn{
+  padding:14px;border-radius:12px;font-family:var(--dis);font-size:9px;
+  font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
+  transition:all .22s var(--ease);display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.fbtn.p1{background:var(--pink);border:1px solid var(--pink);color:#fff}
+.fbtn.p1:hover{box-shadow:0 0 18px rgba(255,45,107,.4)}
+.fbtn.g1{background:var(--green);border:1px solid var(--green);color:#020912}
+.fbtn.g1:hover{box-shadow:0 0 18px rgba(0,255,157,.4)}
+.fbtn.s1{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--text2)}
+.fbtn.s1:hover{border-color:rgba(255,255,255,.25);color:var(--text)}
+
+/* Extra features inside send modal */
+.send-steps{position:relative;min-height:220px}
+.send-step{display:none;flex-direction:column;gap:10px}
+.send-step.active{display:flex;animation:fadeIn .3s ease both}
+
+/* Biometric auth inside modal overlay */
+.mini-scan{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;padding:30px 0;
+}
+.mini-iris{
+  position:relative;width:110px;height:110px;border-radius:50%;
+  border:2px dashed rgba(0,229,255,.4);display:flex;align-items:center;justify-content:center;
+  animation:spin 12s linear infinite;
+}
+.mini-eye{
+  width:70px;height:70px;border-radius:50%;border:2px solid var(--cyan);
+  box-shadow:0 0 20px rgba(0,229,255,.3);animation:spinRev 6s linear infinite;
+}
+.mini-beam{
+  position:absolute;left:10px;right:10px;height:2px;background:var(--cyan);
+  box-shadow:0 0 8px var(--cyan);top:50%;animation:beamY 1s ease-in-out infinite alternate;
+}
+
+/* Success state animation inside modal */
+.success-checkmark{
+  display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 0;
+}
+.checkmark-circle{
+  width:68px;height:68px;border-radius:50%;border:2px solid var(--green);
+  display:flex;align-items:center;justify-content:center;color:var(--green);
+  box-shadow:0 0 24px rgba(0,255,157,.25);animation:borderGlow 2s infinite;
+}
+
+/* Fallback SVG iris animation */
+.svg-iris{
+  width:100px;height:100px;
+}
+.iris-outer{
+  fill:none;stroke:var(--cyan);stroke-width:2;stroke-dasharray:6 4;
+  animation:spin 12s linear infinite;transform-origin:center;
+}
+.iris-inner{
+  fill:none;stroke:var(--green);stroke-width:1.5;stroke-dasharray:3 5;
+  animation:spinRev 8s linear infinite;transform-origin:center;
+}
+.pupil{
+  fill:#020912;stroke:var(--cyan);stroke-width:1;
+  filter:drop-shadow(0 0 4px var(--cyan));
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- ════ HEADER ════ -->
+  <header class="hdr">
+    <div class="brand">IRIS<em>VAULT</em></div>
+    <div class="hdr-right">
+      <div class="net-badge">
+        <span class="ndot"></span>
+        <span>MAINNET</span>
+      </div>
+      <div class="blk-indicator">
+        <span class="bnum" id="blockNum">#19482758</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ════ TICKER ════ -->
+  <section class="ticker">
+    <div class="ticker-track" id="tickerTrack">
+      <div class="tick">BTC <strong>$95,482.30</strong> <span class="up">+1.42%</span></div>
+      <div class="tick">ETH <strong>$2,845.50</strong> <span class="up">+2.15%</span></div>
+      <div class="tick">TON <strong>$7.42</strong> <span class="dn">−0.85%</span></div>
+      <div class="tick">SOL <strong>$188.90</strong> <span class="up">+4.12%</span></div>
+      <!-- Duplicate for infinite scroll -->
+      <div class="tick">BTC <strong>$95,482.30</strong> <span class="up">+1.42%</span></div>
+      <div class="tick">ETH <strong>$2,845.50</strong> <span class="up">+2.15%</span></div>
+      <div class="tick">TON <strong>$7.42</strong> <span class="dn">−0.85%</span></div>
+      <div class="tick">SOL <strong>$188.90</strong> <span class="up">+4.12%</span></div>
+    </div>
+  </section>
+
+  <!-- ════ SCREEN 1: LOCK / SCANNING SCREEN ════ -->
+  <section id="lockScreen" class="screen active">
+    <div class="lock-title">BIOMETRIC VERIFICATION REQUIRED</div>
+
+    <div class="iris-wrap">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="ring ring-3"></div>
+
+      <div class="iris-circle" id="irisCircle">
+        <video id="irisVideo" autoplay playsinline muted style="display:none"></video>
+        <div class="no-cam" id="noCam">
+          <svg class="svg-iris" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" class="iris-outer"></circle>
+            <circle cx="50" cy="50" r="32" class="iris-inner"></circle>
+            <circle cx="50" cy="50" r="18" class="pupil"></circle>
+          </svg>
+          <span>WEBCAM ACCESS DEMO</span>
+        </div>
+        <div class="beam"></div>
+        <div class="analysis-dots" id="analysisDots"></div>
+        <div class="burst burst-1"></div>
+        <div class="burst burst-2"></div>
+      </div>
+    </div>
+
+    <div class="status-block">
+      <div class="st-main" id="statusMain">PORTFEL ZABLOKOWANY</div>
+      <div class="st-sub" id="statusSub">Uruchom autoryzację tęczówki oka</div>
+      <div class="prog-wrap" id="progWrap">
+        <div class="prog-bar" id="progBar"></div>
+      </div>
+    </div>
+
+    <div class="bio-data" id="bioData">
+      <div class="bio-stat">
+        <span class="bio-val" id="bioPurity">0.00%</span>
+        <span class="bio-lbl">Purity</span>
+      </div>
+      <div class="bio-stat">
+        <span class="bio-val" id="bioTime">N/A</span>
+        <span class="bio-lbl">Latency</span>
+      </div>
+      <div class="bio-stat">
+        <span class="bio-val" id="bioCert">NONE</span>
+        <span class="bio-lbl">Matching</span>
+      </div>
+    </div>
+
+    <button class="scan-btn" id="scanBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+      Skanuj tęczówkę
+    </button>
+
+    <div class="sec-info">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      <span>Fully encrypted sandbox, end-to-end zero-knowledge security keys</span>
+    </div>
+  </section>
+
+  <!-- ════ SCREEN 2: WALLET DASHBOARD ════ -->
+  <section id="walletScreen" class="screen">
+    <!-- Balance Card -->
+    <div class="balance-card">
+      <div class="bc-sl"></div>
+      <div class="bal-tag">Dostępne środki</div>
+      <div class="bal-eth-num"><span id="ethVal">1.3450</span> <span class="cs">ETH</span></div>
+      <div class="bal-usd-num">≈ $<span id="usdVal">3,827.19</span> USD <span class="uv">(+2.15% dziś)</span></div>
+
+      <div class="bal-meta">
+        <div class="bm">
+          <span class="bml">Biometric ID</span>
+          <span class="bmv" style="color:var(--cyan);font-family:var(--mono);font-size:10px">IRIS-948-Z</span>
+        </div>
+        <div class="bm">
+          <span class="bml">Moc klucza</span>
+          <span class="bmv g">256-BIT</span>
+        </div>
+        <div class="bm">
+          <span class="bml">Gaz (Gwei)</span>
+          <span class="bmv" id="gasPrice">24 Gwei</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions SEND & RECEIVE -->
+    <div class="acts">
+      <div class="abtn ab-send" id="btnOpenSend">
+        <div class="aico">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+        <span>Wyślij</span>
+      </div>
+      <div class="abtn ab-recv" id="btnOpenRecv">
+        <div class="aico">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <polyline points="19 12 12 19 5 12"></polyline>
+          </svg>
+        </div>
+        <span>Odbierz</span>
+      </div>
+    </div>
+
+    <!-- Wallet Address Card -->
+    <div class="wcard">
+      <div class="wc-hdr">
+        <span class="wc-title">Twój adres Ethereum</span>
+        <span class="wc-badge">Zabezpieczony</span>
+      </div>
+      <div class="addr-box">
+        <span class="addr-txt" id="myAddress">0x9E758a0718F4dE1E35F0de7B24C03B6F3bC84125</span>
+        <button class="cpybtn" id="btnCopyAddress">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Kopiuj
+        </button>
+      </div>
+    </div>
+
+    <!-- Ledger Transaction History -->
+    <div class="wcard">
+      <div class="wc-hdr" style="margin-bottom:8px">
+        <span class="wc-title">Historia operacji</span>
+      </div>
+
+      <div class="tx-filter">
+        <button class="txf active" data-filter="all">Wszystkie</button>
+        <button class="txf" data-filter="send">Wysłane</button>
+        <button class="txf" data-filter="receive">Odebrane</button>
+      </div>
+
+      <div id="txList">
+        <!-- Dyn list -->
+      </div>
+    </div>
+
+    <!-- Back to security -->
+    <button class="lock-btn" id="btnLock">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      Zablokuj i zaszyfruj portfel
+    </button>
+
+    <div class="footer-note">IrisVault Terminal v1.0.9 — Zero Trust Biometric Wallet</div>
+  </section>
+</div>
+
+<!-- ════ MODAL SEND ════ -->
+<div class="overlay" id="sendModalOverlay">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title"><span class="pk">▲</span> WYŚLIJ ŚRODKI (ETH)</div>
+
+    <div class="send-steps">
+      <!-- Step 1: Form -->
+      <div class="send-step active" id="sendStepForm">
+        <div class="flabel">Adres odbiorcy (HEX)</div>
+        <input type="text" class="finput" id="sendAddress" placeholder="0x..." value="0x71C765...3e2040"/>
+
+        <div class="flabel">Kwota transferu (ETH)</div>
+        <input type="number" step="0.001" class="finput" id="sendAmount" placeholder="0.00 ETH" value="0.05"/>
+
+        <div class="frow">
+          <button class="fbtn s1" id="btnCancelSend">Anuluj</button>
+          <button class="fbtn p1" id="btnConfirmForm">Dalej</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Biometric verification -->
+      <div class="send-step" id="sendStepVerify">
+        <div class="lock-title">BIOMETRIC AUTHENTICATION REQUIRED</div>
+        <div class="mini-scan">
+          <div class="mini-iris">
+            <div class="mini-eye"></div>
+            <div class="mini-beam"></div>
+          </div>
+          <div class="st-sub" style="text-align:center">Spójrz na ekran, aby autoryzować transakcję tęczówką oka</div>
+        </div>
+        <button class="fbtn p1" id="btnAuthTx" style="width:100%">Autoryzuj tęczówką</button>
+      </div>
+
+      <!-- Step 3: Success -->
+      <div class="send-step" id="sendStepSuccess">
+        <div class="success-checkmark">
+          <div class="checkmark-circle">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="st-main" style="color:var(--green)">TRANSAKCJA WYSŁANA</div>
+          <div class="st-sub" id="successTxDetails" style="text-align:center;word-break:break-all">0.05 ETH -> 0x71C765...</div>
+        </div>
+        <button class="fbtn g1" id="btnFinishSend" style="width:100%">Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MODAL RECEIVE ════ -->
+<div class="overlay" id="recvModalOverlay">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title"><span class="gn">▼</span> ODBIERZ ŚRODKI (ETH)</div>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:10px 0">
+      <div style="background:#fff;padding:12px;border-radius:18px;box-shadow:0 0 25px rgba(0,229,255,.15);display:flex;align-items:center;justify-content:center">
+        <!-- SVG Cyberpunk QR Code Simulation -->
+        <svg width="150" height="150" viewBox="0 0 100 100" style="display:block">
+          <!-- Outer border markers -->
+          <rect x="5" y="5" width="22" height="22" fill="#020912" stroke="var(--cyan)" stroke-width="3"></rect>
+          <rect x="10" y="10" width="12" height="12" fill="var(--cyan)"></rect>
+
+          <rect x="73" y="5" width="22" height="22" fill="#020912" stroke="var(--cyan)" stroke-width="3"></rect>
+          <rect x="78" y="10" width="12" height="12" fill="var(--cyan)"></rect>
+
+          <rect x="5" y="73" width="22" height="22" fill="#020912" stroke="var(--cyan)" stroke-width="3"></rect>
+          <rect x="10" y="78" width="12" height="12" fill="var(--cyan)"></rect>
+
+          <!-- Small corner lock -->
+          <rect x="78" y="78" width="12" height="12" fill="var(--cyan)"></rect>
+
+          <!-- Random blocks simulated for QR -->
+          <g fill="var(--text3)" opacity="0.85">
+            <rect x="32" y="10" width="6" height="6"></rect>
+            <rect x="44" y="5" width="6" height="12"></rect>
+            <rect x="56" y="12" width="12" height="6"></rect>
+            <rect x="10" y="32" width="6" height="12"></rect>
+            <rect x="22" y="44" width="12" height="6"></rect>
+            <rect x="38" y="32" width="18" height="18"></rect>
+            <rect x="62" y="38" width="6" height="12"></rect>
+            <rect x="78" y="32" width="12" height="6"></rect>
+            <rect x="10" y="56" width="12" height="6"></rect>
+            <rect x="32" y="56" width="6" height="18"></rect>
+            <rect x="48" y="68" width="18" height="6"></rect>
+            <rect x="56" y="56" width="12" height="12"></rect>
+            <rect x="78" y="50" width="6" height="18"></rect>
+            <rect x="18" y="68" width="6" height="6"></rect>
+          </g>
+        </svg>
+      </div>
+
+      <div class="flabel" style="align-self:flex-start">Twój publiczny adres wpłat</div>
+      <div class="addr-box" style="width:100%">
+        <span class="addr-txt" id="recvAddress" style="font-size:8.5px">0x9E758a0718F4dE1E35F0de7B24C03B6F3bC84125</span>
+        <button class="cpybtn" id="btnCopyRecvAddress">
+          Kopiuj
+        </button>
+      </div>
+      <div class="st-sub" style="font-size:10px;text-align:center;color:var(--text3)">Wpłać wyłącznie Ethereum (ETH) lub tokeny ERC-20 na ten adres. Środki zostaną zdeponowane po 12 potwierdzeniach sieciowych.</div>
+    </div>
+
+    <button class="fbtn s1" id="btnCloseRecv" style="width:100%;margin-top:10px">Zamknij</button>
+  </div>
+</div>
+
+<script>
+// State manager
+const walletState = {
+  unlocked: false,
+  balance: 1.3450,
+  ethPrice: 2845.50,
+  gasGwei: 24,
+  blockNumber: 19482758,
+  myAddress: "0x9E758a0718F4dE1E35F0de7B24C03B6F3bC84125",
+  activeTxFilter: "all",
+  transactions: [
+    { id: "tx1", type: "receive", name: "Otrzymano depozyt", addr: "0x7a83d3f92...a3f9e", amt: "0.450", date: "Wczoraj, 18:42", status: "completed" },
+    { id: "tx2", type: "send", name: "Wypłata na giełdę", addr: "0x51afd6037...c622f", amt: "0.120", date: "2 dni temu", status: "completed" },
+    { id: "tx3", type: "swap", name: "Zamiana ETH -> USDT", addr: "Uniswap V3 router", amt: "0.300", date: "1 tydzień temu", status: "completed" },
+    { id: "tx4", type: "receive", name: "Zasilenie biometryczne", addr: "0x00e5ff7d2...f9399", amt: "1.015", date: "2 tygodnie temu", status: "completed" }
+  ]
+};
+
+// Selectors
+const qs = s => document.querySelector(s);
+const scanBtn = qs("#scanBtn");
+const statusMain = qs("#statusMain");
+const statusSub = qs("#statusSub");
+const progWrap = qs("#progWrap");
+const progBar = qs("#progBar");
+const bioData = qs("#bioData");
+const irisCircle = qs("#irisCircle");
+const irisVideo = qs("#irisVideo");
+const noCam = qs("#noCam");
+const analysisDots = qs("#analysisDots");
+const blockNumEl = qs("#blockNum");
+const tickerTrack = qs("#tickerTrack");
+
+// Elements
+const ethValEl = qs("#ethVal");
+const usdValEl = qs("#usdVal");
+const gasPriceEl = qs("#gasPrice");
+const txListEl = qs("#txList");
+
+// Modals
+const sendModal = qs("#sendModalOverlay");
+const recvModal = qs("#recvModalOverlay");
+
+// Triggering webcam stream if possible
+let cameraStream = null;
+async function initWebcam() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 166, height: 166 } });
+    irisVideo.srcObject = stream;
+    irisVideo.style.display = "block";
+    noCam.style.display = "none";
+    cameraStream = stream;
+  } catch (err) {
+    console.warn("Kamera niedostępna, aktywowano fallback biometryczny SVG/CSS:", err);
+    irisVideo.style.display = "none";
+    noCam.style.display = "flex";
+  }
+}
+
+// Stop webcam
+function stopWebcam() {
+  if (cameraStream) {
+    cameraStream.getTracks().forEach(track => track.stop());
+    cameraStream = null;
+  }
+  irisVideo.srcObject = null;
+}
+
+// Clock & Block number generator simulation
+setInterval(() => {
+  if (Math.random() > 0.85) {
+    walletState.blockNumber += 1;
+    blockNumEl.textContent = "#" + walletState.blockNumber;
+    walletState.gasGwei = Math.floor(20 + Math.random() * 15);
+    gasPriceEl.textContent = walletState.gasGwei + " Gwei";
+  }
+}, 4000);
+
+// Simulated rate fluctuations
+setInterval(() => {
+  const diffPercent = (Math.random() * 0.1 - 0.045); // small fluctuation
+  walletState.ethPrice = parseFloat((walletState.ethPrice * (1 + diffPercent / 100)).toFixed(2));
+
+  // Render balances
+  const rawUsdValue = walletState.balance * walletState.ethPrice;
+  usdValEl.textContent = rawUsdValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  // Render ticker rates
+  const ticks = [
+    { name: "BTC", price: 95482.30, basePercent: 1.42 },
+    { name: "ETH", price: walletState.ethPrice, basePercent: 2.15 },
+    { name: "TON", price: 7.42, basePercent: -0.85 },
+    { name: "SOL", price: 188.90, basePercent: 4.12 }
+  ];
+
+  let tickerHtml = "";
+  ticks.forEach(t => {
+    const rateDiff = (Math.random() * 0.04 - 0.02);
+    const finalPrice = (t.price * (1 + rateDiff / 100)).toFixed(2);
+    const finalPercent = (t.basePercent + rateDiff).toFixed(2);
+    const isUp = finalPercent >= 0;
+    const arrowClass = isUp ? "up" : "dn";
+    const arrowSymbol = isUp ? "+" : "−";
+
+    tickerHtml += `<div class="tick">${t.name} <strong>$${parseFloat(finalPrice).toLocaleString('en-US')}</strong> <span class="${arrowClass}">${arrowSymbol}${Math.abs(finalPercent)}%</span></div>`;
+  });
+
+  // Duplicate for infinite scroll
+  tickerTrack.innerHTML = tickerHtml + tickerHtml;
+}, 5000);
+
+// Generate random analysis dots during scan
+function createAnalysisDots() {
+  analysisDots.innerHTML = "";
+  for (let i = 0; i < 14; i++) {
+    const dot = document.createElement("div");
+    dot.className = "adot";
+    const x = Math.floor(10 + Math.random() * 140);
+    const y = Math.floor(10 + Math.random() * 140);
+    dot.style.left = x + "px";
+    dot.style.top = y + "px";
+    dot.style.animationDelay = (Math.random() * 0.8) + "s";
+    analysisDots.appendChild(dot);
+  }
+}
+
+// Format values
+function renderBalances() {
+  ethValEl.textContent = walletState.balance.toFixed(4);
+  const totalUsd = walletState.balance * walletState.ethPrice;
+  usdValEl.textContent = totalUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// Render Transaction history with filter
+function renderTransactions() {
+  txListEl.innerHTML = "";
+  const filtered = walletState.transactions.filter(t => {
+    if (walletState.activeTxFilter === "all") return true;
+    return t.type === walletState.activeTxFilter;
+  });
+
+  if (filtered.length === 0) {
+    txListEl.innerHTML = `<div class="tx-empty">Brak zarejestrowanych transakcji</div>`;
+    return;
+  }
+
+  filtered.forEach(t => {
+    const item = document.createElement("div");
+    item.className = "tx-item";
+
+    let icon = "⇅";
+    if (t.type === "receive") icon = "↙";
+    if (t.type === "send") icon = "↗";
+    if (t.type === "swap") icon = "⇄";
+
+    item.innerHTML = `
+      <div class="tx-ico ${t.type}">${icon}</div>
+      <div class="tx-body">
+        <div class="tx-name">${t.name}</div>
+        <div class="tx-addr">${t.addr}</div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt ${t.type}">${t.amt} ETH</div>
+        <div class="tx-date">${t.date}</div>
+        <div class="tx-status">Zatwierdzono</div>
+      </div>
+    `;
+    txListEl.appendChild(item);
+  });
+}
+
+// Main lock verification sequence
+let isScanning = false;
+scanBtn.onclick = async () => {
+  if (isScanning) return;
+  isScanning = true;
+  scanBtn.disabled = true;
+
+  // Trigger webcam stream
+  await initWebcam();
+
+  irisCircle.className = "iris-circle scanning";
+  statusMain.textContent = "SKANOWANIE TĘCZÓWKI...";
+  statusSub.textContent = "Trwa analiza markerów biometrycznych";
+  progWrap.classList.add("vis");
+
+  // Set intervals for logs
+  const logs = [
+    "CYTOMETRIA WARSTWY CORNEA...",
+    "KODOWANIE SIATKI IRIS-256...",
+    "GENEROWANIE DOWODU ZERO-KNOWLEDGE...",
+    "DESZYFROWANIE KLUCZA PRYWATNEGO...",
+    "AUTORYZACJA BIOMETRYCZNA ZAKOŃCZONA!"
+  ];
+
+  let currentLogIdx = 0;
+  const logInterval = setInterval(() => {
+    if (currentLogIdx < logs.length) {
+      statusSub.textContent = logs[currentLogIdx++];
+      createAnalysisDots();
+    }
+  }, 600);
+
+  // Set progress bar
+  let progress = 0;
+  progBar.style.width = "0%";
+  const progInterval = setInterval(() => {
+    progress += 2;
+    progBar.style.width = progress + "%";
+    if (progress >= 100) {
+      clearInterval(progInterval);
+    }
+  }, 50);
+
+  // Completed scan
+  setTimeout(() => {
+    clearInterval(logInterval);
+    clearInterval(progInterval);
+
+    // Play success flash
+    irisCircle.className = "iris-circle success";
+    statusMain.textContent = "ODBLOKOWANO";
+    statusSub.textContent = "Weryfikacja tożsamości pomyślna";
+    statusSub.className = "st-sub g";
+
+    // Show biometric stats
+    qs("#bioPurity").textContent = "99.82%";
+    qs("#bioTime").textContent = "412ms";
+    qs("#bioCert").textContent = "VERIFIED";
+    bioData.classList.add("vis");
+
+    setTimeout(() => {
+      // Transition screen
+      qs("#lockScreen").classList.remove("active");
+      qs("#walletScreen").classList.add("active");
+
+      // Cleanup webcam stream
+      stopWebcam();
+
+      walletState.unlocked = true;
+      renderBalances();
+      renderTransactions();
+
+      // reset locks state
+      isScanning = false;
+      scanBtn.disabled = false;
+    }, 1200);
+
+  }, 3200);
+};
+
+// Clipboard copier helper
+function initClipboardCopier(btnId, textId, originalText) {
+  const btn = qs(btnId);
+  const textVal = qs(textId).textContent;
+
+  btn.onclick = () => {
+    navigator.clipboard.writeText(textVal).then(() => {
+      btn.textContent = "Skopiowano!";
+      btn.classList.add("ok");
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove("ok");
+      }, 1500);
+    }).catch(e => {
+      alert("Błąd kopiowania: " + e);
+    });
+  };
+}
+initClipboardCopier("#btnCopyAddress", "#myAddress", "Kopiuj");
+initClipboardCopier("#btnCopyRecvAddress", "#recvAddress", "Kopiuj");
+
+// Transaction list filter buttons
+document.querySelectorAll(".txf").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".txf").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    walletState.activeTxFilter = btn.dataset.filter;
+    renderTransactions();
+  };
+});
+
+// Modals display trigger
+qs("#btnOpenSend").onclick = () => {
+  // Reset modals form
+  qs("#sendStepForm").classList.add("active");
+  qs("#sendStepVerify").classList.remove("active");
+  qs("#sendStepSuccess").classList.remove("active");
+  sendModal.classList.add("open");
+};
+qs("#btnCancelSend").onclick = () => {
+  sendModal.classList.remove("open");
+};
+
+qs("#btnConfirmForm").onclick = () => {
+  // Validate send form
+  const address = qs("#sendAddress").value.trim();
+  const amount = parseFloat(qs("#sendAmount").value);
+
+  if (!address.startsWith("0x") || address.length < 10) {
+    alert("Wprowadź poprawny adres docelowy Ethereum!");
+    return;
+  }
+  if (isNaN(amount) || amount <= 0) {
+    alert("Wprowadź prawidłową kwotę transferu większą od zera!");
+    return;
+  }
+  if (amount > walletState.balance) {
+    alert("Niewystarczające środki w portfelu na przeprowadzenie operacji!");
+    return;
+  }
+
+  // Transition to biometric step inside modal
+  qs("#sendStepForm").classList.remove("active");
+  qs("#sendStepVerify").classList.add("active");
+};
+
+// Transaction authentication inside modal
+let isModalVerifying = false;
+qs("#btnAuthTx").onclick = () => {
+  if (isModalVerifying) return;
+  isModalVerifying = true;
+  qs("#btnAuthTx").disabled = true;
+  qs("#btnAuthTx").textContent = "AUTORYZACJA...";
+
+  setTimeout(() => {
+    const amount = parseFloat(qs("#sendAmount").value);
+    const address = qs("#sendAddress").value.trim();
+
+    // Deduct funds and record transaction
+    walletState.balance -= amount;
+    renderBalances();
+
+    const formattedAddr = address.substring(0, 9) + "..." + address.substring(address.length - 6);
+    walletState.transactions.unshift({
+      id: "tx" + Date.now(),
+      type: "send",
+      name: "Przelew biometryczny",
+      addr: formattedAddr,
+      amt: amount.toFixed(4),
+      date: "Przed chwilą",
+      status: "completed"
+    });
+    renderTransactions();
+
+    // Transition to success screen
+    qs("#successTxDetails").textContent = `${amount.toFixed(4)} ETH -> ${formattedAddr}`;
+    qs("#sendStepVerify").classList.remove("active");
+    qs("#sendStepSuccess").classList.add("active");
+
+    // Reset state
+    isModalVerifying = false;
+    qs("#btnAuthTx").disabled = false;
+    qs("#btnAuthTx").textContent = "Autoryzuj tęczówką";
+  }, 2200);
+};
+
+qs("#btnFinishSend").onclick = () => {
+  sendModal.classList.remove("open");
+};
+
+// Open/Close Receive Modal
+qs("#btnOpenRecv").onclick = () => {
+  recvModal.classList.add("open");
+};
+qs("#btnCloseRecv").onclick = () => {
+  recvModal.classList.remove("open");
+};
+
+// Locking wallet
+qs("#btnLock").onclick = () => {
+  walletState.unlocked = false;
+  qs("#walletScreen").classList.remove("active");
+  qs("#lockScreen").classList.add("active");
+
+  // Reset biometric display
+  irisCircle.className = "iris-circle";
+  statusMain.textContent = "PORTFEL ZABLOKOWANY";
+  statusSub.textContent = "Uruchom autoryzację tęczówki oka";
+  statusSub.className = "st-sub";
+  progWrap.classList.remove("vis");
+  bioData.classList.remove("vis");
+};
+</script>
+
+</body>
+</html>
