@@ -5,3 +5,6 @@
 *.pem
 .env
 artifacts/
+node_modules/
+dist/
+build/
