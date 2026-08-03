@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kobalt - AI App Builder</title>
+<style>
+  :root{--bg:#0a0e1a;--panel:#111827;--panel2:#1a2235;--line:#243049;--txt:#e6ebf5;
+    --mut:#8b97b3;--acc:#3b82f6;--acc2:#2563eb;--ok:#22c55e;--err:#ef4444;--warn:#f59e0b;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);
+    font-family:-apple-system,Segoe UI,Roboto,system-ui,sans-serif}
+  body{display:flex;flex-direction:column;overflow:hidden}
+  header{padding:10px 12px;background:var(--panel);border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:7px;flex-shrink:0}
+  header .logo{font-weight:800;font-size:18px;letter-spacing:.5px}
+  header .logo span{color:var(--acc)}
+  header .sub{font-size:11px;color:var(--mut);margin-left:auto;white-space:nowrap}
+  .iconbtn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);
+    border-radius:8px;padding:7px 9px;font-size:13px;cursor:pointer}
+  .iconbtn:active{transform:scale(.96)}
+  .tabs{display:flex;background:var(--panel);border-bottom:1px solid var(--line);flex-shrink:0}
+  .tab{flex:1;text-align:center;padding:11px 4px;font-size:12.5px;font-weight:600;color:var(--mut);
+    cursor:pointer;border-bottom:2px solid transparent}
+  .tab.active{color:var(--acc);border-bottom-color:var(--acc)}
+  main{flex:1;display:flex;min-height:0}
+  .pane{flex:1;display:flex;flex-direction:column;min-height:0;min-width:0}
+  #chatPane{border-right:1px solid var(--line)}
+  .msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+  .msg{max-width:92%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5;
+    white-space:pre-wrap;word-break:break-word}
+  .msg.user{align-self:flex-end;background:var(--acc2);color:#fff;border-bottom-right-radius:4px}
+  .msg.ai{align-self:flex-start;background:var(--panel2);border:1px solid var(--line);border-bottom-left-radius:4px}
+  .msg.sys{align-self:center;background:transparent;color:var(--mut);font-size:12px;text-align:center}
+  .gallery{padding:12px 14px;border-top:1px solid var(--line);background:var(--panel)}
+  .gallery .gt{font-size:11px;color:var(--mut);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+  .chip{flex:0 0 auto;background:var(--panel2);border:1px solid var(--line);color:var(--txt);
+    border-radius:999px;padding:8px 13px;font-size:12.5px;cursor:pointer;white-space:nowrap}
+  .chip:active{background:var(--acc2);border-color:var(--acc)}
+  .composer{padding:10px;border-top:1px solid var(--line);background:var(--panel);display:flex;gap:8px;flex-shrink:0}
+  textarea#prompt{flex:1;resize:none;background:var(--panel2);border:1px solid var(--line);color:var(--txt);
+    border-radius:10px;padding:10px;font-size:14px;font-family:inherit;max-height:120px;min-height:44px}
+  #send{background:var(--acc);border:none;color:#fff;border-radius:10px;padding:0 16px;font-weight:700;cursor:pointer;font-size:14px}
+  #send:disabled{opacity:.5}
+  .pvbar{padding:7px 8px;background:var(--panel);border-bottom:1px solid var(--line);
+    display:flex;gap:6px;align-items:center;flex-shrink:0;font-size:12px;color:var(--mut);flex-wrap:wrap}
+  .pvbar .dot{width:9px;height:9px;border-radius:50%;background:#3a4663}
+  iframe#preview{flex:1;border:none;background:#fff;width:100%}
+  .codewrap{flex:1;display:none;flex-direction:column;background:#0d1117;min-height:0}
+  pre#code{margin:0;padding:14px;font-size:11.5px;line-height:1.55;color:#c9d1d9;flex:1;overflow:auto;
+    font-family:ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;word-break:break-word}
+  textarea#editor{display:none;flex:1;width:100%;background:#0d1117;color:#c9d1d9;border:none;outline:none;
+    padding:14px;font-size:11.5px;line-height:1.55;font-family:ui-monospace,Menlo,Consolas,monospace;resize:none}
+  .editbar{display:none;padding:7px 8px;background:var(--panel2);border-top:1px solid var(--line);gap:7px}
+  .editbar.show{display:flex}
+  .empty{flex:1;display:flex;align-items:center;justify-content:center;color:var(--mut);text-align:center;padding:30px;font-size:14px;line-height:1.6}
+  .errbar{display:none;background:#3a1212;border-bottom:1px solid var(--err);color:#fca5a5;
+    padding:8px 10px;font-size:12px;align-items:center;gap:8px}
+  .errbar.show{display:flex}
+  .errbar button{margin-left:auto;background:var(--err);border:none;color:#fff;border-radius:7px;padding:6px 11px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .typing{display:inline-block}
+  .typing::after{content:'\u25cf';animation:bl 1s infinite}
+  @keyframes bl{0%,100%{opacity:.2}50%{opacity:1}}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
+  .modal.open{display:flex}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;width:100%;max-width:440px;max-height:88vh;overflow-y:auto}
+  .card h2{margin:0 0 6px;font-size:17px}
+  .card p{color:var(--mut);font-size:13px;margin:0 0 14px;line-height:1.5}
+  .card label{font-size:12px;color:var(--mut);display:block;margin:10px 0 5px}
+  .card input,.card select,.card textarea{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:11px;font-size:14px;font-family:inherit}
+  .card .row{display:flex;gap:8px;margin-top:14px}
+  .btn{flex:1;padding:11px;border-radius:9px;border:none;font-weight:700;font-size:14px;cursor:pointer}
+  .btn.p{background:var(--acc);color:#fff}.btn.s{background:var(--panel2);color:var(--txt);border:1px solid var(--line)}
+  .hint{font-size:11px;color:var(--mut);margin-top:8px;line-height:1.5}
+  .hlist,.vlist{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+  .hitem,.vitem{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px;display:flex;align-items:center;gap:10px}
+  .hitem .ht,.vitem .vt{flex:1;min-width:0}
+  .hn,.vn{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hd,.vd{font-size:11px;color:var(--mut);margin-top:2px}
+  .hitem button,.vitem button{background:var(--acc2);border:none;color:#fff;border-radius:7px;padding:7px 11px;font-size:12px;font-weight:600;cursor:pointer}
+  .hitem .del{background:transparent;color:var(--err);border:1px solid var(--line);padding:7px 9px}
+  .hempty{color:var(--mut);font-size:13px;text-align:center;padding:20px 0}
+  @media(max-width:760px){#chatPane,#pvPane{display:none}#chatPane.show,#pvPane.show{display:flex}}
+  @media(min-width:761px){.tabs{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Ko<span>balt</span></div>
+  <div class="sub" id="status">gotowy</div>
+  <button class="iconbtn" id="verBtn" title="Wersje">&#128338;</button>
+  <button class="iconbtn" id="histBtn" title="Projekty">&#128451;</button>
+  <button class="iconbtn" id="cfgBtn" title="Ustawienia">&#9881;</button>
+</header>
+
+<div class="tabs">
+  <div class="tab active" data-pane="chatPane">&#128172; Czat</div>
+  <div class="tab" data-pane="pvPane">&#9654; Podglad</div>
+</div>
+
+<main>
+  <section class="pane show" id="chatPane">
+    <div class="msgs" id="msgs">
+      <div class="msg ai">Czesc! Jestem Kobalt. Opisz aplikacje albo dotknij gotowego pomyslu ponizej. Zobaczysz dzialajacy kod od razu w podgladzie. Mozesz: poprawiac przez czat, edytowac kod recznie, cofac do wczesniejszych wersji, naprawiac bledy jednym dotykiem i udostepniac aplikacje linkiem. Wybierz dostawce AI: Claude, GPT lub Mistral.</div>
+      <div class="msg sys">Najpierw ustaw klucz API (przycisk zebatka)</div>
+    </div>
+    <div class="gallery">
+      <div class="gt">Przyklady - dotknij, by zbudowac</div>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="composer">
+      <textarea id="prompt" placeholder="Opisz aplikacje albo popros o zmiane..." rows="1"></textarea>
+      <button id="send">&#9654;</button>
+    </div>
+  </section>
+
+  <section class="pane" id="pvPane">
+    <div class="pvbar">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span id="pvLabel">podglad</span>
+      <button class="iconbtn" id="saveBtn" style="margin-left:auto;padding:4px 8px">&#128190;</button>
+      <button class="iconbtn" id="shareBtn" style="padding:4px 8px">&#128279;</button>
+      <button class="iconbtn" id="editBtn" style="padding:4px 8px">&#9999;</button>
+      <button class="iconbtn" id="toggleCode" style="padding:4px 8px">&lt;/&gt;</button>
+      <button class="iconbtn" id="dlBtn" style="padding:4px 8px">&#11015;</button>
+      <button class="iconbtn" id="reloadBtn" style="padding:4px 8px">&#8635;</button>
+    </div>
+    <div class="errbar" id="errbar"><span id="errtxt">Blad w aplikacji</span><button id="fixBtn">Napraw</button></div>
+    <div class="empty" id="pvEmpty">Tu pojawi sie Twoja aplikacja,<br>gdy tylko ja opiszesz w czacie.</div>
+    <iframe id="preview" style="display:none" sandbox="allow-scripts allow-forms allow-modals allow-popups allow-same-origin"></iframe>
+    <div class="codewrap" id="codewrap">
+      <pre id="code"></pre>
+      <textarea id="editor" spellcheck="false"></textarea>
+    </div>
+    <div class="editbar" id="editbar">
+      <button class="btn p" id="applyEdit" style="flex:2">Zastosuj zmiany</button>
+      <button class="btn s" id="cancelEdit">Anuluj</button>
+    </div>
+  </section>
+</main>
+
+<div class="modal" id="modal"><div class="card">
+  <h2>Ustawienia Kobalt</h2>
+  <p>Wybierz dostawce AI i wklej klucz. Klucz zapisuje sie tylko lokalnie w tej przegladarce.</p>
+  <label>Dostawca AI</label>
+  <select id="provider">
+    <option value="claude">Claude (Anthropic) - zalecany do kodu</option>
+    <option value="openai">OpenAI (GPT)</option>
+    <option value="mistral">Mistral</option>
+  </select>
+  <label>Klucz API</label><input id="apiKey" type="password" placeholder="sk-...">
+  <label>Model</label><select id="model"></select>
+  <div class="hint" id="cfgHint"></div>
+  <div class="row"><button class="btn s" id="cfgClose">Anuluj</button><button class="btn p" id="cfgSave">Zapisz</button></div>
+</div></div>
+
+<div class="modal" id="histModal"><div class="card">
+  <h2>Twoje projekty</h2>
+  <p>Zapisane aplikacje. Dotknij Otworz, by wczytac projekt.</p>
+  <div class="hlist" id="hlist"></div>
+  <div class="row"><button class="btn s" id="exportBtn">Eksport sesji</button><button class="btn s" id="importBtn">Import</button></div>
+  <div class="row"><button class="btn s" id="histClose">Zamknij</button></div>
+  <input type="file" id="importFile" accept=".json,application/json" style="display:none">
+</div></div>
+
+<div class="modal" id="verModal"><div class="card">
+  <h2>Historia wersji</h2>
+  <p>Kazda zmiana to osobna wersja biezacej aplikacji. Dotknij Przywroc, by wrocic do niej.</p>
+  <div class="vlist" id="vlist"></div>
+  <div class="row"><button class="btn s" id="verClose">Zamknij</button></div>
+</div></div>
+
+<div class="modal" id="shareModal"><div class="card">
+  <h2>Udostepnij aplikacje</h2>
+  <p>Ten link zawiera cala aplikacje w adresie. Wyslij go komus - otworzy sie i zadziala od razu, bez Kobalta.</p>
+  <textarea id="shareLink" rows="5" readonly></textarea>
+  <div class="hint">Bardzo dlugie aplikacje moga przekroczyc limit dlugosci linku w niektorych komunikatorach. Wtedy uzyj przycisku pobierania pliku HTML.</div>
+  <div class="row"><button class="btn p" id="copyShare">Kopiuj link</button><button class="btn s" id="shareClose">Zamknij</button></div>
+</div></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const msgs=,promptEl=,sendBtn=,iframe=,
+  codeEl=,codewrap=,editor=,pvEmpty=,statusEl=;
+
+const MODELS={
+  claude:[['claude-sonnet-4-20250514','Claude Sonnet 4 (zalecany)'],['claude-3-5-sonnet-20241022','Claude 3.5 Sonnet'],['claude-3-5-haiku-20241022','Claude 3.5 Haiku (szybszy)']],
+  openai:[['gpt-4o','GPT-4o (zalecany)'],['gpt-4o-mini','GPT-4o mini (szybszy/tanszy)'],['gpt-4-turbo','GPT-4 Turbo']],
+  mistral:[['mistral-large-latest','Mistral Large (zalecany)'],['codestral-latest','Codestral (do kodu)'],['mistral-small-latest','Mistral Small (szybszy/tanszy)']]
+};
+const EXAMPLES=[
+  ['Kalkulator napiwkow','Zbuduj kalkulator napiwkow: kwota rachunku, procent napiwku, liczba osob, kwota na osobe. Ladny kolorowy interfejs.'],
+  ['Lista zadan','Lista zadan (to-do) z dodawaniem, odhaczaniem i usuwaniem. Zapis w localStorage. Ciemny motyw.'],
+  ['Kolko i krzyzyk','Gra w kolko i krzyzyk dla dwoch graczy, wykrywanie zwyciezcy, przycisk nowa gra. Animacje.'],
+  ['BMI','Kalkulator BMI: wzrost, waga, wynik i kategoria kolorem. Responsywny.'],
+  ['Stoper','Stoper: start, stop, reset, okrazenia. Duzy czytelny wyswietlacz.'],
+  ['Generator kolorow','Generator palety: losuje 5 kolorow, kody HEX, klik kopiuje. Karty.'],
+  ['Notatnik','Notatnik z zapisem w localStorage, licznikiem znakow, czyszczeniem.'],
+  ['Kostka','Symulator rzutu kostka z animacja i historia rzutow.']
+];
+
+let state={provider:localStorage.getItem('kobalt_provider')||'claude',key:'',model:'',
+  history:[],currentCode:'',currentName:'',versions:[]};
+state.key=localStorage.getItem('kobalt_key_'+state.provider)||'';
+state.model=localStorage.getItem('kobalt_model_'+state.provider)||MODELS[state.provider][0][0];
+
+function loadProjects(){try{return JSON.parse(localStorage.getItem('kobalt_projects')||'[]')}catch(e){return[]}}
+function saveProjects(p){localStorage.setItem('kobalt_projects',JSON.stringify(p))}
+
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');
+  .classList.remove('show');.classList.remove('show');.classList.add('show');
+});
+function showPreviewTab(){const t=document.querySelector('[data-pane="pvPane"]');if(t&&getComputedStyle(t).display!=='none')t.click();}
+
+EXAMPLES.forEach(([label,prompt])=>{const c=document.createElement('div');c.className='chip';c.textContent=label;
+  c.onclick=()=>{promptEl.value=prompt;promptEl.dispatchEvent(new Event('input'));send();};.appendChild(c);});
+
+function fillModels(){const sel=;sel.innerHTML='';
+  MODELS[.value].forEach(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;sel.appendChild(o);});
+  const sv=localStorage.getItem('kobalt_model_'+.value);if(sv)sel.value=sv;
+  .value=localStorage.getItem('kobalt_key_'+.value)||'';
+  .textContent =
+    .value==='claude' ? 'Klucz: console.anthropic.com -> API Keys (wymaga doladowania).'
+    : .value==='openai' ? 'Klucz: platform.openai.com -> API Keys (wymaga doladowania).'
+    : 'Klucz: console.mistral.ai -> API Keys (wymaga aktywnego planu).';
+}
+.onchange=fillModels;
+.onclick=()=>{.value=state.provider;fillModels();.classList.add('open');};
+.onclick=()=>.classList.remove('open');
+.onclick=()=>{state.provider=.value;state.key=.value.trim();state.model=.value;
+  localStorage.setItem('kobalt_provider',state.provider);localStorage.setItem('kobalt_key_'+state.provider,state.key);
+  localStorage.setItem('kobalt_model_'+state.provider,state.model);.classList.remove('open');
+  if(state.key)addMsg('sys','Zapisano ('+state.provider.toUpperCase()+'). Mozesz budowac!');};
+
+function addMsg(role,text){const d=document.createElement('div');d.className='msg '+role;d.textContent=text;
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;}
+promptEl.addEventListener('input',()=>{promptEl.style.height='auto';promptEl.style.height=Math.min(promptEl.scrollHeight,120)+'px';});
+
+function pushVersion(label){state.versions.push({code:state.currentCode,label:label||'zmiana',time:new Date().toLocaleTimeString('pl-PL')});if(state.versions.length>30)state.versions.shift();}
+function render(code,verLabel,track){
+  if(track!==false&&state.currentCode&&state.currentCode!==code)pushVersion(verLabel);
+  state.currentCode=code;pvEmpty.style.display='none';codewrap.style.display='none';
+  .classList.remove('show');editor.style.display='none';codeEl.style.display='block';
+  iframe.style.display='block';.classList.remove('show');
+  iframe.srcdoc=injectErrorCatcher(code);codeEl.textContent=code;
+}
+function injectErrorCatcher(code){
+  const catcher="<scr"+"ipt>window.onerror=function(m,s,l,c,e){parent.postMessage({__kobalt_err:String(m)+' (linia '+l+')'},'*');return false;};window.addEventListener('unhandledrejection',function(ev){parent.postMessage({__kobalt_err:'Promise: '+(ev.reason&&ev.reason.message||ev.reason)},'*');});</scr"+"ipt>";
+  if(/<head[^>]*>/i.test(code))return code.replace(/<head[^>]*>/i,m=>m+catcher);
+  if(/<html[^>]*>/i.test(code))return code.replace(/<html[^>]*>/i,m=>m+catcher);
+  return catcher+code;
+}
+let lastError='';
+window.addEventListener('message',e=>{
+  if(e.data&&e.data.__kobalt_err){lastError=e.data.__kobalt_err;
+    .textContent='Blad: '+lastError;.classList.add('show');}
+});
+.onclick=()=>{if(!lastError)return;promptEl.value='W aplikacji wystapil blad: "'+lastError+'". Znajdz przyczyne i napraw kod. Zwroc caly poprawiony plik.';send();};
+
+.onclick=()=>{if(!state.currentCode)return;
+  const showing=codewrap.style.display==='flex';
+  if(showing){codewrap.style.display='none';iframe.style.display='block';}
+  else{codewrap.style.display='flex';iframe.style.display='none';codeEl.style.display='block';editor.style.display='none';.classList.remove('show');}};
+.onclick=()=>{if(state.currentCode)iframe.srcdoc=injectErrorCatcher(state.currentCode);};
+.onclick=()=>{if(!state.currentCode){alert('Najpierw zbuduj aplikacje.');return;}
+  const b=new Blob([state.currentCode],{type:'text/html'});const a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download=(state.currentName||'aplikacja').replace(/[^a-z0-9]+/gi,'_')+'.html';a.click();};
+
+.onclick=()=>{if(!state.currentCode){alert('Najpierw zbuduj aplikacje.');return;}
+  codewrap.style.display='flex';iframe.style.display='none';codeEl.style.display='none';
+  editor.style.display='block';editor.value=state.currentCode;.classList.add('show');showPreviewTab();};
+.onclick=()=>{render(editor.value,'edycja reczna');addMsg('sys','Zastosowano reczne zmiany w kodzie.');showPreviewTab();};
+.onclick=()=>{editor.style.display='none';codeEl.style.display='block';.classList.remove('show');codewrap.style.display='none';iframe.style.display='block';};
+
+.onclick=()=>{if(!state.currentCode){alert('Najpierw zbuduj aplikacje.');return;}
+  let name=window.prompt('Nazwa projektu:',state.currentName||'Moj projekt');if(name===null)return;
+  name=name.trim()||'Projekt';const projects=loadProjects();
+  projects.unshift({id:Date.now(),name,date:new Date().toLocaleString('pl-PL'),code:state.currentCode,history:state.history.slice(),versions:state.versions.slice()});
+  saveProjects(projects);state.currentName=name;statusEl.textContent='zapisano';addMsg('sys','Zapisano projekt: '+name);};
+
+function renderHistory(){
+  const hl=;const projects=loadProjects();hl.innerHTML='';
+  if(!projects.length){
+    hl.innerHTML='<div class="hempty">Brak zapisanych projektow.<br>Zbuduj aplikacje i dotknij zapisu.</div>';
+    return;
+  }
+  projects.forEach(p=>{
+    const row=document.createElement('div');row.className='hitem';
+    const t=document.createElement('div');t.className='ht';
+    t.innerHTML='<div class="hn"></div><div class="hd"></div>';
+    t.querySelector('.hn').textContent = p.name;
+    t.querySelector('.hd').textContent = p.date;
+    row.appendChild(t);
+
+    const openBtn=document.createElement('button');
+    openBtn.textContent='Otworz';
+    openBtn.onclick=()=>{
+      state.currentCode=p.code;
+      state.currentName=p.name;
+      state.history=p.history||[];
+      state.versions=p.versions||[];
+      render(state.currentCode,'wczytano projekt',false);
+      statusEl.textContent='wczytano';
+      addMsg('sys','Wczytano projekt: '+p.name);
+      .classList.remove('open');
+    };
+    row.appendChild(openBtn);
+
+    const delBtn=document.createElement('button');
+    delBtn.className='del';
+    delBtn.textContent='Usun';
+    delBtn.onclick=()=>{
+      if(confirm('Czy na pewno chcesz usunac projekt: '+p.name+'?')){
+        const projects=loadProjects();
+        const filtered=projects.filter(proj=>proj.id!==p.id);
+        saveProjects(filtered);
+        renderHistory();
+      }
+    };
+    row.appendChild(delBtn);
+    hl.appendChild(row);
+  });
+}
+
+.onclick=()=>{.classList.add('open');renderHistory();};
+.onclick=()=>.classList.remove('open');
+
+function renderVersions(){
+  const vl=;vl.innerHTML='';
+  if(!state.versions.length){
+    vl.innerHTML='<div class="hempty">Brak wczesniejszych wersji.</div>';
+    return;
+  }
+  state.versions.slice().reverse().forEach(v=>{
+    const row=document.createElement('div');row.className='vitem';
+    const t=document.createElement('div');t.className='vt';
+    t.innerHTML='<div class="vn"></div><div class="vd"></div>';
+    t.querySelector('.vn').textContent = v.label;
+    t.querySelector('.vd').textContent = v.time;
+    row.appendChild(t);
+
+    const restoreBtn=document.createElement('button');
+    restoreBtn.textContent='Przywroc';
+    restoreBtn.onclick=()=>{
+      render(v.code, v.label, false);
+      addMsg('sys','Przywrocono wersje: '+v.label);
+      .classList.remove('open');
+    };
+    row.appendChild(restoreBtn);
+    vl.appendChild(row);
+  });
+}
+.onclick=()=>{.classList.add('open');renderVersions();};
+.onclick=()=>.classList.remove('open');
+
+.onclick=()=>{
+  const projects=loadProjects();
+  const blob=new Blob([JSON.stringify(projects, null, 2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='kobalt_backup_'+Date.now()+'.json';
+  a.click();
+};
+.onclick=()=>.click();
+.onchange=(e)=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try {
+      const imported=JSON.parse(r.result);
+      if(!Array.isArray(imported)) throw new Error('Niepoprawny format kopii zapasowej.');
+      const current=loadProjects();
+      const merged=[...imported, ...current].filter((p,i,self)=>self.findIndex(x=>x.id===p.id)===i);
+      saveProjects(merged);
+      addMsg('sys','Pomyslnie zaimportowano projekty.');
+      renderHistory();
+    } catch(err) {
+      alert('Blad importu: '+err.message);
+    }
+  };
+  r.readAsText(file);
+};
+
+.onclick=()=>{
+  if(!state.currentCode){alert('Najpierw zbuduj aplikacje.');return;}
+  const compressed=btoa(encodeURIComponent(state.currentCode));
+  const shareUrl=window.location.origin + window.location.pathname + '#code=' + compressed;
+  .value=shareUrl;
+  .classList.add('open');
+};
+.onclick=()=>.classList.remove('open');
+.onclick=()=>{
+  .select();
+  document.execCommand('copy');
+  alert('Link zostal skopiowany do schowka!');
+};
+
+window.addEventListener('DOMContentLoaded', ()=>{
+  if(window.location.hash && window.location.hash.startsWith('#code=')){
+    try {
+      const b64=window.location.hash.substring(6);
+      const decodedCode=decodeURIComponent(atob(b64));
+      if(decodedCode){
+        render(decodedCode, 'udostepniona aplikacja', false);
+        addMsg('sys', 'Uruchomiono udostepniona aplikacje!');
+        showPreviewTab();
+      }
+    } catch(e) {
+      console.error('Blad wczytywania udostepnionej aplikacji:', e);
+    }
+  }
+});
+
+async function send(){
+  const prompt = promptEl.value.trim();
+  if(!prompt)return;
+  if(!state.key){
+    addMsg('sys', 'Blad: Najpierw skonfiguruj klucz API dostawcy w ustawieniach (zegatka).');
+    return;
+  }
+
+  promptEl.value='';
+  promptEl.dispatchEvent(new Event('input'));
+
+  sendBtn.disabled=true;
+  promptEl.disabled=true;
+  statusEl.textContent='budowanie...';
+
+  addMsg('user', prompt);
+  state.history.push({role:'user', content:prompt});
+
+  const typingMsg = addMsg('ai', '');
+  typingMsg.innerHTML = '<span class="typing">Mysle i buduje</span>';
+  msgs.scrollTop=msgs.scrollHeight;
+
+  try {
+    let responseText = '';
+    const messages = state.history.map(h => ({role: h.role, content: h.content}));
+    const systemPrompt = "Jesteś ekspertem web developmentu. Tworzysz i modyfikujesz aplikacje webowe na życzenie użytkownika.
+" +
+      "Zwracasz ZAWSZE i WYŁĄCZNIE kompletny kod pojedynczego pliku HTML zawierający wszystkie niezbędne style w <style> oraz logikę JavaScript w <script>.
+" +
+      "Kod musi być w pełni funkcjonalny, responsywny, bezpieczny i estetyczny. Używaj nowoczesnego designu (np. Tailwind CSS pobierany przez CDN: <script src=\"https://cdn.tailwindcss.com\"></script>, ikony lucide lub FontAwesome przez CDN jeśli potrzebne).
+" +
+      "Nie pisz żadnych wyjaśnień, wstępów ani podsumowań poza kodem HTML. Zwracaj wyłącznie czysty kod zaczynający się od <!DOCTYPE html>. Jeśli użytkownik prosi o modyfikację, zawsze zwracaj CAŁY nowy poprawiony kod pliku HTML.";
+
+    if(state.provider === 'openai') {
+      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + state.key
+        },
+        body: JSON.stringify({
+          model: state.model,
+          messages: [
+            {role: 'system', content: systemPrompt},
+            ...messages
+          ],
+          temperature: 0.2
+        })
+      });
+      if(!res.ok) {
+        const errData = await res.json().catch(()=>({}));
+        throw new Error(errData.error?.message || );
+      }
+      const data = await res.json();
+      responseText = data.choices[0].message.content;
+    } else if(state.provider === 'claude') {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': state.key,
+          'anthropic-version': '2023-06-01',
+          'dangerously-allow-the-user-to-use-their-key-in-the-browser': 'true'
+        },
+        body: JSON.stringify({
+          model: state.model,
+          max_tokens: 4000,
+          system: systemPrompt,
+          messages: messages,
+          temperature: 0.2
+        })
+      });
+      if(!res.ok) {
+        const errData = await res.json().catch(()=>({}));
+        throw new Error(errData.error?.message || );
+      }
+      const data = await res.json();
+      responseText = data.content[0].text;
+    } else if(state.provider === 'mistral') {
+      const res = await fetch('https://api.mistral.ai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + state.key
+        },
+        body: JSON.stringify({
+          model: state.model,
+          messages: [
+            {role: 'system', content: systemPrompt},
+            ...messages
+          ],
+          temperature: 0.2
+        })
+      });
+      if(!res.ok) {
+        const errData = await res.json().catch(()=>({}));
+        throw new Error(errData.error?.message || );
+      }
+      const data = await res.json();
+      responseText = data.choices[0].message.content;
+    }
+
+    let cleanedCode = responseText.trim();
+    const match = cleanedCode.match(//i) || cleanedCode.match(//i);
+    if(match) {
+      cleanedCode = match[1];
+    }
+
+    state.history.push({role:'assistant', content: responseText});
+    render(cleanedCode, prompt);
+
+    typingMsg.textContent = 'Aplikacja zostala pomyslnie zaktualizowana!';
+    statusEl.textContent = 'gotowy';
+    showPreviewTab();
+
+  } catch(err) {
+    console.error(err);
+    typingMsg.innerHTML = '<span style="color:var(--err)">Blad podczas generowania: ' + err.message + '</span>';
+    statusEl.textContent = 'blad';
+  } finally {
+    sendBtn.disabled=false;
+    promptEl.disabled=false;
+  }
+}
+
+sendBtn.onclick = send;
+promptEl.onkeydown = (e) => {
+  if(e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    send();
+  }
+};
+</script>
+</body>
+</html>

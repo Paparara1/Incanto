@@ -1,66 +1,121 @@
-# ClusterLaunch — K3s + Grafana AWS Kit
+# Premium Multi-Project AI & Web3 Portfolio Bundle for Sale
 
-A compact Infrastructure-as-Code kit for deploying a **single-node** K3s cluster on AWS with Grafana observability.
+---
 
-## What it deploys
-- Ubuntu 22.04 EC2, encrypted gp3 root volume and IMDSv2
-- K3s Kubernetes
-- Grafana in both modes, exposed only through an SSH tunnel
-- `fast`: K3s + lightweight Grafana
-- `prod`: K3s + Prometheus stack + Grafana + Loki, with persistent Grafana storage
+### 🌟 PAKIET SEŚCIU PROJEKTÓW PREMIUM NA SPRZEDAŻ / COMMERCIAL IP ACQUISITION BUNDLE 🌟
 
-## Important scope
-This is **not** multi-master HA, multi-AZ, managed Kubernetes, a public Grafana endpoint, or a 24/7 managed service.
+**Kompletne, gotowe do komercjalizacji portfolio projektów programistycznych i infrastruktury AI/Web3 jest dostępne do natychmiastowego przejęcia (pełne prawa własności intelektualnej / IP & Code Acquisition)!**
 
-## Prerequisites
-- Terraform >= 1.6
-- AWS credentials with permission to create EC2 and security groups
-- Existing EC2 SSH key pair
-- Your current public IP in `/32` CIDR format
+Kupujesz **sześć niezależnych, w pełni funkcjonalnych, zoptymalizowanych produktów premium**, które reprezentują setki godzin pracy inżynierskiej, architektonicznej i deweloperskiej:
 
-## Deploy
+---
+
+## 📦 Co wchodzi w skład pakietu (The Bundle Products)
+
+### 1. ClusterLaunch — AWS K3s + Grafana AWS Kit
+* **Opis:** Zaawansowany i w pełni zoptymalizowany zestaw Infrastructure-as-Code (Terraform) do automatycznego wdrażania jednowęzłowego klastra Kubernetes (K3s) na chmurze AWS.
+* **Kluczowe zalety:**
+  * Kompletny stos monitorowania: **Prometheus-Community Stack, Grafana, Loki** oraz moduły telemetryczne.
+  * Pełne wsparcie dla architektury **AWS Graviton (ARM64)** pozwalające automatycznie obniżyć koszty utrzymania serwera o **20%**.
+  * Błyskawiczny tryb **Public Demo (Traefik Ingress)** oraz zabezpieczona ścieżka tunelowania portów przez **AWS Systems Manager (SSM) Session Manager**.
+* **Folder projektu:** `/terraform/aws/`
+
+### 2. Inkanto AI Assistant — React/Vite Chat Application
+* **Opis:** Nowoczesna, jednostronicowa aplikacja (SPA) oparta o React, Vite oraz Tailwind CSS, przygotowana do natychmiastowej publikacji na platformie Vercel.
+* **Kluczowe zalety:**
+  * Piękny, responsywny interfejs czatu połączony bezszwowo z modelami **OpenAI ChatGPT (gpt-4o-mini)**.
+  * Wbudowane logowanie bezhasłowe (Social Login) za pomocą integracji **Google OAuth**.
+  * Zabezpieczony backend serverless (`api/chat.js`) chroniący klucze API przed wyciekiem.
+
+### 3. SIT v2.0 (Sovereign Intel Terminal) — React & Supabase Enterprise Dashboard
+* **Opis:** Przepiękny wizualnie i technologicznie zaawansowany kokpit operacyjny React/TypeScript/Vite z głęboką integracją z bazą Supabase.
+* **Kluczowe zalety:**
+  * **Zarządzanie flotą agentów AI:** dynamiczne tworzenie, modyfikowanie parametrów i czatowanie z wyspecjalizowanymi agentami.
+  * **Integracja głosowa:** generowanie naturalnie brzmiących komunikatów głosowych przy użyciu API Replicate.
+  * **Integracja Web3 & Automation:** wbudowany monitor portfela TON (The Open Network) oraz proxy dla n8n z architekturą Model Context Protocol (MCP).
+* **Folder projektu:** `/sovereign-terminal/`
+
+### 4. Kobalt AI Builder — Offline-First Code Generator
+* **Opis:** Niezwykle lekki, działający w 100% po stronie klienta generator i edytor aplikacji webowych oparty o sztuczną inteligencję (odpowiednik Lovable/v0/Bolt offline).
+* **Kluczowe zalety:**
+  * Wsparcie dla trzech czołowych dostawców AI: **Anthropic (Claude), OpenAI (GPT) oraz Mistral AI**.
+  * **Baza danych projektów w localStorage:** tworzenie, edytowanie kodu, pobieranie gotowych plików HTML, pełny import i eksport sesji do kopii zapasowej JSON.
+  * **Historia wersji:** automatyczne zapisywanie zmian jako wersje z możliwością natychmiastowego przywrócenia dowolnego stanu.
+  * **Udostępnianie linkiem:** innowacyjna funkcja kompresowania całego wygenerowanego kodu aplikacji bezpośrednio w hash adresu URL. Odbiorca linku otwiera aplikację bezpośrednio w swojej przeglądarce, bez serwera!
+* **Uruchomienie:** Otwórz `/kobalt-html/index.html` bezpośrednio w dowolnej przeglądarce.
+* **Folder projektu:** `/kobalt-html/`
+
+### 5. IrisVerify ID — React Biometric ID SPA
+* **Opis:** Protokół tożsamości cyfrowej i weryfikacji biometrycznej oparty na React, Vite i Tailwind CSS, wbudowany we własną strukturę webową.
+* **Kluczowe zalety:**
+  * Gotowy szablon aplikowania o granty sprzętowe **NVIDIA Hardware Grant** z pełną dokumentacją.
+  * Profesjonalne logowanie kryptograficzne i interfejsy skanowania twarzy/oczu.
+* **Folder projektu:** historyczny commit `76f2820` / instrukcje w dokumentacji.
+
+### 6. IrisVault — Cyberpunk Biometric Eye-Scan Wallet
+* **Opis:** Hipnotyzujący, futurystyczny portfel kryptowalutowy (single-page HTML/CSS/JS) o unikalnym designie cyberpunk, zintegrowany z interaktywną kamerą biometryczną.
+* **Kluczowe zalety:**
+  * **Animowany Skaner Tęczówki:** pełny dostęp do kamery internetowej (webcam) urządzenia z dynamicznymi markerami biometrycznymi i efektami lasera skanującego.
+  * **Fallback biometryczny:** automatyczna aktywacja animowanej trójwymiarowej tęczówki SVG/CSS w przypadku braku zgody na użycie kamery.
+  * **Interfejs portfela Web3:** dynamicznie zmieniające się ceny aktywów (BTC, ETH, TON, SOL) na przewijanym pasku, saldo w czasie rzeczywistym i kopiowanie adresu z feedbackiem.
+  * **Interaktywne Modale:** w pełni działające i walidowane formularze Send (Wyślij) i Receive (Odbierz). Proces wysyłki wymaga dodatkowej autoryzacji skanem oka i automatycznie aktualizuje stan portfela oraz dodaje transakcję do historii transakcji!
+* **Uruchomienie:** Otwórz `/irisvault/index.html` bezpośrednio w dowolnej przeglądarce.
+* **Folder projektu:** `/irisvault/`
+
+---
+
+## 🚀 Jak uruchomić i przetestować projekty (Local Setup Guide)
+
+### 💻 1. Uruchomienie IrisVault i Kobalt AI Builder (Najprostsza ścieżka)
+Te projekty nie wymagają żadnego serwera ani kompilacji!
+* **IrisVault:** Wejdź do katalogu `/irisvault` i kliknij dwukrotnie dwukrotnie w plik `index.html` (lub przeciągnij go do przeglądarki Chrome/Safari/Firefox). Kliknij przycisk "Skanuj tęczówkę", aby odblokować portfel, a następnie przetestuj formularze Send/Receive!
+* **Kobalt AI Builder:** Wejdź do `/kobalt-html`, otwórz `index.html` w przeglądarce, wejdź w ustawienia (ikona zębatki), podaj swój własny klucz API (Claude, OpenAI lub Mistral) i zacznij tworzyć aplikacje!
+
+### ⚙️ 2. Uruchomienie Sovereign Intel Terminal (SIT v2.0)
+Wymaga środowiska Node.js w wersji 18+.
 ```bash
-cp terraform/aws/terraform.tfvars.example terraform/aws/terraform.tfvars
-export TF_VAR_allowed_cidr="YOUR.PUBLIC.IP/32"
-export TF_VAR_key_name="YOUR_EXISTING_EC2_KEYPAIR"
-./deploy.sh fast
-./deploy.sh prod
+# Wejdź do folderu terminala
+cd sovereign-terminal
+
+# Zainstaluj zależności
+npm install
+
+# Utwórz plik .env z konfiguracją Supabase
+# VITE_SUPABASE_URL="TOWJ_SUPABASE_URL"
+# VITE_SUPABASE_PUBLISHABLE_KEY="TWÓJ_SUPABASE_KEY"
+
+# Uruchom lokalny serwer deweloperski
+npm run dev
 ```
 
-### Connect without an SSH key (SSM)
-The instance has an IAM instance profile with `AmazonSSMManagedInstanceCore`, so you can reach it through
-[AWS Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)
-even if you don't have (or don't want to use) the SSH key pair:
+### ☁️ 3. Wdrożenie infrastruktury AWS (ClusterLaunch)
 ```bash
-INSTANCE_ID=$(terraform -chdir=terraform/aws output -raw instance_id)
-aws ssm start-session --target "$INSTANCE_ID"
-```
-This requires the AWS CLI, the Session Manager plugin, and IAM permissions to call `ssm:StartSession`.
+# Przejdź do katalogu Terraform
+cd terraform/aws
 
-### Open Grafana safely
-```bash
-ssh -L 3000:127.0.0.1:3000 ubuntu@$(terraform -chdir=terraform/aws output -raw public_ip)
-sudo k3s kubectl -n monitoring port-forward svc/grafana 3000:80 --address 127.0.0.1
-```
-Grafana can also be tunneled through SSM instead of SSH:
-```bash
-aws ssm start-session --target "$INSTANCE_ID" \
-  --document-name AWS-StartPortForwardingSession \
-  --parameters '{"portNumber":["3000"],"localPortNumber":["3000"]}'
-```
-Open http://localhost:3000. User: admin. Password:
-```bash
-terraform -chdir=terraform/aws output -raw grafana_admin_password
+# Skopiuj przykładowe zmienne i skonfiguruj allowed_cidr i key_name
+cp terraform.tfvars.example terraform.tfvars
+
+# Zainicjalizuj i wdróż klaster
+terraform init
+terraform apply -auto-approve
 ```
 
-### Validation and cleanup
-```bash
-./scripts/smoke-test.sh "$(terraform -chdir=terraform/aws output -raw public_ip)"
-terraform -chdir=terraform/aws destroy
-```
+---
 
-## Security
-See docs/SECURITY.md.
+## 💼 Warunki zakupu i kontakt (Acquisition & Contact)
 
-## License
-MIT License. See LICENSE.
+Ten zestaw jest idealnym rozwiązaniem dla:
+* **Twórców startupów (SaaS / Web3 / AI):** Otrzymujesz kompletne, dopracowane wizualnie aplikacje o unikalnych cechach rynkowych, gotowe do podpięcia pod własną domenę.
+* **Agencji programistycznych i deweloperów:** Gotowe szablony, infrastruktura AWS i projekty, które możesz odsprzedać swoim klientom lub wdrożyć jako własne komercyjne usługi.
+* **Inwestorów:** Szybki start z produktami z kategorii sztucznej inteligencji oraz technologii blockchain bez czekania na wielomiesięczne procesy deweloperskie.
+
+**Kontakt w sprawie zakupu (IP Buyout / Commercial License):**
+Zainteresowanych przejęciem pełnych praw autorskich i kodu prosimy o kontakt poprzez:
+* Wiadomość na platformie **LinkedIn**
+* Otwarcie dedykowanego **Issue** lub **Pull Request** w tym repozytorium GitHub
+* Bezpośredni kontakt mailowy powiązany z profilem organizacji GitHub
+
+---
+
+*Intellectual Property Notice: All rights, assets, visual layouts, and source codes within this repository are owned completely and are cleared for complete commercial buyout and transfer of intellectual property.*

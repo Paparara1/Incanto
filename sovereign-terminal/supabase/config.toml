@@ -1,0 +1,13 @@
+project_id = "fogaylmfzikozmvlsypp"
+
+[functions.generate-voice]
+verify_jwt = false
+
+[functions.agent-chat]
+verify_jwt = false
+
+[functions.callmebot-notify]
+verify_jwt = false
+
+[functions.n8n-mcp-proxy]
+verify_jwt = false
