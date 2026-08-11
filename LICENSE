@@ -1,13 +1,55 @@
-MIT License
+PROPRIETARY EVALUATION & NON-COMMERCIAL SOURCE LICENSE v1.0
+Copyright (c) 2026 Paulina Jakubowska. All rights reserved.
 
-Copyright (c) 2026 Paulina Jakubowska
+This license governs use of the accompanying software (the "Software").
+If you use the Software, you accept this license. If you do not accept the
+license, do not use the Software.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to inclusion of this notice.
+1. Definitions
+The terms "reproduce," "reproduction," "derivative works," and "distribution"
+have the same meaning here as under U.S. or international copyright law.
+A "Commercial Use" is any use of the Software by a commercial entity or other
+organization, or on behalf of a commercial entity or other organization,
+intended for or directed toward commercial advantage or private monetary
+compensation, including but not limited to integration into SaaS products,
+proprietary internal tooling, or production deployments.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. Grant of Rights
+(A) Non-Commercial Evaluation License: Subject to the terms of this license,
+    the Licensor grants you a non-exclusive, non-transferable, royalty-free,
+    worldwide copyright license to reproduce, run, and modify the Software
+    solely for the purposes of internal evaluation, technical audit,
+    due-diligence, and educational non-commercial study.
+(B) No Commercial Use: This license does not grant you any right to use the
+    Software or any derivative works for any Commercial Use. If you wish to
+    use the Software for commercial purposes, you must negotiate and execute
+    a separate written Commercial Agreement with the Licensor.
+(C) Patent Grant-back: You grant the Licensor a non-exclusive, royalty-free,
+    worldwide, perpetual, irrevocable license under any patents you own or
+    control to make, use, sell, or offer for sale any modifications or
+    contributions you make to the Software.
+
+3. Conditions and Limitations
+(A) Attribution: You must retain all copyright, patent, trademark, and
+    attribution notices contained in the Software.
+(B) Redistribution: You may redistribute the Software and modifications
+    thereto only for evaluation and non-commercial purposes, and only under
+    this license. Any recipient must agree to the terms of this license.
+(C) Warranties: THE SOFTWARE IS PROVIDED "AS IS" WITH NO WARRANTIES OF ANY
+    KIND, EXPRESS, IMPLIED, OR STATUTORY, INCLUDING WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+(D) Limitation of Liability: IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY
+    DAMAGES WHATSOEVER (INCLUDING DIRECT, INDIRECT, SPECIAL, INCIDENTAL,
+    CONSEQUENTIAL, OR PUNITIVE) ARISING OUT OF OR IN CONNECTION WITH THE USE
+    OR PERFORMANCE OF THE SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+    SUCH DAMAGES.
+
+---
+
+For inquiries regarding commercial licensing, production deployments, or
+full IP buyout/transfer options, please refer to COMMERCIAL_TERMS.md or
+contact the Lead Architect directly:
+
+- Lead Architect: Paulina Jakubowska
+- Direct Email: mepaulaj@gmail.com
+- WhatsApp: +49 152 10200523

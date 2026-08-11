@@ -1,121 +1,127 @@
-# Premium Multi-Project AI & Web3 Portfolio Bundle for Sale
+# 💼 [COMMERCIAL ASSET] Production-Ready BCI / Biometric Engine — Full IP Buyout & Source Code Transfer Available
 
 ---
 
-### 🌟 PAKIET SEŚCIU PROJEKTÓW PREMIUM NA SPRZEDAŻ / COMMERCIAL IP ACQUISITION BUNDLE 🌟
+## 🔔 IMPORTANT NOTICE FOR M&A BUYERS, STRATEGIC INVESTORS, AND B2B PARTNERS
+This repository contains high-value, production-ready proprietary software assets representing **Perceptio Neuro Labs** (Advanced Brain-Computer Interface / EEG Processing Engine) and **IrisVerify & IrisVault** (Zero-Hardware Web-Cam Biometrics & Digital Identity Protocol).
 
-**Kompletne, gotowe do komercjalizacji portfolio projektów programistycznych i infrastruktury AI/Web3 jest dostępne do natychmiastowego przejęcia (pełne prawa własności intelektualnej / IP & Code Acquisition)!**
-
-Kupujesz **sześć niezależnych, w pełni funkcjonalnych, zoptymalizowanych produktów premium**, które reprezentują setki godzin pracy inżynierskiej, architektonicznej i deweloperskiej:
+The full intellectual property (IP), copyrights, custom design assets, and clean codebase are **fully cleared and immediately available for outright buyout, strategic M&A transfer, or exclusive commercial licensing**.
 
 ---
 
-## 📦 Co wchodzi w skład pakietu (The Bundle Products)
+## 📋 QUICK-COPY FOR MOBILE REPOSITORY CONFIGURATION (GitHub Settings)
+For quick, self-service mobile setup in your repository's "About" section, use the following configurations:
 
-### 1. ClusterLaunch — AWS K3s + Grafana AWS Kit
-* **Opis:** Zaawansowany i w pełni zoptymalizowany zestaw Infrastructure-as-Code (Terraform) do automatycznego wdrażania jednowęzłowego klastra Kubernetes (K3s) na chmurze AWS.
-* **Kluczowe zalety:**
-  * Kompletny stos monitorowania: **Prometheus-Community Stack, Grafana, Loki** oraz moduły telemetryczne.
-  * Pełne wsparcie dla architektury **AWS Graviton (ARM64)** pozwalające automatycznie obniżyć koszty utrzymania serwera o **20%**.
-  * Błyskawiczny tryb **Public Demo (Traefik Ingress)** oraz zabezpieczona ścieżka tunelowania portów przez **AWS Systems Manager (SSM) Session Manager**.
-* **Folder projektu:** `/terraform/aws/`
+* **Repository Description (About):**
+  ```text
+  [COMMERCIAL ASSET] Production-Ready BCI / Biometric Engine — Full IP Buyout & Source Code Transfer Available.
+  ```
+* **Repository Tags (Topics):**
+  ```text
+  ip-for-sale, bci-backend, fastapi, biometrics, computer-vision, pre-revenue-mvp, tech-transfer, healthtech, web3-kyc
+  ```
 
-### 2. Inkanto AI Assistant — React/Vite Chat Application
-* **Opis:** Nowoczesna, jednostronicowa aplikacja (SPA) oparta o React, Vite oraz Tailwind CSS, przygotowana do natychmiastowej publikacji na platformie Vercel.
-* **Kluczowe zalety:**
-  * Piękny, responsywny interfejs czatu połączony bezszwowo z modelami **OpenAI ChatGPT (gpt-4o-mini)**.
-  * Wbudowane logowanie bezhasłowe (Social Login) za pomocą integracji **Google OAuth**.
-  * Zabezpieczony backend serverless (`api/chat.js`) chroniący klucze API przed wyciekiem.
+---
+
+## 💼 Acquisition, IP Transfer & Demo Enquiries
+
+This repository and all associated IP rights are managed directly by **Lead Architect Paulina Jakubowska**.
+
+- 📬 **Direct Email:** [mepaulaj@gmail.com](mailto:mepaulaj@gmail.com)
+- 📱 **WhatsApp:** [+49 152 10200523](https://wa.me/4915210200523)
+- 🤖 **Interactive AI Tech Due-Diligence:** [Query AI Assistant](https://gemini.google.com/gem/1QHIxxFOrzSsXBZneFb-B2UmCz2JygBnj?usp=sharing)
+- 🔐 **Confidential Repo Access / Live Screen-Share:** Available upon request via Email/WhatsApp (Mutual NDA draft ready).
+
+For more details on commercial pricing models and acquisition structures, see [COMMERCIAL_TERMS.md](./COMMERCIAL_TERMS.md).
+
+---
+
+## 🎯 Executive Summary
+This enterprise-grade software bundle presents a pre-revenue, production-ready MVP combining **NeuroTech (Brain-Computer Interface)** and **Biometrics (Digital Identity Verification)** into an easily integrated suite. Built on a modular, high-performance architecture featuring **FastAPI**, real-time **WebSockets**, and client-side **Computer Vision**, it delivers low-latency EEG signal processing alongside zero-hardware webcam iris scanning. Designed for seamless cloud deployment, it offers immediate market readiness for HealthTech platforms, secure defense applications, or Web3 KYC protocols.
+
+---
+
+## 💎 Core Commercial IP Assets
+
+### 🧠 1. Perceptio Neuro Labs — High-Performance BCI & EEG Engine
+* **Technology Stack:** ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python) ![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?logo=fastapi) ![WebSockets](https://img.shields.io/badge/WebSockets-Real--time-orange) ![SciPy/NumPy](https://img.shields.io/badge/SciPy%20%2F%20NumPy-Math-blue)
+* **Underlying Architecture:**
+  * **Low-Latency Signal Processing:** Real-time ingestion and filtering of raw EEG (electroencephalogram) signals using advanced mathematical pipelines (such as bandpass filtering, FFT, and noise-canceling algorithms).
+  * **Unified Telemetry Bridge:** Dynamic WebSocket endpoints that process multi-channel telemetry streams from non-invasive consumer or medical neuro-interfaces.
+  * **Modular Extensibility:** Clean Python modules designed to easily integrate custom AI/ML classifier models for real-time focus, fatigue, or cognitive load detection.
+* **Ready-to-Deploy Assets:** Fully structured backend services, interactive telemetry dashboards in the terminal, and mock signal generator tools.
+
+### 👁️ 2. IrisVerify ID & IrisVault — Zero-Hardware Webcam Biometric Protocol
+* **Technology Stack:** ![React](https://img.shields.io/badge/React-18%2B-blue?logo=react) ![TypeScript](https://img.shields.io/badge/TypeScript-5%2B-blue?logo=typescript) ![Tailwind CSS](https://img.shields.io/badge/Tailwind--CSS-3%2B-38B2AC?logo=tailwind-css) ![HTML5 Canvas](https://img.shields.io/badge/HTML5%20Canvas-Biometric--Overlay-lightgrey)
+* **Underlying Architecture:**
+  * **Zero-Hardware Iris/Face Biometrics:** Operates via a standard integrated webcam without requiring specialized physical sensors.
+  * **Dynamic Laser Skaner & Canvas Overlay:** Beautifully engineered real-time client-side coordinate detection engine, drawing dynamic scanning overlays, focal points, and biometric grids directly onto user webcam video streams.
+  * **Interactive Cyberpunk Biometric Wallet:** Features a stunning iris-scan verification loop that handles local state machine transition, sends transactions upon successful webcam authorization, and updates local secure vault state.
+  * **Reliable SVG Canvas Fallback:** Automatically registers absence of camera permissions and activates an animated 3D-styled SVG/CSS fallback, maintaining beautiful UX across all platforms.
+* **Ready-to-Deploy Assets:**
+  * **IrisVault Single-Page Wallet:** Found in `/irisvault/index.html` (run instantly inside any browser without build steps).
+  * **IrisVerify Protocol Template:** Standard templates for NVIDIA Hardware Grant applications and cryptographic login schemas.
+
+---
+
+## 🛠️ Code Quality, Audit & Security Highlights
+This repository is engineered to strict enterprise standards, making it prime for immediate technical acquisition:
+* **CodeRabbit & Jules AI Approved:** Audited for clean patterns, architectural decoupling, and strict linting.
+* **Zero Technical Debt:** Complete type safety, highly reusable component structures, and separated presentation and logic concerns.
+* **Production-Ready CI/CD:** Fully automated GitHub Actions workflow to run lint checks, format rules, and dependency audits.
+* **No Hardcoded Secrets:** Strict environment variable isolation using `.env.example` templates, ensuring zero secrets leak into version history.
+
+---
+
+## 📦 Supplementary Assets Included in the Bundle
+To maximize acquisition value and lower your engineering time-to-market, the buyout includes four additional premium, fully integrated infrastructure and software modules:
 
 ### 3. SIT v2.0 (Sovereign Intel Terminal) — React & Supabase Enterprise Dashboard
-* **Opis:** Przepiękny wizualnie i technologicznie zaawansowany kokpit operacyjny React/TypeScript/Vite z głęboką integracją z bazą Supabase.
-* **Kluczowe zalety:**
-  * **Zarządzanie flotą agentów AI:** dynamiczne tworzenie, modyfikowanie parametrów i czatowanie z wyspecjalizowanymi agentami.
-  * **Integracja głosowa:** generowanie naturalnie brzmiących komunikatów głosowych przy użyciu API Replicate.
-  * **Integracja Web3 & Automation:** wbudowany monitor portfela TON (The Open Network) oraz proxy dla n8n z architekturą Model Context Protocol (MCP).
-* **Folder projektu:** `/sovereign-terminal/`
+* **Capabilities:** Highly polished, sci-fi styled control panel designed to monitor distributed AI agents, interact with generative voice models (Replicate API), track Web3 wallets (TON Network), and configure automated workflows (n8n & Model Context Protocol).
+* **Location:** `/sovereign-terminal/`
 
-### 4. Kobalt AI Builder — Offline-First Code Generator
-* **Opis:** Niezwykle lekki, działający w 100% po stronie klienta generator i edytor aplikacji webowych oparty o sztuczną inteligencję (odpowiednik Lovable/v0/Bolt offline).
-* **Kluczowe zalety:**
-  * Wsparcie dla trzech czołowych dostawców AI: **Anthropic (Claude), OpenAI (GPT) oraz Mistral AI**.
-  * **Baza danych projektów w localStorage:** tworzenie, edytowanie kodu, pobieranie gotowych plików HTML, pełny import i eksport sesji do kopii zapasowej JSON.
-  * **Historia wersji:** automatyczne zapisywanie zmian jako wersje z możliwością natychmiastowego przywrócenia dowolnego stanu.
-  * **Udostępnianie linkiem:** innowacyjna funkcja kompresowania całego wygenerowanego kodu aplikacji bezpośrednio w hash adresu URL. Odbiorca linku otwiera aplikację bezpośrednio w swojej przeglądarce, bez serwera!
-* **Uruchomienie:** Otwórz `/kobalt-html/index.html` bezpośrednio w dowolnej przeglądarce.
-* **Folder projektu:** `/kobalt-html/`
+### 4. Kobalt AI Builder — Offline-First Code Generator Workspace
+* **Capabilities:** Lightweight, browser-based React/HTML generator workspace utilizing Claude, GPT-4, or Mistral. Features automatic version backups to `localStorage`, visual editing workspace, and offline-first JSON project import/export.
+* **Location:** `/kobalt-html/`
 
-### 5. IrisVerify ID — React Biometric ID SPA
-* **Opis:** Protokół tożsamości cyfrowej i weryfikacji biometrycznej oparty na React, Vite i Tailwind CSS, wbudowany we własną strukturę webową.
-* **Kluczowe zalety:**
-  * Gotowy szablon aplikowania o granty sprzętowe **NVIDIA Hardware Grant** z pełną dokumentacją.
-  * Profesjonalne logowanie kryptograficzne i interfejsy skanowania twarzy/oczu.
-* **Folder projektu:** historyczny commit `76f2820` / instrukcje w dokumentacji.
+### 5. ClusterLaunch — AWS K3s & Grafana Observability Kit
+* **Capabilities:** Production-ready Terraform (IaC) configuration utilizing AWS Graviton (ARM64) to spin up low-cost single-node K3s clusters equipped with a pre-configured Prometheus community monitoring stack, Grafana dashboards, Loki logging, and Traefik Ingress.
+* **Location:** `/terraform/aws/`
 
-### 6. IrisVault — Cyberpunk Biometric Eye-Scan Wallet
-* **Opis:** Hipnotyzujący, futurystyczny portfel kryptowalutowy (single-page HTML/CSS/JS) o unikalnym designie cyberpunk, zintegrowany z interaktywną kamerą biometryczną.
-* **Kluczowe zalety:**
-  * **Animowany Skaner Tęczówki:** pełny dostęp do kamery internetowej (webcam) urządzenia z dynamicznymi markerami biometrycznymi i efektami lasera skanującego.
-  * **Fallback biometryczny:** automatyczna aktywacja animowanej trójwymiarowej tęczówki SVG/CSS w przypadku braku zgody na użycie kamery.
-  * **Interfejs portfela Web3:** dynamicznie zmieniające się ceny aktywów (BTC, ETH, TON, SOL) na przewijanym pasku, saldo w czasie rzeczywistym i kopiowanie adresu z feedbackiem.
-  * **Interaktywne Modale:** w pełni działające i walidowane formularze Send (Wyślij) i Receive (Odbierz). Proces wysyłki wymaga dodatkowej autoryzacji skanem oka i automatycznie aktualizuje stan portfela oraz dodaje transakcję do historii transakcji!
-* **Uruchomienie:** Otwórz `/irisvault/index.html` bezpośrednio w dowolnej przeglądarce.
-* **Folder projektu:** `/irisvault/`
+### 6. Inkanto AI Assistant — React/Vite Chat Application
+* **Capabilities:** Seamless serverless chatbot built in React with full Google OAuth integration and serverless proxy routes (`api/chat.js`) protecting OpenAI ChatGPT API tokens.
+* **Location:** Root & standalone layouts.
 
 ---
 
-## 🚀 Jak uruchomić i przetestować projekty (Local Setup Guide)
+## 🚀 Instant Local Setup & Testing
 
-### 💻 1. Uruchomienie IrisVault i Kobalt AI Builder (Najprostsza ścieżka)
-Te projekty nie wymagają żadnego serwera ani kompilacji!
-* **IrisVault:** Wejdź do katalogu `/irisvault` i kliknij dwukrotnie dwukrotnie w plik `index.html` (lub przeciągnij go do przeglądarki Chrome/Safari/Firefox). Kliknij przycisk "Skanuj tęczówkę", aby odblokować portfel, a następnie przetestuj formularze Send/Receive!
-* **Kobalt AI Builder:** Wejdź do `/kobalt-html`, otwórz `index.html` w przeglądarce, wejdź w ustawienia (ikona zębatki), podaj swój własny klucz API (Claude, OpenAI lub Mistral) i zacznij tworzyć aplikacje!
+### 1. Web Biometric Engine (IrisVault)
+No local server or package installs are needed.
+* Navigate to the `/irisvault` folder and double-click `index.html` to open it in Chrome/Safari/Firefox.
+* Authorize webcam access to test the real-time laser scanning, or reject to view the animated SVG/CSS biometric fallback.
 
-### ⚙️ 2. Uruchomienie Sovereign Intel Terminal (SIT v2.0)
-Wymaga środowiska Node.js w wersji 18+.
+### 2. Sovereign Intel Terminal (SIT v2.0)
+Requires Node.js 18+.
 ```bash
-# Wejdź do folderu terminala
 cd sovereign-terminal
-
-# Zainstaluj zależności
 npm install
-
-# Utwórz plik .env z konfiguracją Supabase
-# VITE_SUPABASE_URL="TOWJ_SUPABASE_URL"
-# VITE_SUPABASE_PUBLISHABLE_KEY="TWÓJ_SUPABASE_KEY"
-
-# Uruchom lokalny serwer deweloperski
 npm run dev
 ```
 
-### ☁️ 3. Wdrożenie infrastruktury AWS (ClusterLaunch)
+### 3. AWS Infrastructure (ClusterLaunch)
+Requires Terraform >= 1.6.0 and AWS credentials.
 ```bash
-# Przejdź do katalogu Terraform
 cd terraform/aws
-
-# Skopiuj przykładowe zmienne i skonfiguruj allowed_cidr i key_name
 cp terraform.tfvars.example terraform.tfvars
-
-# Zainicjalizuj i wdróż klaster
 terraform init
 terraform apply -auto-approve
 ```
 
 ---
 
-## 💼 Warunki zakupu i kontakt (Acquisition & Contact)
+## 🔐 Licensing Terms
 
-Ten zestaw jest idealnym rozwiązaniem dla:
-* **Twórców startupów (SaaS / Web3 / AI):** Otrzymujesz kompletne, dopracowane wizualnie aplikacje o unikalnych cechach rynkowych, gotowe do podpięcia pod własną domenę.
-* **Agencji programistycznych i deweloperów:** Gotowe szablony, infrastruktura AWS i projekty, które możesz odsprzedać swoim klientom lub wdrożyć jako własne komercyjne usługi.
-* **Inwestorów:** Szybki start z produktami z kategorii sztucznej inteligencji oraz technologii blockchain bez czekania na wielomiesięczne procesy deweloperskie.
+This repository's public branch is strictly distributed under the **Proprietary Evaluation & Non-Commercial Source License v1.0** (refer to [LICENSE](./LICENSE)).
 
-**Kontakt w sprawie zakupu (IP Buyout / Commercial License):**
-Zainteresowanych przejęciem pełnych praw autorskich i kodu prosimy o kontakt poprzez:
-* Wiadomość na platformie **LinkedIn**
-* Otwarcie dedykowanego **Issue** lub **Pull Request** w tym repozytorium GitHub
-* Bezpośredni kontakt mailowy powiązany z profilem organizacji GitHub
-
----
-
-*Intellectual Property Notice: All rights, assets, visual layouts, and source codes within this repository are owned completely and are cleared for complete commercial buyout and transfer of intellectual property.*
+**Any commercial use, production deployment, or redistribution for profit is strictly prohibited without a valid, signed Commercial Agreement from Paulina Jakubowska.**

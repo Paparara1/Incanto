@@ -1,2 +1,55 @@
-# Local gitignore adjustments
-sovereign-terminal/
+# Global .gitignore for commercial asset readiness
+
+# Node.js
+node_modules/
+dist/
+build/
+.npm
+*.log
+package-lock.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+.coverage
+
+# Environment Variables & Secrets (CRITICAL)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.pub
+secret.txt
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Terraform / Infrastructure
+.terraform/
+*.tfstate
+*.tfstate.backup
+crash.log
+terraform.tfvars
+override.tf
+override.tf.json
+_override.tf
+_override.tf.json
+
+# OS files
+.DS_Store
+Thumbs.db
