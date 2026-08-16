@@ -1,5 +1,9 @@
 # SIT v2.0 - Self-Hosting Guide
 
+[![Wspieraj projekt / Support Project](https://img.shields.io/badge/💖%20Wspieraj%20mnie%20%2F%20Donate-Donatr-ff69b4?style=for-the-badge&logo=heart)](https://donatr.ee/ojjja?utm_source=copy&utm_medium=share)
+
+> **💖 Wspieraj rozwój projektu / Support Development:** [Wspieraj twórcę na Donatr / Donate via Donatr](https://donatr.ee/ojjja?utm_source=copy&utm_medium=share)
+
 ## Wymagania
 - Node.js 18+ lub Bun
 - Supabase CLI

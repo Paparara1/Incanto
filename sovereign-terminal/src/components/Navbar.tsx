@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Shield, MessageCircle, Home, LogOut, LogIn, Bot, Cpu, Zap, Brain } from "lucide-react";
+import { Shield, MessageCircle, Home, LogOut, LogIn, Bot, Cpu, Zap, Brain, Heart } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
@@ -30,7 +30,21 @@ const Navbar = () => {
           </span>
         </Link>
 
-        <div className="flex items-center gap-0.5">
+        <div className="flex items-center gap-1.5">
+          <a
+            href="https://donatr.ee/ojjja?utm_source=copy&utm_medium=share"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-1.5 text-xs text-pink-400 border-pink-500/30 hover:bg-pink-500/10 hover:text-pink-300"
+            >
+              <Heart className="h-3.5 w-3.5 text-pink-500 fill-pink-500" />
+              <span className="hidden sm:inline">Donate</span>
+            </Button>
+          </a>
           {links.map((link) => {
             const Icon = link.icon;
             const isActive = location.pathname === link.to;
