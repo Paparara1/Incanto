@@ -1,5 +1,7 @@
 # Security defaults
 
+[![Wspieraj projekt / Support Project](https://img.shields.io/badge/💖%20Wspieraj%20mnie%20%2F%20Donate-Donatr-ff69b4?style=for-the-badge&logo=heart)](https://donatr.ee/ojjja?utm_source=copy&utm_medium=share)
+
 - Terraform requires `TF_VAR_allowed_cidr`; SSH and the Kubernetes API are never open to the world by default.
 - Grafana is `ClusterIP` only. Access it through an SSH tunnel, not a public NodePort.
 - Grafana admin password is supplied as a Terraform sensitive variable; do not commit tfvars or state files.

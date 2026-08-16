@@ -88,6 +88,12 @@ const Index = () => {
                     Zobacz moich agentów
                   </Button>
                 </Link>
+                <a href="https://donatr.ee/ojjja?utm_source=copy&utm_medium=share" target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" size="lg" className="border-pink-500/40 text-pink-400 hover:bg-pink-500/10 hover:text-pink-300">
+                    <Heart className="h-4 w-4 mr-2 text-pink-500 fill-pink-500" />
+                    Wspieraj projekt / Donate
+                  </Button>
+                </a>
               </div>
             </motion.div>
 
