@@ -1,5 +1,17 @@
 # Premium Multi-Project AI & Web3 Portfolio Bundle for Sale
 
+[![Wspieraj projekt / Support Project](https://img.shields.io/badge/💖%20Wspieraj%20mnie%20%2F%20Donate-Donatr-ff69b4?style=for-the-badge&logo=heart)](https://donatr.ee/ojjja?utm_source=copy&utm_medium=share)
+
+---
+
+### 💖 Wspieraj rozwój / Support Development
+
+Jeśli doceniasz naszą pracę i chcieć wesprzeć dalszy rozwój projektu, możesz przekazać dobrowolny datek:
+**[👉 Kliknij tutaj, aby przekazać wsparcie (Donatr) 👈](https://donatr.ee/ojjja?utm_source=copy&utm_medium=share)**
+
+If you appreciate this work and would like to support future development, consider sending a donation:
+**[👉 Click here to donate via Donatr 👈](https://donatr.ee/ojjja?utm_source=copy&utm_medium=share)**
+
 ---
 
 ### 🌟 PAKIET SEŚCIU PROJEKTÓW PREMIUM NA SPRZEDAŻ / COMMERCIAL IP ACQUISITION BUNDLE 🌟

@@ -1,4 +1,10 @@
-# Welcome to your Lovable project
+# Sovereign Intel Terminal (SIT v2.0)
+
+[![Wspieraj projekt / Support Project](https://img.shields.io/badge/💖%20Wspieraj%20mnie%20%2F%20Donate-Donatr-ff69b4?style=for-the-badge&logo=heart)](https://donatr.ee/ojjja?utm_source=copy&utm_medium=share)
+
+## 💖 Wspieraj rozwój / Support Development
+Podobają Ci się nasze narzędzia AI? Przekaż dobrowolne wsparcie:
+[👉 Wspieraj projekt na Donatr 👈](https://donatr.ee/ojjja?utm_source=copy&utm_medium=share)
 
 ## Project info
 

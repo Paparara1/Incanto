@@ -16,6 +16,10 @@
   header .logo{font-weight:800;font-size:18px;letter-spacing:.5px}
   header .logo span{color:var(--acc)}
   header .sub{font-size:11px;color:var(--mut);margin-left:auto;white-space:nowrap}
+  .donatebtn{background:linear-gradient(135deg,#ec4899,#be185d);border:none;color:#fff;
+    border-radius:8px;padding:6px 11px;font-size:12px;font-weight:700;text-decoration:none;
+    display:inline-flex;align-items:center;gap:4px;cursor:pointer;transition:transform .15s}
+  .donatebtn:hover{transform:scale(1.04);box-shadow:0 0 10px rgba(236,72,153,.5)}
   .iconbtn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);
     border-radius:8px;padding:7px 9px;font-size:13px;cursor:pointer}
   .iconbtn:active{transform:scale(.96)}
@@ -89,6 +93,7 @@
 
 <header>
   <div class="logo">Ko<span>balt</span></div>
+  <a href="https://donatr.ee/ojjja?utm_source=copy&utm_medium=share" target="_blank" rel="noopener noreferrer" class="donatebtn" title="Wspieraj projekt / Donate">💖 Wspieraj / Donate</a>
   <div class="sub" id="status">gotowy</div>
   <button class="iconbtn" id="verBtn" title="Wersje">&#128338;</button>
   <button class="iconbtn" id="histBtn" title="Projekty">&#128451;</button>

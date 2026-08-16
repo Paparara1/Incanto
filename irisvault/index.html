@@ -75,6 +75,21 @@ body::after{
 .brand{font-family:var(--dis);font-size:12px;font-weight:700;letter-spacing:.24em;color:var(--cyan);user-select:none}
 .brand em{color:var(--text3);font-style:normal}
 .hdr-right{display:flex;align-items:center;gap:8px}
+.donate-hdr-btn{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--mono);font-size:9px;font-weight:700;color:#fff;
+  background:linear-gradient(135deg,rgba(255,45,107,.3),rgba(255,45,107,.15));
+  border:1px solid rgba(255,45,107,.5);
+  border-radius:100px;padding:4px 10px;text-decoration:none;
+  box-shadow:0 0 10px rgba(255,45,107,.2);
+  transition:all .2s var(--ease);
+}
+.donate-hdr-btn:hover{
+  background:rgba(255,45,107,.4);
+  border-color:var(--pink);
+  box-shadow:0 0 15px rgba(255,45,107,.4);
+  transform:scale(1.03);
+}
 .net-badge{
   display:flex;align-items:center;gap:5px;
   font-family:var(--mono);font-size:9px;color:var(--text2);
@@ -456,6 +471,7 @@ body::after{
   <header class="hdr">
     <div class="brand">IRIS<em>VAULT</em></div>
     <div class="hdr-right">
+      <a href="https://donatr.ee/ojjja?utm_source=copy&utm_medium=share" target="_blank" rel="noopener noreferrer" class="donate-hdr-btn">💖 Wspieraj / Donate</a>
       <div class="net-badge">
         <span class="ndot"></span>
         <span>MAINNET</span>
@@ -643,7 +659,10 @@ body::after{
       Zablokuj i zaszyfruj portfel
     </button>
 
-    <div class="footer-note">IrisVault Terminal v1.0.9 — Zero Trust Biometric Wallet</div>
+    <div class="footer-note">
+      IrisVault Terminal v1.0.9 — Zero Trust Biometric Wallet<br/>
+      <a href="https://donatr.ee/ojjja?utm_source=copy&utm_medium=share" target="_blank" rel="noopener noreferrer" style="color:var(--pink);text-decoration:none;font-weight:600;display:inline-block;margin-top:4px">💖 Wspieraj twórcę na Donatr / Support creator</a>
+    </div>
   </section>
 </div>
 
