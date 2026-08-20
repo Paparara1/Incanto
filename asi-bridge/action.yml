@@ -1,0 +1,48 @@
+name: "ASI BRIDGE — Intent compiler"
+description: "Compile human intent into spec artifacts (Intent → Spec). FastAPI scaffold companion action."
+branding:
+  color: "blue"
+  icon: "tools"
+inputs:
+  intent:
+    description: "Textual intent to compile"
+    required: true
+  output_format:
+    description: "Format of the compiled spec (openapi|json|yaml)"
+    required: false
+    default: "openapi"
+  language:
+    description: "Target implementation language for generated artifact"
+    required: false
+    default: "python"
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+
+    - name: Install requirements (if present)
+      shell: bash
+      run: |
+        if [ -f asi-bridge/requirements.txt ]; then
+          python -m pip install --upgrade pip
+          pip install -r asi-bridge/requirements.txt
+        fi
+
+    - name: Run compiler (example)
+      shell: bash
+      run: |
+        python - <<'PY'
+        import sys, json, os
+        # Composite action inputs are exposed as environment variables INPUT_<NAME>
+        intent = os.getenv('INPUT_INTENT', '')
+        output_format = os.getenv('INPUT_OUTPUT_FORMAT', 'openapi')
+        language = os.getenv('INPUT_LANGUAGE', 'python')
+        out = {"intent": intent, "compiled": {"format": output_format, "language": language}}
+        print(json.dumps(out))
+        PY
