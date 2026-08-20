@@ -1,0 +1,51 @@
+name: 'ASI BRIDGE Intent-to-Action Compiler'
+description: 'Sovereign Intent-to-Action compiler and Zero-Trust verification action by Agencja Suwerennej Inteligencji'
+author: 'Agencja Suwerennej Inteligencji'
+branding:
+  icon: 'cpu'
+  color: 'blue'
+
+inputs:
+  intent:
+    description: 'The human intent prompt to compile into a sovereign asset'
+    required: true
+  zero_trust_token:
+    description: 'Zero-Trust authorization token (optional)'
+    required: false
+    default: 'default-sovereign-token'
+
+outputs:
+  status:
+    description: 'Compilation status'
+  sovereignty_level:
+    description: 'Level of sovereignty achieved'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r ${{ github.action_path }}/requirements.txt
+
+    - name: Compile Intent
+      shell: bash
+      run: |
+        PYTHONPATH=${{ github.action_path }} python3 -c "
+        from services.intent_engine import compile_intent, IntentRequest
+        import asyncio
+
+        async def run():
+            req = IntentRequest(intent='${{ inputs.intent }}')
+            res = await compile_intent(req)
+            print(f'Compilation Status: {res.status}')
+            print(f'Sovereignty Level: {res.sovereignty_level}')
+
+        asyncio.run(run())
+        "
