@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="16" fill="#0b74de"/>
+  <g transform="translate(16,28)">
+    <!-- bridge arches -->
+    <path d="M0 56 C20 0, 44 0, 64 56" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <path d="M10 56 C30 10, 54 10, 74 56" fill="none" stroke="#9fe3ff" stroke-width="4" stroke-linecap="round"/>
+    <!-- pillars -->
+    <rect x="8" y="56" width="6" height="18" fill="#fff" rx="1"/>
+    <rect x="44" y="56" width="6" height="18" fill="#fff" rx="1"/>
+    <rect x="80" y="56" width="6" height="18" fill="#fff" rx="1"/>
+    <!-- ASI text -->
+    <text x="64" y="104" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle" font-weight="700">ASI</text>
+  </g>
+</svg>

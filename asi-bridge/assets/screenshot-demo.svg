@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <rect width="1280" height="640" fill="#ffffff"/>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <!-- Header -->
+    <rect x="40" y="30" width="1200" height="80" rx="8" fill="#0b74de"/>
+    <text x="100" y="80" fill="#fff" font-size="28" font-weight="700">ASI BRIDGE — Interactive Demo</text>
+
+    <!-- Input panel -->
+    <rect x="60" y="140" width="560" height="260" rx="8" fill="#f1f5f9" stroke="#e2e8f0"/>
+    <text x="80" y="176" fill="#0f1724" font-size="16" font-weight="700">Enter your intent</text>
+    <rect x="80" y="190" width="520" height="120" rx="6" fill="#fff" stroke="#cbd5e1"/>
+    <text x="100" y="240" fill="#9ca3af" font-size="14">"Create minimal REST API for task management"</text>
+    <rect x="400" y="330" width="200" height="40" rx="6" fill="#06b6d4"/>
+    <text x="500" y="358" fill="#022c2e" font-size="14" text-anchor="middle">Compile</text>
+
+    <!-- Output panel -->
+    <rect x="660" y="140" width="560" height="420" rx="8" fill="#0f1724"/>
+    <text x="680" y="176" fill="#fff" font-size="16" font-weight="700">Compiled Spec (preview)</text>
+    <rect x="680" y="200" width="520" height="320" rx="6" fill="#020617"/>
+    <text x="700" y="230" fill="#9fe3ff" font-size="12">openapi: "3.0.0"</text>
+    <text x="700" y="250" fill="#cbd5e1" font-size="12">paths:</text>
+    <text x="720" y="270" fill="#cbd5e1" font-size="12">  /tasks:</text>
+    <text x="740" y="290" fill="#94a3b8" font-size="12">    get: summary: "List tasks"</text>
+
+    <!-- Footer note -->
+    <text x="40" y="620" fill="#0f1724" font-size="12">Demo: Enter an intent and press Compile — ASI BRIDGE will output a portable spec artifact.</text>
+  </g>
+</svg>
