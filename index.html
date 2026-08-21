@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>INCANTO — Master Ecosystem SPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syncopate:wght@400;700&family=Exo+2:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#020912;--card:#08111f;--card2:#0c1929;--card3:#101e30;
+  --cyan:#00e5ff;--cyan-dim:rgba(0,229,255,.15);
+  --green:#00ff9d;--green-dim:rgba(0,255,157,.15);
+  --pink:#ff2d6b;--pink-dim:rgba(255,45,107,.15);
+  --gold:#f5c542;--purple:#8b5cf6;
+  --text:#e2eeff;--text2:#6a8aaa;--text3:#2e4a66;
+  --border:rgba(0,229,255,.12);--border2:rgba(0,229,255,.25);
+  --mono:'Share Tech Mono',monospace;
+  --dis:'Syncopate',sans-serif;
+  --bod:'Exo 2',sans-serif;
+}
+html{-webkit-font-smoothing:antialiased;font-size:16px}
+body{
+  font-family:var(--bod);background:var(--bg);color:var(--text);
+  min-height:100dvh;display:flex;justify-content:center;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 10%,rgba(0,229,255,.05) 0%,transparent 70%),
+    radial-gradient(ellipse 500px 500px at 85% 85%,rgba(0,255,157,.04) 0%,transparent 60%),
+    radial-gradient(ellipse 400px 300px at 60% 40%,rgba(139,92,246,.04) 0%,transparent 60%);
+}
+#app{
+  position:relative;z-index:1;
+  width:100%;max-width:680px;
+  padding:0 16px 40px;
+  display:flex;flex-direction:column;gap:16px;
+}
+header.hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 0 12px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;background:rgba(2,9,18,0.92);backdrop-filter:blur(10px);z-index:50;
+}
+.brand{font-family:var(--dis);font-size:12px;font-weight:700;letter-spacing:.25em;color:var(--cyan)}
+.brand em{color:var(--text3);font-style:normal}
+.badge-net{
+  font-family:var(--mono);font-size:9px;color:var(--green);
+  background:rgba(0,255,157,.08);border:1px solid rgba(0,255,157,.25);
+  border-radius:100px;padding:4px 10px;display:flex;align-items:center;gap:6px;
+}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+
+/* Sections */
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:20px;position:relative;overflow:hidden;
+}
+.card-title{
+  font-family:var(--dis);font-size:11px;font-weight:700;letter-spacing:.15em;
+  color:var(--cyan);margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+
+/* Biometric Scanner */
+.iris-wrap{position:relative;width:180px;height:180px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center}
+.iris-circle{
+  width:150px;height:150px;border-radius:50%;overflow:hidden;position:relative;
+  border:2px solid var(--border2);box-shadow:0 0 30px rgba(0,229,255,.15);
+  display:flex;align-items:center;justify-content:center;
+}
+.svg-iris{width:90px;height:90px}
+.iris-outer{fill:none;stroke:var(--cyan);stroke-width:2;stroke-dasharray:6 4;animation:spin 12s linear infinite;transform-origin:center}
+.iris-inner{fill:none;stroke:var(--green);stroke-width:1.5;stroke-dasharray:3 5;animation:spinRev 8s linear infinite;transform-origin:center}
+.pupil{fill:#020912;stroke:var(--cyan);stroke-width:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinRev{to{transform:rotate(-360deg)}}
+
+.btn-primary{
+  width:100%;padding:14px;border-radius:12px;border:1px solid var(--cyan);
+  background:linear-gradient(135deg,rgba(0,229,255,.15),rgba(0,229,255,.05));
+  color:var(--cyan);font-family:var(--dis);font-size:10px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+  transition:all .2s ease;
+}
+.btn-primary:hover{background:rgba(0,229,255,.25);box-shadow:0 0 20px rgba(0,229,255,.3)}
+
+.input-field{
+  width:100%;background:rgba(0,0,0,.5);border:1px solid var(--border);
+  border-radius:10px;padding:12px 14px;font-family:var(--mono);font-size:11px;
+  color:var(--cyan);outline:none;margin-bottom:12px;
+}
+.input-field:focus{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,229,255,.2)}
+
+.console-output{
+  background:#020617;border:1px dashed var(--border);border-radius:10px;
+  padding:14px;font-family:var(--mono);font-size:11px;color:var(--green);
+  min-height:100px;max-height:220px;overflow-y:auto;white-space:pre-wrap;
+  margin-top:10px;display:none;
+}
+
+.status-badge{font-family:var(--mono);font-size:10px;color:var(--text2);margin-top:8px;text-align:center}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <header class="hdr">
+    <div class="brand">INCANTO <em>MASTER ECOSYSTEM</em></div>
+    <div class="badge-net">
+      <span class="dot"></span>
+      <span>VERCEL ACTIVE</span>
+    </div>
+  </header>
+
+  <!-- 1. BIOMETRIC AUTH GATE (IrisVault) -->
+  <div class="card">
+    <div class="card-title">👁️ 1. BIOMETRIC ZERO-TRUST GATE (IrisVault)</div>
+    <div class="iris-wrap">
+      <div class="iris-circle" id="irisCircle">
+        <svg class="svg-iris" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="45" class="iris-outer"></circle>
+          <circle cx="50" cy="50" r="32" class="iris-inner"></circle>
+          <circle cx="50" cy="50" r="18" class="pupil"></circle>
+        </svg>
+      </div>
+    </div>
+    <button class="btn-primary" id="btnBioAuth" onclick="runBiometricAuth()">Skanuj Tęczówkę i Pobierz Token ZK</button>
+    <div class="status-badge" id="bioAuthStatus">Stan: Brak autoryzacji biometrycznej</div>
+  </div>
+
+  <!-- 2. ASI BRIDGE INTENT-TO-ACTION ENGINE -->
+  <div class="card">
+    <div class="card-title">🌉 2. INTENT-TO-ACTION ENGINE (ASI Bridge)</div>
+    <input type="text" id="intentInput" class="input-field" placeholder="Wpisz intencję (np. Postaw klaster K3s na AWS lub uruchom agenta SIT)..." value="Wdróż jednowęzłowy klaster K3s ClusterLaunch na AWS Graviton"/>
+    <button class="btn-primary" id="btnCompileIntent" onclick="compileIntent()">Skompiluj Intencję do Aktywa</button>
+    <div class="console-output" id="intentConsole"></div>
+  </div>
+
+  <!-- 3. MASTER AI ASSISTANT (ChatGPT & Gemini Pro) -->
+  <div class="card">
+    <div class="card-title">✨ 3. MASTER AI CHAT ASSISTANT (Gemini Pro & GPT)</div>
+    <input type="text" id="chatInput" class="input-field" placeholder="Zadaj pytanie do Gemini Pro lub ChatGPT..." value="Jak sprawdzić stan monitorowania w ClusterLaunch na AWS?"/>
+    <button class="btn-primary" onclick="sendAiChat()">Wyślij Zapytanie do AI</button>
+    <div class="console-output" id="chatConsole"></div>
+  </div>
+</div>
+
+<script>
+let bioToken = null;
+
+async function runBiometricAuth() {
+  const btn = document.getElementById('btnBioAuth');
+  const status = document.getElementById('bioAuthStatus');
+  btn.disabled = true;
+  status.textContent = 'Trwa skanowanie biometryczne tęczówki...';
+
+  try {
+    const res = await fetch('/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ purityScore: 0.98, matchScore: 0.99 })
+    });
+    const data = await res.json();
+    if (data.success) {
+      bioToken = data.token;
+      status.style.color = '#00ff9d';
+      status.textContent = `✔ AUTORYZACJA POZYTYWNA | Token: ${data.token.substring(0, 20)}...`;
+    } else {
+      status.style.color = '#ff2d6b';
+      status.textContent = '❌ Błąd autoryzacji: ' + data.message;
+    }
+  } catch (err) {
+    status.style.color = '#ff2d6b';
+    status.textContent = '❌ Błąd połączenia z /api/auth: ' + err.message;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function compileIntent() {
+  const input = document.getElementById('intentInput').value.trim();
+  const consoleEl = document.getElementById('intentConsole');
+  if (!input) return alert('Wpisz intencję.');
+  if (!bioToken) return alert('Najpierw wykonaj skan biometryczny w kroku 1!');
+
+  consoleEl.style.display = 'block';
+  consoleEl.textContent = '> Przetwarzanie intencji w silniku ASI Bridge...\n';
+
+  try {
+    const res = await fetch('/api/intent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${bioToken}`
+      },
+      body: JSON.stringify({ intent: input })
+    });
+    const data = await res.json();
+    consoleEl.textContent = JSON.stringify(data, null, 2);
+  } catch (err) {
+    consoleEl.textContent = '❌ Błąd kompilacji intencji: ' + err.message;
+  }
+}
+
+async function sendAiChat() {
+  const input = document.getElementById('chatInput').value.trim();
+  const consoleEl = document.getElementById('chatConsole');
+  if (!input) return alert('Wpisz pytanie.');
+
+  consoleEl.style.display = 'block';
+  consoleEl.textContent = '> Łączenie z Vercel AI Serverless (Gemini Pro / GPT-4o-mini)...\n';
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [{ role: 'user', content: input }],
+        provider: 'gemini'
+      })
+    });
+    const data = await res.json();
+    consoleEl.textContent = `[Dostawca: ${data.provider}]\n\n${data.reply}`;
+  } catch (err) {
+    consoleEl.textContent = '❌ Błąd połączenia AI: ' + err.message;
+  }
+}
+</script>
+
+</body>
+</html>

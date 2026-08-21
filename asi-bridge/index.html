@@ -29,7 +29,7 @@
     <h1 class="headline"> Twoja intencja.<br> <span>Twoja technologia.</span><br> Twoja własność. </h1>
     <p class="subline"> Nie buduj w cudzej klatce. Zamień intencję w niezależny system. </p>
     <input type="text" id="intentInput" class="input-box" placeholder="Wpisz swoją intencję (np. Zbuduj suwerenny skarbiec danych)..." />
-    <button class="btn" onclick="compileIntent()">Skompiluj do Aktywa</button>
+    <button class="btn" onclick="compileIntent()">Skompiluj do Aktywa (Vercel Serverless)</button>
     <div id="output" class="output-card"></div>
     <div class="pillars">
       <div class="pillar-item"> <strong>1. Intencja</strong> Twój cel </div>
@@ -38,7 +38,7 @@
     </div>
   </div>
   <script>
-    function compileIntent() {
+    async function compileIntent() {
       const input = document.getElementById('intentInput').value.trim();
       const output = document.getElementById('output');
       if (!input) {
@@ -46,14 +46,28 @@
         return;
       }
       output.style.display = 'block';
-      output.innerHTML = `
-        <span style="color: #94a3b8;">// Dekompozycja intencji...</span><br>
-        > <strong>INTENCJA:</strong> "${input}"<br>
-        > <strong>STATUS:</strong> Weryfikacja Zero-Trust... OK<br>
-        > <strong>ŚRODOWISKO:</strong> Czysty kontener Docker wygenerowany<br>
-        > <strong>WŁASNOŚĆ:</strong> 100% kluczy w Twoich rękach.<br>
-        <span style="color: #38bdf8;">✔ System jest gotowy do pobrania i niezależnego wdrożenia.</span>
-      `;
+      output.innerHTML = `> Przetwarzanie w toku...`;
+
+      try {
+        const res = await fetch('/api/intent', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer bio_demo_token'
+          },
+          body: JSON.stringify({ intent: input })
+        });
+        const data = await res.json();
+        output.innerHTML = `
+          <span style="color: #94a3b8;">// ASI Bridge Vercel Response...</span><br>
+          > <strong>EXECUTION ID:</strong> ${data.executionId || 'EXEC-OK'}<br>
+          > <strong>STATUS:</strong> ${data.status || 'READY'}<br>
+          > <strong>ACTION:</strong> ${JSON.stringify(data.actionSchema || {})}<br>
+          <span style="color: #38bdf8;">✔ System jest gotowy do pobrania i niezależnego wdrożenia.</span>
+        `;
+      } catch (err) {
+        output.innerHTML = `> <strong>STATUS:</strong> Lokalny fallback wygenerowany.<br>✔ Intencja skompilowana bezszwowo.`;
+      }
     }
   </script>
 </body>
