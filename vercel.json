@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "name": "incanto-master-ecosystem",
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "irisvault/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "kobalt-html/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "asi-bridge/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/auth",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/intent",
+      "dest": "/api/intent.js"
+    },
+    {
+      "src": "/api/chat",
+      "dest": "/api/chat.js"
+    },
+    {
+      "src": "/irisvault/(.*)",
+      "dest": "/irisvault/$1"
+    },
+    {
+      "src": "/kobalt/(.*)",
+      "dest": "/kobalt-html/$1"
+    },
+    {
+      "src": "/asi/(.*)",
+      "dest": "/asi-bridge/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
