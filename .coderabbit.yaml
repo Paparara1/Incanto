@@ -1,0 +1,4 @@
+# CodeRabbit Configuration File
+reviews:
+  auto_review:
+    drafts: true
