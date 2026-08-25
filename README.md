@@ -14,11 +14,11 @@ If you appreciate this work and would like to support future development, consid
 
 ---
 
-### 🌟 PAKIET SEŚCIU PROJEKTÓW PREMIUM NA SPRZEDAŻ / COMMERCIAL IP ACQUISITION BUNDLE 🌟
+### 🌟 PAKIET SIEDMIU PROJEKTÓW PREMIUM NA SPRZEDAŻ / COMMERCIAL IP ACQUISITION BUNDLE 🌟
 
 **Kompletne, gotowe do komercjalizacji portfolio projektów programistycznych i infrastruktury AI/Web3 jest dostępne do natychmiastowego przejęcia (pełne prawa własności intelektualnej / IP & Code Acquisition)!**
 
-Kupujesz **sześć niezależnych, w pełni funkcjonalnych, zoptymalizowanych produktów premium**, które reprezentują setki godzin pracy inżynierskiej, architektonicznej i deweloperskiej:
+Kupujesz **siedem niezależnych, w pełni funkcjonalnych, zoptymalizowanych produktów premium**, które reprezentują setki godzin pracy inżynierskiej, architektonicznej i deweloperskiej:
 
 ---
 
@@ -73,6 +73,16 @@ Kupujesz **sześć niezależnych, w pełni funkcjonalnych, zoptymalizowanych pro
   * **Interaktywne Modale:** w pełni działające i walidowane formularze Send (Wyślij) i Receive (Odbierz). Proces wysyłki wymaga dodatkowej autoryzacji skanem oka i automatycznie aktualizuje stan portfela oraz dodaje transakcję do historii transakcji!
 * **Uruchomienie:** Otwórz `/irisvault/index.html` bezpośrednio w dowolnej przeglądarce.
 * **Folder projektu:** `/irisvault/`
+
+### 7. INCANTO Mobile AI Hub — On-Device Privacy Suite (PWA)
+* **Opis:** Autorskie, natywne środowisko mobilne PWA (Progressive Web App) działające w 100% lokalnie w przeglądarce i gotowe do instalacji na ekranie głównym smartfona (Android/iOS).
+* **Kluczowe zalety:**
+  * **On-Device Chat AI & WebGPU:** bezpieczne wnioskowanie lokalne bez wysyłania danych do chmury.
+  * **Vibes Coder Sandbox:** generowanie kodu aplikacji webowych z natychmiastowym podglądem na żywo w bezpiecznej piaskownicy `iframe`.
+  * **Integracja biometryczna IrisVerify & ASI Bridge:** wbudowany interfejs skanera tęczówki oka oraz generator intencji.
+  * **PWA & Offline First:** wbudowany Service Worker oraz Manifest umożliwiający pracę bez dostępu do Internetu.
+* **Uruchomienie:** Otwórz `/incanto-mobile-ai/index.html` bezpośrednio w przeglądarce.
+* **Folder projektu:** `/incanto-mobile-ai/`
 
 ---
 

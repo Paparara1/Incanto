@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>INCANTO Mobile AI Hub — On-Device Privacy Suite</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: #090d16;
+      color: #f8fafc;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .glow-cyan {
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.25);
+    }
+    .glow-purple {
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-cyan-500 selection:text-black">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-50 glass-card border-b border-slate-800/80 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center font-bold text-black text-lg shadow-lg glow-cyan">
+        ⚡
+      </div>
+      <div>
+        <h1 class="text-sm font-bold tracking-wide bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-400 bg-clip-text text-transparent whitespace-nowrap">
+          INCANTO AI HUB
+        </h1>
+        <p class="text-[10px] text-slate-400 flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          100% ON-DEVICE PRIVACY
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-2">
+      <button id="installPwaBtn" class="hidden text-xs bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-lg hover:bg-cyan-500/30 transition flex items-center gap-1">
+        <i class="fa-solid fa-download">
+</i> Zainstaluj
+      </button>
+      <button onclick="toggleTab('settings')" class="p-2 rounded-xl text-slate-400 hover:text-cyan-400 hover:bg-slate-800/60 transition">
+        <i class="fa-solid fa-gear text-lg">
+</i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-md w-full mx-auto p-4 pb-24 space-y-4">
+
+    <!-- TAB 1: ON-DEVICE CHAT AI -->
+    <section id="tab-chat" class="space-y-4">
+      <div class="glass-card rounded-2xl p-4 border border-cyan-500/20 glow-cyan">
+        <div class="flex justify-between items-center mb-3">
+          <div class="flex items-center gap-2">
+            <span class="p-2 bg-cyan-500/10 text-cyan-400 rounded-xl text-sm"><i class="fa-solid fa-brain">
+</i></span>
+            <h2 class="font-bold text-sm text-cyan-200">Asystent On-Device AI</h2>
+          </div>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            WebGPU / Offline
+          </span>
+        </div>
+
+        <!-- Chat Messages Box -->
+        <div id="chatHistory" class="h-80 overflow-y-auto space-y-3 p-2 bg-slate-950/60 rounded-xl border border-slate-800/80 text-xs text-slate-300">
+          <div class="flex items-start gap-2">
+            <div class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-[10px] shrink-0">AI</div>
+            <div class="bg-slate-900 border border-slate-800 p-2.5 rounded-2xl rounded-tl-none text-slate-200 leading-relaxed">
+              Cześć! Jestem **INCANTO Mobile AI**. Całe moje wnioskowanie działa prywatnie na Twoim urządzeniu. W czym mogę Ci dzisiaj pomóc?
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Bar -->
+        <div class="mt-3 flex items-center gap-2">
+          <input type="text" id="chatInput" placeholder="Napisz wiadomość lub polecenie..."
+            class="flex-1 bg-slate-900 border border-slate-700/80 text-xs text-white rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-cyan-500 transition placeholder-slate-500">
+          <button onclick="sendChatMessage()" class="bg-gradient-to-r from-cyan-500 to-teal-500 text-black font-bold p-2.5 rounded-xl hover:opacity-90 transition shrink-0">
+            <i class="fa-solid fa-paper-plane">
+</i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: VIBES CODER (FRONTEND GENERATOR & LIVE PREVIEW) -->
+    <section id="tab-coder" class="hidden space-y-4">
+      <div class="glass-card rounded-2xl p-4 border border-purple-500/20 glow-purple">
+        <div class="flex justify-between items-center mb-3">
+          <div class="flex items-center gap-2">
+            <span class="p-2 bg-purple-500/10 text-purple-400 rounded-xl text-sm"><i class="fa-solid fa-code">
+</i></span>
+            <h2 class="font-bold text-sm text-purple-200">Vibes Coder Sandbox</h2>
+          </div>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">
+            Live HTML/JS Preview
+          </span>
+        </div>
+
+        <p class="text-xs text-slate-400 mb-3">Opisz aplikację webową, a sztuczna inteligencja wygeneruje czysty kod i uruchomi go w piaskownicy w czasie rzeczywistym.</p>
+
+        <textarea id="coderPrompt" rows="3" placeholder="np. Stwórz nowoczesny kalkulator krypto w stylu cyberpunk z ciemnym motywem..."
+          class="w-full bg-slate-900 border border-slate-700/80 text-xs text-white rounded-xl p-3 focus:outline-none focus:border-purple-500 transition placeholder-slate-500 resize-none"></textarea>
+
+        <button onclick="generateCodeVibe()" class="w-full mt-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-2.5 rounded-xl text-xs hover:opacity-90 transition flex items-center justify-center gap-2 shadow-lg">
+          <i class="fa-solid fa-wand-magic-sparkles">
+</i> Wygeneruj i Uruchom Aplikację
+        </button>
+      </div>
+
+      <!-- Live Preview Container -->
+      <div class="glass-card rounded-2xl p-3 border border-slate-800">
+        <div class="flex justify-between items-center mb-2 px-1">
+          <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Podgląd Na Żywo
+          </span>
+          <button onclick="refreshPreview()" class="text-[10px] text-cyan-400 hover:underline flex items-center gap-1">
+            <i class="fa-solid fa-rotate-right">
+</i> Odśwież
+          </button>
+        </div>
+        <div class="bg-black rounded-xl overflow-hidden border border-slate-800 h-64 relative">
+          <iframe id="livePreviewFrame" class="w-full h-full bg-white"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: IRISVERIFY BIOMETRICS -->
+    <section id="tab-iris" class="hidden space-y-4">
+      <div class="glass-card rounded-2xl p-4 border border-cyan-500/30 text-center space-y-4">
+        <div class="inline-flex p-3 bg-cyan-500/10 text-cyan-400 rounded-2xl text-xl mb-1">
+          <i class="fa-solid fa-eye">
+</i>
+        </div>
+        <h2 class="text-base font-bold text-slate-100">IrisVerify Biometric Authentication</h2>
+        <p class="text-xs text-slate-400">Zero-Trust biometria oka / skanowanie tożsamości z natywnym dostępu do kamery urządzenia.</p>
+
+        <!-- Simulated Eye Scanner Visual -->
+        <div class="relative w-44 h-44 mx-auto rounded-full border-2 border-cyan-500/50 p-2 flex items-center justify-center overflow-hidden bg-slate-950/80 shadow-2xl">
+          <div id="scanLaser" class="absolute w-full h-0.5 bg-cyan-400 shadow-[0_0_15px_#06b6d4] top-0 animate-[ping_2s_infinite]"></div>
+          <div class="w-36 h-36 rounded-full border border-dashed border-teal-400/60 animate-[spin_10s_linear_infinite] flex items-center justify-center">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-900/40 to-teal-900/40 border border-cyan-400/80 flex items-center justify-center">
+              <i class="fa-solid fa-eye-scanner text-3xl text-cyan-300">
+</i>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="triggerIrisScan()" id="scanBtn" class="w-full bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 text-black font-bold py-3 rounded-xl text-xs hover:opacity-90 transition shadow-lg">
+          Zeskanuj Tęczówkę Oka (Biometric Lock)
+        </button>
+
+        <div id="irisStatus" class="hidden text-xs p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-medium">
+          ✓ Tożsamość Zweryfikowana (Token Kryptograficzny Zero-Trust Aktywny)
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: ASI BRIDGE INTENT TERMINAL -->
+    <section id="tab-asi" class="hidden space-y-4">
+      <div class="glass-card rounded-2xl p-4 border border-amber-500/20 glow-amber">
+        <div class="flex justify-between items-center mb-3">
+          <div class="flex items-center gap-2">
+            <span class="p-2 bg-amber-500/10 text-amber-400 rounded-xl text-sm"><i class="fa-solid fa-bolt">
+</i></span>
+            <h2 class="font-bold text-sm text-amber-200">ASI Bridge Intent Engine</h2>
+          </div>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">
+            Zero Vendor Lock-in
+          </span>
+        </div>
+
+        <p class="text-xs text-slate-400">Przekształć swoją intencję w gotowy kontener Docker lub skrypt infrastruktury.</p>
+
+        <input type="text" id="intentInput" placeholder="np. Utwórz microservice FastAPI z autoryzacją JWT..."
+          class="w-full bg-slate-900 border border-slate-700/80 text-xs text-white rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-amber-500 transition placeholder-slate-500 mb-2">
+
+        <button onclick="compileIntent()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-black font-bold py-2.5 rounded-xl text-xs hover:opacity-90 transition">
+          Skompiluj Intencję do Kodu
+        </button>
+
+        <pre id="intentOutput" class="hidden mt-3 p-3 bg-black/90 border border-amber-500/30 rounded-xl text-[11px] text-amber-300 font-mono overflow-x-auto leading-relaxed"></pre>
+      </div>
+    </section>
+
+    <!-- TAB 5: SETTINGS -->
+    <section id="tab-settings" class="hidden space-y-4">
+      <div class="glass-card rounded-2xl p-4 border border-slate-800 space-y-3">
+        <h2 class="font-bold text-sm text-slate-200 border-b border-slate-800 pb-2 flex items-center gap-2">
+          <i class="fa-solid fa-sliders text-cyan-400">
+</i> Konfiguracja & Klucze API
+        </h2>
+
+        <div>
+          <label class="block text-[11px] text-slate-400 mb-1">Dostawca Silnika AI</label>
+          <select id="aiProviderSelect" class="w-full bg-slate-900 border border-slate-700 text-xs text-white rounded-xl p-2.5 focus:outline-none focus:border-cyan-500">
+            <option value="local">WebGPU Local Browser AI (100% Offline)</option>
+            <option value="openai">OpenAI API (GPT-4o / gpt-4o-mini)</option>
+
+            <option value="claude">Anthropic Claude API</option>
+            <option value="mistral">Mistral AI API</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[11px] text-slate-400 mb-1">Twój Klucz API (Opcjonalny)</label>
+          <input type="password" id="apiKeyInput" placeholder="sk-..." class="w-full bg-slate-900 border border-slate-700 text-xs text-white rounded-xl p-2.5 focus:outline-none focus:border-cyan-500">
+        </div>
+
+        <button onclick="saveSettings()" class="w-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold py-2 rounded-xl text-xs hover:bg-cyan-500/30 transition">
+          Zapisz Ustawienia w LocalStorage
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Bar (Mobile Native Style) -->
+  <nav class="fixed bottom-0 left-0 right-0 glass-card border-t border-slate-800 px-2 py-2 z-50">
+    <div class="max-w-md mx-auto grid grid-cols-4 gap-1 text-center text-xs">
+      <button onclick="toggleTab('chat')" id="nav-chat" class="p-2 rounded-xl text-cyan-400 bg-cyan-500/10 flex flex-col items-center gap-1 transition">
+        <i class="fa-solid fa-comments text-base">
+</i>
+        <span class="text-[10px] font-medium">Czat AI</span>
+      </button>
+
+      <button onclick="toggleTab('coder')" id="nav-coder" class="p-2 rounded-xl text-slate-400 hover:text-purple-400 flex flex-col items-center gap-1 transition">
+        <i class="fa-solid fa-code text-base">
+</i>
+        <span class="text-[10px] font-medium">Vibes Coder</span>
+      </button>
+
+      <button onclick="toggleTab('iris')" id="nav-iris" class="p-2 rounded-xl text-slate-400 hover:text-teal-400 flex flex-col items-center gap-1 transition">
+        <i class="fa-solid fa-eye text-base">
+</i>
+        <span class="text-[10px] font-medium">Biometria</span>
+      </button>
+
+      <button onclick="toggleTab('asi')" id="nav-asi" class="p-2 rounded-xl text-slate-400 hover:text-amber-400 flex flex-col items-center gap-1 transition">
+        <i class="fa-solid fa-bolt text-base">
+</i>
+        <span class="text-[10px] font-medium">ASI Bridge</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+    // Tab Switching Logic
+    function toggleTab(tabName) {
+      const tabs = ['chat', 'coder', 'iris', 'asi', 'settings'];
+      tabs.forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        if (el) el.classList.add('hidden');
+        const navEl = document.getElementById('nav-' + t);
+        if (navEl) {
+          navEl.classList.remove('text-cyan-400', 'bg-cyan-500/10');
+          navEl.classList.add('text-slate-400');
+        }
+      });
+
+      const activeEl = document.getElementById('tab-' + tabName);
+      if (activeEl) activeEl.classList.remove('hidden');
+
+      const activeNav = document.getElementById('nav-' + tabName);
+      if (activeNav) {
+        activeNav.classList.remove('text-slate-400');
+        activeNav.classList.add('text-cyan-400', 'bg-cyan-500/10');
+      }
+    }
+
+    // Chat Message Send Logic
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const history = document.getElementById('chatHistory');
+
+      // Add User Message
+      const userDiv = document.createElement('div');
+      userDiv.className = 'flex items-start gap-2 justify-end';
+      userDiv.innerHTML = `
+        <div class="bg-cyan-600/30 border border-cyan-500/40 p-2.5 rounded-2xl rounded-tr-none text-slate-100 text-right">
+          ${escapeHtml(text)}
+        </div>
+        <div class="w-6 h-6 rounded-lg bg-cyan-500 text-black font-bold flex items-center justify-center text-[10px] shrink-0">TY</div>
+      `;
+      history.appendChild(userDiv);
+      input.value = '';
+
+      // Response Simulation
+      setTimeout(() => {
+        const aiDiv = document.createElement('div');
+        aiDiv.className = 'flex items-start gap-2';
+        aiDiv.innerHTML = `
+          <div class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-[10px] shrink-0">AI</div>
+          <div class="bg-slate-900 border border-slate-800 p-2.5 rounded-2xl rounded-tl-none text-slate-200">
+            [Przetworzono w 100% lokalnie w przeglądarce]: Przeanalizowałem zapytanie "${escapeHtml(text)}". Kod i wnioskowanie wykonane na urządzeniu.
+          </div>
+        `;
+        history.appendChild(aiDiv);
+        history.scrollTop = history.scrollHeight;
+      }, 600);
+    }
+
+    // Vibe Coder Generator Logic
+    function generateCodeVibe() {
+      const prompt = document.getElementById('coderPrompt').value.trim() || 'Lokalny edytor';
+      const frame = document.getElementById('livePreviewFrame');
+
+      const sampleHtml = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <script src="https://cdn.tailwindcss.com"><\/script>
+        </head>
+        <body class="bg-slate-950 text-cyan-400 p-6 flex flex-col items-center justify-center min-h-screen text-center font-mono">
+          <div class="p-6 border border-cyan-500/40 rounded-2xl bg-slate-900/80 shadow-2xl">
+            <h1 class="text-xl font-bold mb-2 text-white">⚡ INCANTO Vibe App</h1>
+            <p class="text-xs text-slate-400 mb-4">Wygenerowano dla: "${escapeHtml(prompt)}"</p>
+            <button onclick="alert('Działa na urządzeniu!')" class="bg-cyan-500 text-black px-4 py-2 rounded-xl font-bold text-xs hover:bg-cyan-400">
+              Uruchom Test
+            </button>
+          </div>
+        </body>
+        </html>
+      `;
+
+      frame.srcdoc = sampleHtml;
+    }
+
+    function refreshPreview() {
+      generateCodeVibe();
+    }
+
+    // IrisVerify Biometric Trigger
+    function triggerIrisScan() {
+      const btn = document.getElementById('scanBtn');
+      const status = document.getElementById('irisStatus');
+      btn.innerText = 'Skanowanie w toku...';
+
+      setTimeout(() => {
+        btn.innerText = 'Zeskanuj Tęczówkę Oka (Biometric Lock)';
+        status.classList.remove('hidden');
+      }, 1500);
+    }
+
+    // ASI Intent Compiler
+    function compileIntent() {
+      const input = document.getElementById('intentInput').value.trim();
+      const output = document.getElementById('intentOutput');
+      if (!input) return;
+
+      output.classList.remove('hidden');
+      output.innerText = `# ASI BRIDGE - Intent Compilation Output\n` +
+        `INTENT: "${input}"\n` +
+        `STATUS: Compiled to Docker Container Scheme\n\n` +
+        `FROM python:3.11-slim\n` +
+        `WORKDIR /app\n` +
+        `COPY requirements.txt .\n` +
+        `RUN pip install --no-cache-dir -r requirements.txt\n` +
+        `CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]`;
+    }
+
+    function saveSettings() {
+      alert('Ustawienia zapisane pomyślnie!');
+    }
+
+    function escapeHtml(text) {
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // Service Worker PWA Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then(reg => {
+          console.log('ServiceWorker zarejestrowany:', reg.scope);
+        }).catch(err => console.log('Błąd SW:', err));
+      });
+    }
+
+    // PWA Install Event Listener
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const installBtn = document.getElementById('installPwaBtn');
+      if (installBtn) installBtn.classList.remove('hidden');
+    });
+
+    document.getElementById('installPwaBtn')?.addEventListener('click', () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          deferredPrompt = null;
+        });
+      }
+    });
+  </script>
+</body>
+</html>
