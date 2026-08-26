@@ -11,6 +11,14 @@
       "use": "@vercel/static"
     },
     {
+      "src": "incanto-mobile-ai.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "incanto-mobile-ai/**",
+      "use": "@vercel/static"
+    },
+    {
       "src": "irisvault/**",
       "use": "@vercel/static"
     },
@@ -39,6 +47,18 @@
     {
       "src": "/api/chat",
       "dest": "/api/chat.js"
+    },
+    {
+      "src": "/mobile/(.*)",
+      "dest": "/incanto-mobile-ai/$1"
+    },
+    {
+      "src": "/mobile",
+      "dest": "/incanto-mobile-ai/index.html"
+    },
+    {
+      "src": "/incanto-mobile-ai/(.*)",
+      "dest": "/incanto-mobile-ai/$1"
     },
     {
       "src": "/irisvault/(.*)",
