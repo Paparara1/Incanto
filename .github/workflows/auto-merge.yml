@@ -1,8 +1,6 @@
 name: Auto Merge Pull Requests
 
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened, labeled]
   workflow_dispatch:
     inputs:
       pr_number:
@@ -25,16 +23,16 @@ jobs:
       - name: Auto Merge PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.inputs.pr_number || github.event.pull_request.number }}
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
         run: |
           if [ -n "$PR_NUMBER" ]; then
             echo "Attempting to auto-merge PR #$PR_NUMBER..."
-            gh pr merge "$PR_NUMBER" --auto --merge || gh pr merge "$PR_NUMBER" --merge --admin
+            gh pr merge "$PR_NUMBER" --merge || true
           else
-            echo "No PR number provided or context found. Listing open PRs to merge..."
+            echo "Scanning open PRs to auto-merge..."
             prs=$(gh pr list --json number -q '.[].number')
             for pr in $prs; do
               echo "Merging PR #$pr..."
-              gh pr merge "$pr" --auto --merge || gh pr merge "$pr" --merge --admin || true
+              gh pr merge "$pr" --merge || true
             done
           fi
