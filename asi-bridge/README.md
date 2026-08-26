@@ -13,6 +13,49 @@
 
 **ASI BRIDGE** to silnik klasy *Intent-to-Action*, który przekształca ludzki zamiar (wyrażony tekstem, wzorcem biometrycznym lub sygnałem neurofizjologicznym) w bezpieczne, w pełni niezależne oprogramowanie i aktywa cyfrowe. Most eliminuje zależność od zamkniętych platform chmurowych i modeli subskrypcyjnych, dostarczając czysty, samowystarczalny kod, który pozostaje w 100% własnością twórcy.
 
+> *„Twoja intencja. Twoja inteligencja. Twoje oprogramowanie.”*
+
+---
+
+## 🏛️ Architektura Intent-to-Action
+
+```text
+             CZŁOWIEK
+                │
+       ┌────────┼────────┐
+       │        │        │
+     TEKST     OKO      EEG
+       │        │        │
+       └────────┼────────┘
+                ↓
+        ┌─────────────────┐
+        │  INTENT ENGINE  │
+        │      + AI       │
+        └────────┬────────┘
+                 ↓
+         INTENT SPECIFICATION
+                 ↓
+        ┌─────────────────┐
+        │ HUMAN APPROVAL  │
+        └────────┬────────┘
+                 ↓
+       SOVEREIGN GENERATOR
+                 ↓
+          WŁASNY SOFTWARE
+                 ↓
+        SECURITY / IDENTITY
+                 ↓
+             ACTION
+```
+
+### Multimodalne Laboratorium Idei
+
+- **Polska Rozumka:** Rozmowa z AI i naturalne wyrażanie intencji.
+- **Vibe Coding / Sovereign Generator:** Przekształcanie intencji bezpośrednio w działający oprogramowanie.
+- **IrisVerify / IrisVault:** Weryfikacja tożsamości człowieka (kanał oko / biometria).
+- **ThinkLink:** Sygnały neurofizjologiczne (intencja biologiczna EEG).
+- **Security / Zero-Trust:** Bezpieczne wykonanie i tożsamość aktywów cyfrowych.
+
 ---
 
 ## 🏛️ Trzy Filary Architektury
