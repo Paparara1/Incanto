@@ -21,6 +21,10 @@
     {
       "src": "asi-bridge/**",
       "use": "@vercel/static"
+    },
+    {
+      "src": "vibe-coder/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -47,6 +51,14 @@
     {
       "src": "/asi/(.*)",
       "dest": "/asi-bridge/$1"
+    },
+    {
+      "src": "/vibe-coder/(.*)",
+      "dest": "/vibe-coder/$1"
+    },
+    {
+      "src": "/vibe/(.*)",
+      "dest": "/vibe-coder/$1"
     },
     {
       "src": "/(.*)",

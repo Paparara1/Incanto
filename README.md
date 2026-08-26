@@ -74,14 +74,24 @@ Kupujesz **sześć niezależnych, w pełni funkcjonalnych, zoptymalizowanych pro
 * **Uruchomienie:** Otwórz `/irisvault/index.html` bezpośrednio w dowolnej przeglądarce.
 * **Folder projektu:** `/irisvault/`
 
+### 7. GitHub Vibe Coding AI Suite — Autonomous AI Web App Studio & Git Integrator
+* **Opis:** Samodzielne, przeglądarkowe środowisko AI Vibe Coding pozwalające na generowanie gotowych aplikacji HTML/CSS/JS w czasie rzeczywistym i ich natychmiastową publikację (Git Commit & Push) w dowolnym repozytorium GitHub poprzez API REST.
+* **Kluczowe zalety:**
+  * **AI Web Generation:** generowanie kodu aplikacji z poziomu prompts w oparciu o silniki OpenAI (GPT-4o), Anthropic (Claude 3.5) lub wbudowany szablon demo offline.
+  * **Interactive Live Preview Sandbox:** natychmiastowy podgląd wygenerowanej aplikacji HTML5/JS z poziomu izolowanej ramki preview iframe.
+  * **Direct GitHub API Integration:** automatyczne zatwierdzanie (Git Commit) i wysyłanie (Git Push) kodu do wybranego repozytorium na GitHubie bezpośrednio z przeglądarki.
+* **Uruchomienie:** Uruchom skrypt `./scripts/launch-vibe-coder.sh` lub otwórz `/vibe-coder/index.html` w przeglądarce.
+* **Folder projektu:** `/vibe-coder/`
+
 ---
 
 ## 🚀 Jak uruchomić i przetestować projekty (Local Setup Guide)
 
-### 💻 1. Uruchomienie IrisVault i Kobalt AI Builder (Najprostsza ścieżka)
-Te projekty nie wymagają żadnego serwera ani kompilacji!
-* **IrisVault:** Wejdź do katalogu `/irisvault` i kliknij dwukrotnie dwukrotnie w plik `index.html` (lub przeciągnij go do przeglądarki Chrome/Safari/Firefox). Kliknij przycisk "Skanuj tęczówkę", aby odblokować portfel, a następnie przetestuj formularze Send/Receive!
+### 💻 1. Uruchomienie IrisVault, Kobalt AI Builder oraz GitHub Vibe Coding AI Suite (Najprostsza ścieżka)
+Te projekty nie wymagają żmudnej kompilacji ani zewnętrznych zależności!
+* **IrisVault:** Wejdź do katalogu `/irisvault` i kliknij dwukrotnie w plik `index.html` (lub przeciągnij go do przeglądarki Chrome/Safari/Firefox). Kliknij przycisk "Skanuj tęczówkę", aby odblokować portfel, a następnie przetestuj formularze Send/Receive!
 * **Kobalt AI Builder:** Wejdź do `/kobalt-html`, otwórz `index.html` w przeglądarce, wejdź w ustawienia (ikona zębatki), podaj swój własny klucz API (Claude, OpenAI lub Mistral) i zacznij tworzyć aplikacje!
+* **GitHub Vibe Coding AI Suite:** Uruchom skrypt launcher `./scripts/launch-vibe-coder.sh` w terminalu (lub otwórz `/vibe-coder/index.html` w przeglądarce), wpisz opis aplikacji i wygeneruj jej kod! Na wdrożeniu Vercel aplikacja jest dostępna pod ścieżkami `/vibe-coder/` lub `/vibe/`.
 
 ### ⚙️ 2. Uruchomienie Sovereign Intel Terminal (SIT v2.0)
 Wymaga środowiska Node.js w wersji 18+.
