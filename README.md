@@ -6,7 +6,7 @@
 
 ### 💖 Wspieraj rozwój / Support Development
 
-Jeśli doceniasz naszą pracę i chcieć wesprzeć dalszy rozwój projektu, możesz przekazać dobrowolny datek:
+Jeśli doceniasz naszą pracę i chcesz wesprzeć dalszy rozwój projektu, możesz przekazać dobrowolny datek:
 **[👉 Kliknij tutaj, aby przekazać wsparcie (Donatr) 👈](https://donatr.ee/ojjja?utm_source=copy&utm_medium=share)**
 
 If you appreciate this work and would like to support future development, consider sending a donation:
@@ -14,101 +14,116 @@ If you appreciate this work and would like to support future development, consid
 
 ---
 
-### 🌟 PAKIET SEŚCIU PROJEKTÓW PREMIUM NA SPRZEDAŻ / COMMERCIAL IP ACQUISITION BUNDLE 🌟
+### 🌟 PAKIET SIEDMIU PROJEKTÓW PREMIUM NA SPRZEDAŻ / COMMERCIAL IP ACQUISITION BUNDLE 🌟
 
-**Kompletne, gotowe do komercjalizacji portfolio projektów programistycznych i infrastruktury AI/Web3 jest dostępne do natychmiastowego przejęcia (pełne prawa własności intelektualnej / IP & Code Acquisition)!**
+Kompletne, gotowe do komercjalizacji portfolio projektów programistycznych i infrastruktury AI/Web3 jest dostępne do natychmiastowego przejęcia (pełne prawa własności intelektualnej / IP & Code Acquisition)!
 
-Kupujesz **sześć niezależnych, w pełni funkcjonalnych, zoptymalizowanych produktów premium**, które reprezentują setki godzin pracy inżynierskiej, architektonicznej i deweloperskiej:
+Kupujesz **siedem niezależnych, w pełni funkcjonalnych, zoptymalizowanych produktów premium**, które reprezentują setki godzin pracy inżynierskiej, architektonicznej i deweloperskiej.
 
 ---
 
-## 📦 Co wchodzi w skład pakietu (The Bundle Products)
+## 📊 Podsumowanie Wyceny Portfolio / Portfolio IP Valuation Summary
 
-### 1. ClusterLaunch — AWS K3s + Grafana AWS Kit
-* **Opis:** Zaawansowany i w pełni zoptymalizowany zestaw Infrastructure-as-Code (Terraform) do automatycznego wdrażania jednowęzłowego klastra Kubernetes (K3s) na chmurze AWS.
-* **Kluczowe zalety:**
-  * Kompletny stos monitorowania: **Prometheus-Community Stack, Grafana, Loki** oraz moduły telemetryczne.
-  * Pełne wsparcie dla architektury **AWS Graviton (ARM64)** pozwalające automatycznie obniżyć koszty utrzymania serwera o **20%**.
-  * Błyskawiczny tryb **Public Demo (Traefik Ingress)** oraz zabezpieczona ścieżka tunelowania portów przez **AWS Systems Manager (SSM) Session Manager**.
-* **Folder projektu:** `/terraform/aws/`
+| Rank | Nazwa Projektu / Aktywo | Kategoria Technologiczna | Szacunkowa Wycena IP (EUR) | Status Komercyjny |
+|---|---|---|---|---|
+| 🥇 #1 | **Perceptio Neuro Labs / IrisVerify & IrisVault** | DeepTech / Biometria Oka / BCI / ZK | €1,200,000 – €2,500,000 | Flagowe Aktywo IP |
+| 🥈 #2 | **ASI Bridge** | Middleware / Intent Engine & GitHub Action | €350,000 – €600,000 | Gotowe do Wdrożenia B2B |
+| 🥉 #3 | **SIT v2.0 (Sovereign Intel Terminal)** | Enterprise Dashboard & AI Fleet Manager | €200,000 – €400,000 | Produkcyjne SPA |
+| #4 | **ClusterLaunch** | AWS K3s + Graviton + Grafana Kit | €150,000 – €300,000 | IaC / DevOps Kit |
+| #5 | **Kobalt AI Builder** | Offline-First Hash-Encoded Generator | €100,000 – €250,000 | Standalone Browser Tool |
+| #6 | **INCANTO Mobile AI Hub** | On-Device Privacy Suite (PWA / WebGPU) | €100,000 – €200,000 | Mobile-First PWA |
+| #7 | **Inkanto AI Assistant** | Multi-LLM Serverless Chat (GPT-4o / Gemini) | €75,000 – €150,000 | Cloud Serverless SPA |
 
-### 2. Inkanto AI Assistant — React/Vite Chat Application
-* **Opis:** Nowoczesna, jednostronicowa aplikacja (SPA) oparta o React, Vite oraz Tailwind CSS, przygotowana do natychmiastowej publikacji na platformie Vercel.
-* **Kluczowe zalety:**
-  * Piękny, responsywny interfejs czatu połączony bezszwowo z modelami **OpenAI ChatGPT (gpt-4o-mini)**.
-  * Wbudowane logowanie bezhasłowe (Social Login) za pomocą integracji **Google OAuth**.
-  * Zabezpieczony backend serverless (`api/chat.js`) chroniący klucze API przed wyciekiem.
+---
 
-### 3. SIT v2.0 (Sovereign Intel Terminal) — React & Supabase Enterprise Dashboard
-* **Opis:** Przepiękny wizualnie i technologicznie zaawansowany kokpit operacyjny React/TypeScript/Vite z głęboką integracją z bazą Supabase.
+## 📦 Co wchodzi w skład pakietu (7 Bundle Products)
+
+### 1. Perceptio Neuro Labs / IrisVerify & IrisVault — Biometrics & DeepTech Suite
+* **Szacunkowa wartość IP:** 1 200 000 EUR – 2 500 000 EUR (Projekt o najwyższej wartości technologicznej)
+* **Opis:** Flagowa technologia głęboka (DeepTech) łącząca biometrię oka w czasie rzeczywistym, szyfrowanie zerowej wiedzy (Zero-Knowledge Proofs), przetwarzanie sygnałów BCI/EEG oraz futurystyczny interfejs portfela cyberpunk.
 * **Kluczowe zalety:**
-  * **Zarządzanie flotą agentów AI:** dynamiczne tworzenie, modyfikowanie parametrów i czatowanie z wyspecjalizowanymi agentami.
-  * **Integracja głosowa:** generowanie naturalnie brzmiących komunikatów głosowych przy użyciu API Replicate.
-  * **Integracja Web3 & Automation:** wbudowany monitor portfela TON (The Open Network) oraz proxy dla n8n z architekturą Model Context Protocol (MCP).
+  * **Animowany Skaner Tęczówki:** Pełny dostęp do kamery internetowej (webcam) urządzenia z dynamicznymi markerami biometrycznymi i weryfikacją tożsamości.
+  * **Fallback biometryczny:** Automatyczna aktywacja animowanej trójwymiarowej struktury SVG/CSS przy braku kamery.
+  * **Zero-Trust Auth Gate:** Weryfikacja biometryczna wydająca kryptograficzny token aktywacyjny.
+* **Uruchomienie:** Otwórz `/irisvault/index.html` w przeglądarce.
+* **Folder projektu:** `/irisvault/`
+
+### 2. ASI Bridge — Zero-Vendor-Lockin Intent Engine
+* **Szacunkowa wartość IP:** 350 000 EUR – 600 000 EUR
+* **Opis:** Architektura zorientowana na intencje (Intent-to-Action Framework) z wbudowanymi mikroserwisami FastAPI oraz dedykowaną akcją GitHub Action dla rynku GitHub Marketplace.
+* **Kluczowe zalety:**
+  * Kompilacja intencji języka naturalnego na automatyczne specyfikacje wdrożeniowe Docker i Kubernetes.
+  * Wbudowane serwisy Python (`intent_engine`, `auth_gate`, `telemetry_ingress`).
+  * Integracja z GitHub Action (`asi-bridge/action.yml`).
+* **Folder projektu:** `/asi-bridge/`
+
+### 3. SIT v2.0 (Sovereign Intel Terminal) — Enterprise AI Dashboard
+* **Szacunkowa wartość IP:** 200 000 EUR – 400 000 EUR
+* **Opis:** Przepiękny wizualnie i zaawansowany technologicznie kokpit operacyjny React/TypeScript/Vite z głęboką integracją z bazą danych Supabase.
+* **Kluczowe zalety:**
+  * **Zarządzanie flotą agentów AI:** Dynamiczne tworzenie, konfigurowanie i czatowanie z agentami AI.
+  * **Integracja głosowa:** Generowanie komunikatów z użyciem zewnętrznych modeli audio.
+  * **Monitor Portfela TON & Proxy n8n:** Obsługa protokołu Model Context Protocol (MCP).
 * **Folder projektu:** `/sovereign-terminal/`
 
-### 4. Kobalt AI Builder — Offline-First Code Generator
-* **Opis:** Niezwykle lekki, działający w 100% po stronie klienta generator i edytor aplikacji webowych oparty o sztuczną inteligencję (odpowiednik Lovable/v0/Bolt offline).
+### 4. ClusterLaunch — AWS K3s + Grafana AWS Kit
+* **Szacunkowa wartość IP:** 150 000 EUR – 300 000 EUR
+* **Opis:** Zestaw Infrastructure-as-Code (Terraform) do automatycznego wdrażania jednowęzłowego klastra Kubernetes (K3s) na chmurze AWS z pełną obserwowalnością.
 * **Kluczowe zalety:**
-  * Wsparcie dla trzech czołowych dostawców AI: **Anthropic (Claude), OpenAI (GPT) oraz Mistral AI**.
-  * **Baza danych projektów w localStorage:** tworzenie, edytowanie kodu, pobieranie gotowych plików HTML, pełny import i eksport sesji do kopii zapasowej JSON.
-  * **Historia wersji:** automatyczne zapisywanie zmian jako wersje z możliwością natychmiastowego przywrócenia dowolnego stanu.
-  * **Udostępnianie linkiem:** innowacyjna funkcja kompresowania całego wygenerowanego kodu aplikacji bezpośrednio w hash adresu URL. Odbiorca linku otwiera aplikację bezpośrednio w swojej przeglądarce, bez serwera!
-* **Uruchomienie:** Otwórz `/kobalt-html/index.html` bezpośrednio w dowolnej przeglądarce.
+  * Pełny stos monitorowania: Prometheus, Grafana, Loki.
+  * Dedykowane wsparcie dla AWS Graviton (ARM64) pozwalające obniżyć koszty o 20%.
+  * Bezpieczne tunelowanie portów przez AWS SSM Session Manager.
+* **Folder projektu:** `/terraform/aws/`
+
+### 5. Kobalt AI Builder — Offline-First Code Generator
+* **Szacunkowa wartość IP:** 100 000 EUR – 250 000 EUR
+* **Opis:** Działający w 100% w przeglądarce generator aplikacji webowych oparty o sztuczną inteligencję z bezserwerowym udostępnianiem kodem w URL.
+* **Kluczowe zalety:**
+  * Obsługa dostawców AI: Anthropic (Claude), OpenAI (GPT) oraz Mistral AI.
+  * Udostępnianie linkiem: Kod kompresowany i kodowany bezpośrednio w hash adresu URL.
+  * Historia wersji i kopie zapasowe w localStorage / JSON.
 * **Folder projektu:** `/kobalt-html/`
 
-### 5. IrisVerify ID — React Biometric ID SPA
-* **Opis:** Protokół tożsamości cyfrowej i weryfikacji biometrycznej oparty na React, Vite i Tailwind CSS, wbudowany we własną strukturę webową.
+### 6. INCANTO Mobile AI Hub — On-Device Privacy Suite (PWA)
+* **Szacunkowa wartość IP:** 100 000 EUR – 200 000 EUR
+* **Opis:** Natywne mobilne środowisko Progressive Web App (PWA) z obsługą wnioskowania WebGPU w 100% po stronie klienta oraz wbudowanymi modułami z ekosystemu.
 * **Kluczowe zalety:**
-  * Gotowy szablon aplikowania o granty sprzętowe **NVIDIA Hardware Grant** z pełną dokumentacją.
-  * Profesjonalne logowanie kryptograficzne i interfejsy skanowania twarzy/oczu.
-* **Folder projektu:** historyczny commit `76f2820` / instrukcje w dokumentacji.
+  * **On-Device Chat AI:** Brak wysyłania danych użytkownika do chmury (100% prywatności).
+  * **Vibes Coder Sandbox:** Podgląd na żywo wygenerowanego kodu HTML/JS.
+  * Zintegrowana biometria IrisVerify oraz silnik intencji ASI Bridge.
+* **Uruchomienie:** Otwórz `/incanto-mobile-ai/index.html` lub `/incanto-mobile-ai.html`.
+* **Folder projektu:** `/incanto-mobile-ai/`
 
-### 6. IrisVault — Cyberpunk Biometric Eye-Scan Wallet
-* **Opis:** Hipnotyzujący, futurystyczny portfel kryptowalutowy (single-page HTML/CSS/JS) o unikalnym designie cyberpunk, zintegrowany z interaktywną kamerą biometryczną.
+### 7. Inkanto AI Assistant — Multi-LLM React Chat Application
+* **Szacunkowa wartość IP:** 75 000 EUR – 150 000 EUR
+* **Opis:** Jednostronicowa aplikacja (SPA) React/Vite połączona z bezserwerowymi funkcjami Vercel Serverless wspierającymi modele OpenAI oraz Google Gemini Pro.
 * **Kluczowe zalety:**
-  * **Animowany Skaner Tęczówki:** pełny dostęp do kamery internetowej (webcam) urządzenia z dynamicznymi markerami biometrycznymi i efektami lasera skanującego.
-  * **Fallback biometryczny:** automatyczna aktywacja animowanej trójwymiarowej tęczówki SVG/CSS w przypadku braku zgody na użycie kamery.
-  * **Interfejs portfela Web3:** dynamicznie zmieniające się ceny aktywów (BTC, ETH, TON, SOL) na przewijanym pasku, saldo w czasie rzeczywistym i kopiowanie adresu z feedbackiem.
-  * **Interaktywne Modale:** w pełni działające i walidowane formularze Send (Wyślij) i Receive (Odbierz). Proces wysyłki wymaga dodatkowej autoryzacji skanem oka i automatycznie aktualizuje stan portfela oraz dodaje transakcję do historii transakcji!
-* **Uruchomienie:** Otwórz `/irisvault/index.html` bezpośrednio w dowolnej przeglądarce.
-* **Folder projektu:** `/irisvault/`
+  * Bezhasłowe autoryzacje Google OAuth.
+  * Zabezpieczony backend serverless (`api/chat.js`).
+* **Folder projektu:** Główny root / bezserwerowe API `api/chat.js`.
 
 ---
 
 ## 🚀 Jak uruchomić i przetestować projekty (Local Setup Guide)
 
-### 💻 1. Uruchomienie IrisVault i Kobalt AI Builder (Najprostsza ścieżka)
-Te projekty nie wymagają żadnego serwera ani kompilacji!
-* **IrisVault:** Wejdź do katalogu `/irisvault` i kliknij dwukrotnie dwukrotnie w plik `index.html` (lub przeciągnij go do przeglądarki Chrome/Safari/Firefox). Kliknij przycisk "Skanuj tęczówkę", aby odblokować portfel, a następnie przetestuj formularze Send/Receive!
-* **Kobalt AI Builder:** Wejdź do `/kobalt-html`, otwórz `index.html` w przeglądarce, wejdź w ustawienia (ikona zębatki), podaj swój własny klucz API (Claude, OpenAI lub Mistral) i zacznij tworzyć aplikacje!
+### 💻 1. Uruchomienie IrisVault, Kobalt AI Builder i Mobile AI Hub
+Te projekty nie wymagają żmudnej kompilacji ani zewnętrznego serwera:
+* **IrisVault:** Otwórz `/irisvault/index.html` w dowolnej przeglądarce i przetestuj skaner tęczówki oraz transakcje.
+* **Kobalt AI Builder:** Otwórz `/kobalt-html/index.html`, skonfiguruj własny klucz API w ustawieniach i generuj aplikacje.
+* **INCANTO Mobile AI Hub:** Otwórz `/incanto-mobile-ai/index.html` lub `/incanto-mobile-ai.html` na smartfonie lub komputerze.
 
 ### ⚙️ 2. Uruchomienie Sovereign Intel Terminal (SIT v2.0)
-Wymaga środowiska Node.js w wersji 18+.
+Wymaga środowiska Node.js (v18+).
 ```bash
-# Wejdź do folderu terminala
 cd sovereign-terminal
-
-# Zainstaluj zależności
 npm install
-
-# Utwórz plik .env z konfiguracją Supabase
-# VITE_SUPABASE_URL="TOWJ_SUPABASE_URL"
-# VITE_SUPABASE_PUBLISHABLE_KEY="TWÓJ_SUPABASE_KEY"
-
-# Uruchom lokalny serwer deweloperski
 npm run dev
 ```
 
 ### ☁️ 3. Wdrożenie infrastruktury AWS (ClusterLaunch)
 ```bash
-# Przejdź do katalogu Terraform
 cd terraform/aws
-
-# Skopiuj przykładowe zmienne i skonfiguruj allowed_cidr i key_name
 cp terraform.tfvars.example terraform.tfvars
-
-# Zainicjalizuj i wdróż klaster
 terraform init
 terraform apply -auto-approve
 ```
@@ -117,16 +132,10 @@ terraform apply -auto-approve
 
 ## 💼 Warunki zakupu i kontakt (Acquisition & Contact)
 
-Ten zestaw jest idealnym rozwiązaniem dla:
-* **Twórców startupów (SaaS / Web3 / AI):** Otrzymujesz kompletne, dopracowane wizualnie aplikacje o unikalnych cechach rynkowych, gotowe do podpięcia pod własną domenę.
-* **Agencji programistycznych i deweloperów:** Gotowe szablony, infrastruktura AWS i projekty, które możesz odsprzedać swoim klientom lub wdrożyć jako własne komercyjne usługi.
-* **Inwestorów:** Szybki start z produktami z kategorii sztucznej inteligencji oraz technologii blockchain bez czekania na wielomiesięczne procesy deweloperskie.
-
-**Kontakt w sprawie zakupu (IP Buyout / Commercial License):**
-Zainteresowanych przejęciem pełnych praw autorskich i kodu prosimy o kontakt poprzez:
-* Wiadomość na platformie **LinkedIn**
-* Otwarcie dedykowanego **Issue** lub **Pull Request** w tym repozytorium GitHub
-* Bezpośredni kontakt mailowy powiązany z profilem organizacji GitHub
+Zainteresowanych przejęciem pełnych praw autorskich i wyłącznej licencji komercyjnej (IP Buyout) prosimy o kontakt z Lead Architect:
+* **Email:** mepaulaj@gmail.com
+* **WhatsApp:** +49 152 10200523
+* **Interactive Due-Diligence (Gemini):** [Kliknij tutaj aby otworzyć Due-Diligence](https://gemini.google.com/gem/1QHIxxFOrzSsXBZneFb-B2UmCz2JygBnj?usp=sharing)
 
 ---
 
