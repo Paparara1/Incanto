@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "incanto-master-ecosystem",
+  "name": "incanto-vibe-coder",
   "builds": [
     {
       "src": "api/*.js",
@@ -20,6 +20,10 @@
     },
     {
       "src": "asi-bridge/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "vibe-coder/**",
       "use": "@vercel/static"
     }
   ],
@@ -47,6 +51,14 @@
     {
       "src": "/asi/(.*)",
       "dest": "/asi-bridge/$1"
+    },
+    {
+      "src": "/vibe-coder/(.*)",
+      "dest": "/vibe-coder/$1"
+    },
+    {
+      "src": "/vibe/(.*)",
+      "dest": "/vibe-coder/$1"
     },
     {
       "src": "/(.*)",
