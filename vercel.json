@@ -21,6 +21,10 @@
     {
       "src": "asi-bridge/**",
       "use": "@vercel/static"
+    },
+    {
+      "src": "incanto-mobile-ai/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -47,6 +51,10 @@
     {
       "src": "/asi/(.*)",
       "dest": "/asi-bridge/$1"
+    },
+    {
+      "src": "/mobile/(.*)",
+      "dest": "/incanto-mobile-ai/$1"
     },
     {
       "src": "/(.*)",
