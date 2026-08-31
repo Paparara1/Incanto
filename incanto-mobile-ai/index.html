@@ -451,10 +451,10 @@ async function startCameraScan() {
       bioToken = `zk_bio_${randHex}`;
 
       status.style.color = '#00ff9d';
-      status.textContent = '✔ SKANOWANIE KAMERĄ ZAKOŃCZONE';
+      status.textContent = '✔ SKAN DEMONSTRACYJNY ZAKOŃCZONY';
 
       consoleEl.style.display = 'block';
-      consoleEl.textContent = `TOKEN DEMONSTRACYJNY (MOCK):\n${bioToken}\n\n[INFORMACJA]: Token jest wyłącznie symulowanym identyfikatorem demonstracyjnym (MOCK) — nie stanowi prawdziwego dowodu tożsamości ZK ani prawnej weryfikacji biometrycznej.`;
+      consoleEl.textContent = `DEMO TOKEN / MOCK TOKEN:\n${bioToken}\n\n[DISCLAIMER]: Token demonstracyjny. Nie stanowi prawdziwego dowodu tożsamości ani prawdziwego ZK proof.`;
       btn.disabled = false;
     }, 2500);
 
@@ -467,7 +467,7 @@ async function startCameraScan() {
     videoEl.style.display = 'none';
     fallbackEl.style.display = 'flex';
     status.style.color = '#f5c542';
-    status.textContent = 'Kamera niedostępna — aktywowano rezerwowy skaner SVG.';
+    status.textContent = 'Kamera niedostępna — uruchomiono tryb demonstracyjny.';
 
     setTimeout(() => {
       container.classList.remove('scanning');
@@ -476,7 +476,7 @@ async function startCameraScan() {
       bioToken = `zk_bio_fallback_${randHex}`;
 
       consoleEl.style.display = 'block';
-      consoleEl.textContent = `TOKEN REZERWOWY (MOCK):\n${bioToken}\n\n[UWAGA]: Tryb rezerwowy bez weryfikacji kamery. Użytkownik NIE został zweryfikowany biometrycznie. Wygenerowany token służy wyłącznie celom testowym i demonstracyjnym.`;
+      consoleEl.textContent = `DEMO TOKEN / MOCK TOKEN (FALLBACK):\n${bioToken}\n\n[DISCLAIMER]: Token demonstracyjny. Nie stanowi prawdziwego dowodu tożsamości ani prawdziwego ZK proof.`;
       btn.disabled = false;
     }, 2500);
   }

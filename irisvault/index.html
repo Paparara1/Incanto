@@ -966,7 +966,7 @@ scanBtn.onclick = async () => {
     "KODOWANIE SIATKI IRIS-256...",
     "GENEROWANIE DOWODU ZERO-KNOWLEDGE...",
     "DESZYFROWANIE KLUCZA PRYWATNEGO...",
-    "AUTORYZACJA BIOMETRYCZNA ZAKOŃCZONA!"
+    "SKAN DEMONSTRACYJNY ZAKOŃCZONY (DEMO MOCK)"
   ];
 
   let currentLogIdx = 0;
@@ -995,14 +995,14 @@ scanBtn.onclick = async () => {
 
     // Play success flash
     irisCircle.className = "iris-circle success";
-    statusMain.textContent = "ODBLOKOWANO";
-    statusSub.textContent = "Weryfikacja tożsamości pomyślna";
+    statusMain.textContent = "SKAN DEMONSTRACYJNY ZAKOŃCZONY";
+    statusSub.textContent = "Skan demonstracyjny (MOCK - demo bez prawnej weryfikacji tożsamości)";
     statusSub.className = "st-sub g";
 
     // Show biometric stats
     qs("#bioPurity").textContent = "99.82%";
     qs("#bioTime").textContent = "412ms";
-    qs("#bioCert").textContent = "VERIFIED";
+    qs("#bioCert").textContent = "DEMO MOCK";
     bioData.classList.add("vis");
 
     setTimeout(() => {
