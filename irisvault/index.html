@@ -966,7 +966,11 @@ scanBtn.onclick = async () => {
     "KODOWANIE SIATKI IRIS-256...",
     "GENEROWANIE DOWODU ZERO-KNOWLEDGE...",
     "DESZYFROWANIE KLUCZA PRYWATNEGO...",
+<<<<<<< HEAD
     "AUTORYZACJA BIOMETRYCZNA ZAKOŃCZONA!"
+=======
+    "SKAN DEMONSTRACYJNY ZAKOŃCZONY (DEMO MOCK)"
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
   ];
 
   let currentLogIdx = 0;
@@ -995,14 +999,23 @@ scanBtn.onclick = async () => {
 
     // Play success flash
     irisCircle.className = "iris-circle success";
+<<<<<<< HEAD
     statusMain.textContent = "ODBLOKOWANO";
     statusSub.textContent = "Weryfikacja tożsamości pomyślna";
+=======
+    statusMain.textContent = "SKAN DEMONSTRACYJNY ZAKOŃCZONY";
+    statusSub.textContent = "Skan demonstracyjny (MOCK - demo bez prawnej weryfikacji tożsamości)";
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
     statusSub.className = "st-sub g";
 
     // Show biometric stats
     qs("#bioPurity").textContent = "99.82%";
     qs("#bioTime").textContent = "412ms";
+<<<<<<< HEAD
     qs("#bioCert").textContent = "VERIFIED";
+=======
+    qs("#bioCert").textContent = "DEMO MOCK";
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
     bioData.classList.add("vis");
 
     setTimeout(() => {

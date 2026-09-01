@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "name": "incanto-master-ecosystem",
+=======
+  "name": "incanto-vibe-coder",
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
   "builds": [
     {
       "src": "api/*.js",
@@ -11,6 +15,17 @@
       "use": "@vercel/static"
     },
     {
+<<<<<<< HEAD
+=======
+      "src": "incanto-mobile-ai.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "incanto-mobile-ai/**",
+      "use": "@vercel/static"
+    },
+    {
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
       "src": "irisvault/**",
       "use": "@vercel/static"
     },
@@ -21,6 +36,13 @@
     {
       "src": "asi-bridge/**",
       "use": "@vercel/static"
+<<<<<<< HEAD
+=======
+    },
+    {
+      "src": "vibe-coder/**",
+      "use": "@vercel/static"
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
     }
   ],
   "routes": [
@@ -37,6 +59,21 @@
       "dest": "/api/chat.js"
     },
     {
+<<<<<<< HEAD
+=======
+      "src": "/mobile/(.*)",
+      "dest": "/incanto-mobile-ai/$1"
+    },
+    {
+      "src": "/mobile",
+      "dest": "/incanto-mobile-ai/index.html"
+    },
+    {
+      "src": "/incanto-mobile-ai/(.*)",
+      "dest": "/incanto-mobile-ai/$1"
+    },
+    {
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
       "src": "/irisvault/(.*)",
       "dest": "/irisvault/$1"
     },
@@ -49,6 +86,17 @@
       "dest": "/asi-bridge/$1"
     },
     {
+<<<<<<< HEAD
+=======
+      "src": "/vibe-coder/(.*)",
+      "dest": "/vibe-coder/$1"
+    },
+    {
+      "src": "/vibe/(.*)",
+      "dest": "/vibe-coder/$1"
+    },
+    {
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
       "src": "/(.*)",
       "dest": "/index.html"
     }

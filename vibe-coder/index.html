@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>INCANTO GitHub Vibe Coding AI Suite</title>
+  <meta name="theme-color" content="#090d16">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      background-color: #090d16;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Glassmorphism UI */
+    .glass {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.25);
+    }
+    .glow-purple {
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.25);
+    }
+
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #22d3ee, #a855f7, #f43f5e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      background: #020617;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #06b6d4;
+    }
+
+    .btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.75rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-cyan {
+      background: linear-gradient(135deg, #06b6d4, #14b8a6);
+      color: #000;
+    }
+    .btn-cyan:hover { opacity: 0.9; }
+
+    .btn-purple {
+      background: linear-gradient(135deg, #9333ea, #6366f1);
+      color: #fff;
+    }
+
+    .btn-emerald {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+    }
+
+    .editor-box {
+      font-family: monospace;
+      font-size: 0.8rem;
+      background: #000;
+      color: #38bdf8;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      resize: vertical;
+    }
+
+    .preview-frame {
+      width: 100%;
+      height: 420px;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #fff;
+    }
+
+    .badge {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 1rem;
+      font-weight: bold;
+    }
+    .badge-cyan { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+    .badge-emerald { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+  </style>
+</head>
+<body>
+
+  <header class="glass">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <div style="width: 2.25rem; height: 2.25rem; background: linear-gradient(135deg, #06b6d4, #9333ea); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">⚡</div>
+      <div>
+        <h1 class="gradient-text">GitHub Vibe Coding AI</h1>
+        <p style="font-size: 0.65rem; color: #94a3b8;">Natural Language to Web Code + Auto GitHub Push</p>
+      </div>
+    </div>
+    <span class="badge badge-emerald">● On-Device & Cloud AI Ready</span>
+  </header>
+
+  <main>
+    <!-- Left Panel: Prompt & Generator -->
+    <div class="panel glass glow-cyan">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="font-size: 1rem; font-weight: 700; color: #38bdf8;">1. Generuj Kod AI (Vibe Coding Prompt)</h2>
+        <span class="badge badge-cyan">AI Builder</span>
+      </div>
+
+      <div>
+        <label>Prompt Vibe Coding</label>
+        <textarea id="vibePrompt" rows="4" placeholder="Opisz co ma stworzyć AI (np. Stwórz nowoczesny kalkulator kryptowalutowy w trybie ciemnym z neonowymi przyciskami)..."></textarea>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+        <div>
+          <label>Dostawca AI</label>
+          <select id="aiProvider">
+            <option value="demo">Vibe Engine (Lokalny Template)</option>
+            <option value="openai">OpenAI (GPT-4o)</option>
+            <option value="claude">Anthropic (Claude 3.5)</option>
+          </select>
+        </div>
+        <div>
+          <label>Klucz API AI (Opcjonalnie)</label>
+          <input type="password" id="apiKey" placeholder="sk-...">
+        </div>
+      </div>
+
+      <button onclick="generateVibeCode()" class="btn btn-purple">
+        ⚡ Wygeneruj Aplikację (Vibe Code)
+      </button>
+
+      <div>
+        <label>Wygenerowany Kod HTML/JS</label>
+        <textarea id="generatedCode" class="editor-box" spellcheck="false"><!-- Wygenerowany kod pojawi się tutaj --></textarea>
+      </div>
+    </div>
+
+    <!-- Right Panel: Live Preview & GitHub Push -->
+    <div class="panel glass glow-purple">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="font-size: 1rem; font-weight: 700; color: #c084fc;">2. Podgląd Na Żywo & Git Commit</h2>
+        <button onclick="updatePreview()" class="btn btn-cyan" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">odśwież</button>
+      </div>
+
+      <iframe id="previewFrame" class="preview-frame"></iframe>
+
+      <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+        <h3 style="font-size: 0.9rem; font-weight: 700; color: #34d399;">3. Publikacja bezpośrednio na GitHub</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+          <div>
+            <label>Token GitHub (PAT)</label>
+            <input type="password" id="ghToken" placeholder="ghp_...">
+          </div>
+          <div>
+            <label>Repozytorium (Właściciel/Repo)</label>
+            <input type="text" id="ghRepo" placeholder="Paparara1/Incanto">
+          </div>
+        </div>
+        <div>
+          <label>Ścieżka pliku w Repozytorium</label>
+          <input type="text" id="ghPath" value="vibe-apps/app.html" placeholder="apps/my-app.html">
+        </div>
+        <button onclick="pushToGitHub()" class="btn btn-emerald">
+          🚀 Wyślij bezpośrednio do GitHub (Git Commit & Push)
+        </button>
+        <div id="statusMessage" style="font-size: 0.75rem; color: #94a3b8; text-align: center;"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function updatePreview() {
+      const code = document.getElementById('generatedCode').value;
+      const frame = document.getElementById('previewFrame');
+      frame.srcdoc = code || '<html><body style="background:#090d16; color:#22d3ee; display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif;">Brak kodu do wyświetlenia. Wygeneruj kod lub wpisz go powyżej.</body></html>';
+    }
+
+    async function generateVibeCode() {
+      const prompt = document.getElementById('vibePrompt').value.trim();
+      const provider = document.getElementById('aiProvider').value;
+      const apiKey = document.getElementById('apiKey').value.trim();
+
+      if (!prompt) {
+        alert('Wpisz opis aplikacji w polu prompt!');
+        return;
+      }
+
+      const status = document.getElementById('statusMessage');
+      status.innerText = '⚡ Generowanie kodu Vibe AI...';
+
+      let code = '';
+      if (provider === 'demo' || !apiKey) {
+        code = `<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Wygenerowana Aplikacja Vibe</title>
+  <style>
+    body { background: #0f172a; color: #f8fafc; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+    .card { background: rgba(30, 41, 59, 0.9); border: 1px solid #06b6d4; padding: 2rem; border-radius: 1rem; box-shadow: 0 0 25px rgba(6,182,212,0.3); text-align: center; }
+    button { background: #06b6d4; color: #000; border: none; padding: 0.75rem 1.5rem; font-weight: bold; border-radius: 0.5rem; cursor: pointer; margin-top: 1rem; }
+    button:hover { background: #22d3ee; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>⚡ INCANTO Vibe App</h2>
+    <p>Wygenerowano z intencji: "${prompt}"</p>
+    <button onclick="alert('Aplikacja Vibe działa poprawnie!')">Kliknij mnie!</button>
+  </div>
+</body>
+</html>`;
+      } else {
+        // Dynamic fetch for OpenAI / Claude API if key provided
+        try {
+          if (provider === 'openai') {
+            const res = await fetch('https://api.openai.com/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+              },
+              body: JSON.stringify({
+                model: 'gpt-4o-mini',
+                messages: [{ role: 'user', content: `Wygeneruj pełny, pojedynczy plik HTML5/CSS3/JS dla: ${prompt}. Zwróć WYŁĄCZNIE kod HTML.` }]
+              })
+            });
+            const data = await res.json();
+            code = data.choices[0].message.content.replace(/```html|```/g, '');
+          }
+        } catch (err) {
+          alert('Błąd API: ' + err.message);
+          return;
+        }
+      }
+
+      document.getElementById('generatedCode').value = code;
+      updatePreview();
+      status.innerText = '✓ Kod wygenerowany pomyślnie!';
+    }
+
+    async function pushToGitHub() {
+      const token = document.getElementById('ghToken').value.trim();
+      const repo = document.getElementById('ghRepo').value.trim();
+      const path = document.getElementById('ghPath').value.trim();
+      const content = document.getElementById('generatedCode').value;
+      const status = document.getElementById('statusMessage');
+
+      if (!token || !repo || !path || !content) {
+        alert('Wypełnij wszystkie pola: Token GitHub, Repozytorium, Ścieżka pliku oraz wygeneruj kod!');
+        return;
+      }
+
+      status.innerText = '🚀 Wysyłanie do GitHub...';
+
+      try {
+        const url = `https://api.github.com/repos/${repo}/contents/${path}`;
+        const encodedContent = btoa(unescape(encodeURIComponent(content)));
+
+        // Check if file exists to get sha
+        let sha = null;
+        const checkRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+        if (checkRes.ok) {
+          const checkData = await checkRes.json();
+          sha = checkData.sha;
+        }
+
+        const body = {
+          message: `feat(vibe): commit wygenerowany przez INCANTO GitHub Vibe Coding AI`,
+          content: encodedContent,
+          ...(sha && { sha })
+        };
+
+        const pushRes = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+
+        if (pushRes.ok) {
+          status.innerHTML = `<span style="color: #34d399;">✓ Plik '${path}' został pomyślnie opublikowany w repozytorium ${repo}!</span>`;
+        } else {
+          const errData = await pushRes.json();
+          status.innerText = `Błąd GitHub API: ${errData.message}`;
+        }
+      } catch (err) {
+        status.innerText = `Błąd połączenia: ${err.message}`;
+      }
+    }
+
+    // Initial Preview
+    updatePreview();
+  </script>
+</body>
+</html>

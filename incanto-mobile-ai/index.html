@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="theme-color" content="#00e5ff"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<title>INCANTO — Mobile AI Hub</title>
+<link rel="manifest" href="manifest.json"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#020912;--card:#08111f;--card2:#0c1929;--card3:#101e30;
+  --cyan:#00e5ff;--cyan-dim:rgba(0,229,255,.15);
+  --green:#00ff9d;--green-dim:rgba(0,255,157,.15);
+  --pink:#ff2d6b;--pink-dim:rgba(255,45,107,.15);
+  --gold:#f5c542;--purple:#8b5cf6;
+  --text:#e2eeff;--text2:#6a8aaa;--text3:#2e4a66;
+  --border:rgba(0,229,255,.12);--border2:rgba(0,229,255,.25);
+  --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+  --dis:system-ui,-apple-system,sans-serif;
+  --bod:system-ui,-apple-system,sans-serif;
+}
+html{-webkit-font-smoothing:antialiased;font-size:16px}
+body{
+  font-family:var(--bod);background:var(--bg);color:var(--text);
+  min-height:100dvh;display:flex;justify-content:center;
+  overflow-x:hidden;padding-bottom:70px;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 10%,rgba(0,229,255,.05) 0%,transparent 70%),
+    radial-gradient(ellipse 500px 500px at 85% 85%,rgba(0,255,157,.04) 0%,transparent 60%),
+    radial-gradient(ellipse 400px 300px at 60% 40%,rgba(139,92,246,.04) 0%,transparent 60%);
+}
+#app{
+  position:relative;z-index:1;
+  width:100%;max-width:680px;
+  padding:0 16px 20px;
+  display:flex;flex-direction:column;gap:16px;
+}
+header.hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 0 12px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;background:rgba(2,9,18,0.92);backdrop-filter:blur(10px);z-index:50;
+}
+.brand{font-family:var(--dis);font-size:11px;font-weight:700;letter-spacing:.25em;color:var(--cyan)}
+.brand em{color:var(--text3);font-style:normal}
+.badge-net{
+  font-family:var(--mono);font-size:9px;color:var(--green);
+  background:rgba(0,255,157,.08);border:1px solid rgba(0,255,157,.25);
+  border-radius:100px;padding:4px 10px;display:flex;align-items:center;gap:6px;
+}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+
+/* Navigation Tabs */
+.nav-tabs{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:rgba(8,17,31,0.95);backdrop-filter:blur(12px);
+  border-top:1px solid var(--border);display:flex;justify-content:space-around;
+  padding:8px 0;max-width:680px;margin:0 auto;
+}
+.tab-btn{
+  background:none;border:none;color:var(--text2);font-family:var(--mono);
+  font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px;
+  cursor:pointer;padding:6px 12px;border-radius:8px;transition:all .2s ease;
+}
+.tab-btn.active{color:var(--cyan);background:var(--cyan-dim)}
+.tab-btn svg{width:18px;height:18px;fill:currentColor}
+
+/* Main Cards */
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:20px;position:relative;overflow:hidden;
+}
+.card-title{
+  font-family:var(--dis);font-size:11px;font-weight:700;letter-spacing:.15em;
+  color:var(--cyan);margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* Camera & Iris Biometrics */
+.camera-container{
+  position:relative;width:100%;max-width:320px;height:240px;margin:0 auto 16px;
+  border-radius:16px;overflow:hidden;border:2px solid var(--border2);
+  background:#000;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 25px rgba(0,229,255,.15);
+}
+#webcamFeed{
+  width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:none;
+}
+.reticle-overlay{
+  position:absolute;inset:0;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;
+}
+.reticle-ring{
+  width:140px;height:140px;border:2px dashed var(--cyan);border-radius:50%;
+  animation:spin 10s linear infinite;position:absolute;
+}
+.reticle-ring-inner{
+  width:100px;height:100px;border:1px solid var(--green);border-radius:50%;
+  animation:spinRev 6s linear infinite;position:absolute;
+}
+.reticle-laser{
+  position:absolute;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--pink),transparent);
+  top:0;animation:scanLaser 2s ease-in-out infinite alternate;display:none;
+}
+.scanning .reticle-laser{display:block}
+.scanning .reticle-ring{border-color:var(--pink);box-shadow:0 0 15px var(--pink)}
+
+@keyframes scanLaser{0%{top:10%}100%{top:90%}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinRev{to{transform:rotate(-360deg)}}
+
+/* Fallback SVG Iris */
+.fallback-iris{
+  display:flex;width:140px;height:140px;border-radius:50%;
+  border:2px solid var(--cyan);position:relative;align-items:center;justify-content:center;
+}
+.svg-iris{width:100px;height:100px}
+.iris-outer{fill:none;stroke:var(--cyan);stroke-width:2;stroke-dasharray:6 4;animation:spin 12s linear infinite;transform-origin:center}
+.iris-inner{fill:none;stroke:var(--green);stroke-width:1.5;stroke-dasharray:3 5;animation:spinRev 8s linear infinite;transform-origin:center}
+.pupil{fill:#020912;stroke:var(--cyan);stroke-width:1}
+
+.btn-primary{
+  width:100%;padding:14px;border-radius:12px;border:1px solid var(--cyan);
+  background:linear-gradient(135deg,rgba(0,229,255,.15),rgba(0,229,255,.05));
+  color:var(--cyan);font-family:var(--dis);font-size:10px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+  transition:all .2s ease;
+}
+.btn-primary:hover{background:rgba(0,229,255,.25);box-shadow:0 0 20px rgba(0,229,255,.3)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+
+.input-field{
+  width:100%;background:rgba(0,0,0,.5);border:1px solid var(--border);
+  border-radius:10px;padding:12px 14px;font-family:var(--mono);font-size:11px;
+  color:var(--cyan);outline:none;margin-bottom:12px;
+}
+.input-field:focus{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,229,255,.2)}
+
+.chat-box{
+  background:#020617;border:1px solid var(--border);border-radius:12px;
+  padding:14px;min-height:220px;max-height:360px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:10px;margin-bottom:12px;
+}
+.chat-msg{
+  padding:10px 12px;border-radius:10px;font-size:13px;line-height:1.4;max-width:85%;
+}
+.chat-msg.user{
+  align-self:flex-end;background:rgba(0,229,255,.15);border:1px solid rgba(0,229,255,.3);color:var(--text);
+}
+.chat-msg.assistant{
+  align-self:flex-start;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:var(--text);
+}
+.chat-msg.system{
+  align-self:center;background:rgba(0,255,157,.08);border:1px solid rgba(0,255,157,.2);color:var(--green);
+  font-family:var(--mono);font-size:11px;
+}
+.chat-msg.error{
+  align-self:center;background:rgba(255,45,107,.12);border:1px solid rgba(255,45,107,.3);color:var(--pink);
+  font-family:var(--mono);font-size:11px;
+}
+
+.console-output{
+  background:#020617;border:1px dashed var(--border);border-radius:10px;
+  padding:14px;font-family:var(--mono);font-size:11px;color:var(--green);
+  min-height:100px;max-height:220px;overflow-y:auto;white-space:pre-wrap;
+  margin-top:10px;
+}
+
+.status-badge{font-family:var(--mono);font-size:10px;color:var(--text2);margin-top:8px;text-align:center}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <header class="hdr">
+    <div class="brand">INCANTO <em>MOBILE AI HUB</em></div>
+    <div class="badge-net">
+      <span class="dot" id="pwaDot"></span>
+      <span id="pwaStatus">PWA OFFLINE READY</span>
+    </div>
+  </header>
+
+  <!-- TAB 1: ON-DEVICE AI CHAT -->
+  <div id="tab-chat" class="tab-content active">
+    <div class="card">
+      <div class="card-title">🤖 ON-DEVICE LLM CHAT (@xenova/transformers)</div>
+      <div class="chat-box" id="chatBox">
+        <div class="chat-msg system">Inicjalizacja lokalnego silnika AI (@xenova/transformers)...</div>
+        <div class="chat-msg assistant">Witaj! Jestem lokalnym asystentem AI INCANTO działającym on-device w Twojej przeglądarce. W czym mogę pomóc?</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <input type="text" id="chatInput" class="input-field" placeholder="Napisz wiadomość do lokalnego AI..." style="margin-bottom:0;"/>
+        <button class="btn-primary" style="width:100px;" id="btnSendChat">Wyślij</button>
+      </div>
+      <div class="status-badge" id="aiPipelineStatus">Silnik: Inicjalizacja...</div>
+    </div>
+  </div>
+
+  <!-- TAB 2: REAL CAMERA IRIS SCANNER -->
+  <div id="tab-iris" class="tab-content">
+    <div class="card">
+      <div class="card-title">👁️ SKANER BIOMETRYCZNY TĘCZÓWKI</div>
+      <div class="camera-container" id="cameraContainer">
+        <video id="webcamFeed" autoplay playsinline muted></video>
+        <div class="fallback-iris" id="fallbackIris">
+          <svg class="svg-iris" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" class="iris-outer"></circle>
+            <circle cx="50" cy="50" r="32" class="iris-inner"></circle>
+            <circle cx="50" cy="50" r="18" class="pupil"></circle>
+          </svg>
+        </div>
+        <div class="reticle-overlay">
+          <div class="reticle-ring"></div>
+          <div class="reticle-ring-inner"></div>
+          <div class="reticle-laser"></div>
+        </div>
+      </div>
+      <button class="btn-primary" id="btnStartBioScan">Uruchom Skanowanie Biometryczne</button>
+      <div class="status-badge" id="bioStatus">Stan: Oczekiwanie na uruchomienie kamery</div>
+      <div class="console-output" id="bioTokenConsole" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- TAB 3: ASI BRIDGE INTENT COMPILER -->
+  <div id="tab-asi" class="tab-content">
+    <div class="card">
+      <div class="card-title">🌉 ASI BRIDGE INTENT ENGINE</div>
+      <input type="text" id="intentInput" class="input-field" placeholder="Opisz intencję do skompilowania..." value="Wygeneruj konfigurację Terraform dla klastra K3s na AWS Graviton"/>
+      <button class="btn-primary" id="btnCompileIntent">Skompiluj Intencję</button>
+      <div class="console-output" id="intentConsole">Gotowy do przetwarzania intencji.</div>
+    </div>
+  </div>
+
+  <!-- TAB 4: VIBES CODER SANDBOX -->
+  <div id="tab-vibe" class="tab-content">
+    <div class="card">
+      <div class="card-title">⚡ VIBES CODER AI SANDBOX</div>
+      <textarea id="vibeCode" class="input-field" style="height:120px;font-family:var(--mono);" placeholder="Kod HTML/JS..."><div style="color:#00e5ff;padding:20px;text-align:center;font-family:sans-serif;"><h2>INCANTO Live Preview</h2><p>Lokalna piaskownica działa poprawnie!</p></div></textarea>
+      <button class="btn-primary" id="btnRenderVibe">Uruchom w Piaskownicy</button>
+      <iframe id="vibeIframe" style="width:100%;height:180px;border:1px solid var(--border);border-radius:10px;margin-top:12px;background:#fff;"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAVIGATION BAR -->
+<nav class="nav-tabs">
+  <button class="tab-btn active" data-tab="chat">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <span>AI Czat</span>
+  </button>
+  <button class="tab-btn" data-tab="iris">
+    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+    <span>Skaner</span>
+  </button>
+  <button class="tab-btn" data-tab="asi">
+    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+    <span>ASI Intencje</span>
+  </button>
+  <button class="tab-btn" data-tab="vibe">
+    <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+    <span>Vibe Sandbox</span>
+  </button>
+</nav>
+
+<!-- REGISTER SERVICE WORKER & PWA STATUS -->
+<script>
+function updatePwaStatus() {
+  const statusEl = document.getElementById('pwaStatus');
+  const dotEl = document.getElementById('pwaDot');
+  if (navigator.onLine) {
+    statusEl.textContent = 'PWA ONLINE / READY';
+    dotEl.style.background = '#00ff9d';
+  } else {
+    statusEl.textContent = 'PWA OFFLINE MODE';
+    dotEl.style.background = '#f5c542';
+  }
+}
+
+window.addEventListener('online', updatePwaStatus);
+window.addEventListener('offline', updatePwaStatus);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => {
+        console.log('[PWA] SW registered:', reg.scope);
+        updatePwaStatus();
+      })
+      .catch(err => {
+        console.warn('[PWA] SW registration failed:', err);
+        updatePwaStatus();
+      });
+  });
+}
+updatePwaStatus();
+</script>
+
+<!-- ON-DEVICE AI & CAMERA BIOMETRICS MODULE -->
+<script type="module">
+import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2';
+
+// Configure transformers.js settings for browser client
+env.allowLocalModels = false;
+env.useBrowserCache = true;
+
+let generatorPipeline = null;
+let pipelineError = null;
+let activeBackend = 'Inicjalizacja';
+let bioToken = null;
+let activeVideoStream = null;
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetTab = btn.getAttribute('data-tab');
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(`tab-${targetTab}`).classList.add('active');
+    btn.classList.add('active');
+  });
+});
+
+// Initialize On-Device AI Model
+window.addEventListener('DOMContentLoaded', async () => {
+  const statusEl = document.getElementById('aiPipelineStatus');
+  const hasWebGPU = typeof navigator !== 'undefined' && 'gpu' in navigator && !!navigator.gpu;
+
+  try {
+    statusEl.textContent = 'Ładowanie modelu on-device Xenova/distilgpt2...';
+    const device = hasWebGPU ? 'webgpu' : 'wasm';
+    generatorPipeline = await pipeline('text-generation', 'Xenova/distilgpt2', { device });
+    activeBackend = hasWebGPU ? 'WebGPU' : 'WASM';
+    statusEl.textContent = `Silnik: Xenova/distilgpt2 (${activeBackend})`;
+  } catch (err) {
+    console.warn('WebGPU/Primary pipeline failed, trying default WASM:', err);
+    try {
+      generatorPipeline = await pipeline('text-generation', 'Xenova/distilgpt2');
+      activeBackend = 'WASM';
+      statusEl.textContent = 'Silnik: Xenova/distilgpt2 (WASM)';
+    } catch (fallbackErr) {
+      console.error('On-Device Pipeline initialization error:', fallbackErr);
+      pipelineError = fallbackErr.message || String(fallbackErr);
+      statusEl.textContent = `Błąd ładowania modelu AI: ${pipelineError}`;
+      statusEl.style.color = '#ff2d6b';
+
+      const chatBox = document.getElementById('chatBox');
+      const errDiv = document.createElement('div');
+      errDiv.className = 'chat-msg error';
+      errDiv.textContent = `⚠️ Błąd ładowania modelu: ${pipelineError}`;
+      chatBox.appendChild(errDiv);
+    }
+  }
+});
+
+// Send Chat Function
+async function sendOnDeviceChat() {
+  const inputEl = document.getElementById('chatInput');
+  const chatBox = document.getElementById('chatBox');
+  const btn = document.getElementById('btnSendChat');
+  const text = inputEl.value.trim();
+
+  if (!text) return;
+
+  // Add user message
+  const userMsg = document.createElement('div');
+  userMsg.className = 'chat-msg user';
+  userMsg.textContent = text;
+  chatBox.appendChild(userMsg);
+  inputEl.value = '';
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  btn.disabled = true;
+  inputEl.disabled = true;
+
+  if (pipelineError || !generatorPipeline) {
+    const errDiv = document.createElement('div');
+    errDiv.className = 'chat-msg error';
+    errDiv.textContent = `⚠️ Nie można wygenerować odpowiedzi. Model AI nie został załadowany (${pipelineError || 'Brak inicjalizacji'}).`;
+    chatBox.appendChild(errDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    btn.disabled = false;
+    inputEl.disabled = false;
+    return;
+  }
+
+  const assistantMsg = document.createElement('div');
+  assistantMsg.className = 'chat-msg assistant';
+  assistantMsg.textContent = `[On-Device ${activeBackend}] Przetwarzanie zapytania...`;
+  chatBox.appendChild(assistantMsg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  try {
+    const output = await generatorPipeline(text, { max_new_tokens: 45, temperature: 0.7 });
+    const generatedText = output[0]?.generated_text || output;
+    assistantMsg.textContent = generatedText;
+  } catch (err) {
+    console.error('Chat generation error:', err);
+    assistantMsg.className = 'chat-msg error';
+    assistantMsg.textContent = `⚠️ Błąd podczas generowania odpowiedzi: ${err.message || String(err)}`;
+  } finally {
+    btn.disabled = false;
+    inputEl.disabled = false;
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+}
+
+document.getElementById('btnSendChat').addEventListener('click', sendOnDeviceChat);
+document.getElementById('chatInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') sendOnDeviceChat();
+});
+
+// Camera Biometrics Function
+async function startCameraScan() {
+  const videoEl = document.getElementById('webcamFeed');
+  const fallbackEl = document.getElementById('fallbackIris');
+  const container = document.getElementById('cameraContainer');
+  const btn = document.getElementById('btnStartBioScan');
+  const status = document.getElementById('bioStatus');
+  const consoleEl = document.getElementById('bioTokenConsole');
+
+  btn.disabled = true;
+  status.textContent = 'Łączenie z przednią kamerą urządzenia...';
+  container.classList.add('scanning');
+
+  try {
+    activeVideoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+    videoEl.srcObject = activeVideoStream;
+    videoEl.style.display = 'block';
+    fallbackEl.style.display = 'none';
+    status.textContent = 'Skanowanie biometryczne w toku (2.5s)...';
+
+    setTimeout(() => {
+      // STOP ALL TRACKS AFTER 2.5 SECONDS
+      if (activeVideoStream) {
+        activeVideoStream.getTracks().forEach(track => track.stop());
+        activeVideoStream = null;
+      }
+      container.classList.remove('scanning');
+      videoEl.style.display = 'none';
+      fallbackEl.style.display = 'flex';
+
+      const randHex = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
+      bioToken = `zk_bio_${randHex}`;
+
+      status.style.color = '#00ff9d';
+      status.textContent = '✔ SKAN DEMONSTRACYJNY ZAKOŃCZONY';
+
+      consoleEl.style.display = 'block';
+      consoleEl.textContent = `DEMO TOKEN / MOCK TOKEN:\n${bioToken}\n\n[DISCLAIMER]: Token demonstracyjny. Nie stanowi prawdziwego dowodu tożsamości ani prawdziwego ZK proof.`;
+      btn.disabled = false;
+    }, 2500);
+
+  } catch (err) {
+    console.warn('Dostęp do kamery nieudany lub odrzucony:', err);
+    if (activeVideoStream) {
+      activeVideoStream.getTracks().forEach(track => track.stop());
+      activeVideoStream = null;
+    }
+    videoEl.style.display = 'none';
+    fallbackEl.style.display = 'flex';
+    status.style.color = '#f5c542';
+    status.textContent = 'Kamera niedostępna — uruchomiono tryb demonstracyjny.';
+
+    setTimeout(() => {
+      container.classList.remove('scanning');
+      const randHex = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
+      bioToken = `zk_bio_fallback_${randHex}`;
+
+      consoleEl.style.display = 'block';
+      consoleEl.textContent = `DEMO TOKEN / MOCK TOKEN (FALLBACK):\n${bioToken}\n\n[DISCLAIMER]: Token demonstracyjny. Nie stanowi prawdziwego dowodu tożsamości ani prawdziwego ZK proof.`;
+      btn.disabled = false;
+    }, 2500);
+  }
+}
+
+document.getElementById('btnStartBioScan').addEventListener('click', startCameraScan);
+
+// Compile Intent Function
+document.getElementById('btnCompileIntent').addEventListener('click', () => {
+  const input = document.getElementById('intentInput').value;
+  const consoleEl = document.getElementById('intentConsole');
+  if (!bioToken) {
+    alert('Najpierw wykonaj skanowanie w zakładce Skaner!');
+    return;
+  }
+  consoleEl.textContent = `> Kompilacja intencji: "${input}"\n> Token Autoryzacji (MOCK): ${bioToken.substring(0, 22)}...\n\n[SPECYFIKACJA WYGENEROWANA]:\n- Status: READY_FOR_DEPLOYMENT\n- Target: AWS K3s Graviton\n- Security Check: PASSED (Demo Mock)`;
+});
+
+// Render Vibes Sandbox
+document.getElementById('btnRenderVibe').addEventListener('click', () => {
+  const code = document.getElementById('vibeCode').value;
+  const iframe = document.getElementById('vibeIframe');
+  iframe.srcdoc = code;
+});
+</script>
+
+</body>
+</html>
