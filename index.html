@@ -115,7 +115,11 @@ header.hdr{
 
   <!-- 1. BIOMETRIC AUTH GATE (IrisVault) -->
   <div class="card">
+<<<<<<< HEAD
+    <div class="card-title">👁️ 1. BIOMETRIC ZERO-TRUST GATE (IrisVault)</div>
+=======
     <div class="card-title">👁️ 1. DEMO BIOMETRIC GATE (IrisVault)</div>
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
     <div class="iris-wrap">
       <div class="iris-circle" id="irisCircle">
         <svg class="svg-iris" viewBox="0 0 100 100">
@@ -125,8 +129,13 @@ header.hdr{
         </svg>
       </div>
     </div>
+<<<<<<< HEAD
+    <button class="btn-primary" id="btnBioAuth" onclick="runBiometricAuth()">Skanuj Tęczówkę i Pobierz Token ZK</button>
+    <div class="status-badge" id="bioAuthStatus">Stan: Brak autoryzacji biometrycznej</div>
+=======
     <button class="btn-primary" id="btnBioAuth" onclick="runBiometricAuth()">Uruchom Skan Demonstracyjny i Pobierz Token MOCK</button>
     <div class="status-badge" id="bioAuthStatus">Stan: Brak skanu demonstracyjnego</div>
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
   </div>
 
   <!-- 2. ASI BRIDGE INTENT-TO-ACTION ENGINE -->
@@ -153,7 +162,11 @@ async function runBiometricAuth() {
   const btn = document.getElementById('btnBioAuth');
   const status = document.getElementById('bioAuthStatus');
   btn.disabled = true;
+<<<<<<< HEAD
+  status.textContent = 'Trwa skanowanie biometryczne tęczówki...';
+=======
   status.textContent = 'Trwa skanowanie demonstracyjne...';
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
 
   try {
     const res = await fetch('/api/auth', {
@@ -165,7 +178,11 @@ async function runBiometricAuth() {
     if (data.success) {
       bioToken = data.token;
       status.style.color = '#00ff9d';
+<<<<<<< HEAD
+      status.textContent = `✔ AUTORYZACJA POZYTYWNA | Token: ${data.token.substring(0, 20)}...`;
+=======
       status.textContent = `✔ SKAN DEMONSTRACYJNY ZAKOŃCZONY | Token (MOCK): ${data.token.substring(0, 18)}... (Token demonstracyjny - nie stanowi prawdziwego dowodu tożsamości ZK)`;
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
     } else {
       status.style.color = '#ff2d6b';
       status.textContent = '❌ Błąd autoryzacji: ' + data.message;
@@ -182,7 +199,11 @@ async function compileIntent() {
   const input = document.getElementById('intentInput').value.trim();
   const consoleEl = document.getElementById('intentConsole');
   if (!input) return alert('Wpisz intencję.');
+<<<<<<< HEAD
+  if (!bioToken) return alert('Najpierw wykonaj skan biometryczny w kroku 1!');
+=======
   if (!bioToken) return alert('Najpierw wykonaj skan demonstracyjny w kroku 1!');
+>>>>>>> feat/incanto-mobile-ai-pwa-transformers-biometrics-13908196613832524937
 
   consoleEl.style.display = 'block';
   consoleEl.textContent = '> Przetwarzanie intencji w silniku ASI Bridge...\n';
